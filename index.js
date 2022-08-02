@@ -2,6 +2,7 @@
 const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
+const fs = require('fs');
 const db = require("./utilities/connection");
 
 // Initializing an express app
@@ -20,10 +21,13 @@ app.use(morgan('dev'));
 
 // Test API
 app.get('/api', (req, res) => {
-    res.json({ message: "Hello from server!" });
+	res.status(200).json({
+    	name: `${process.env.APP_NAME} API`,
+    	apiVersion: JSON.parse(fs.readFileSync("./package.json").toString()).version
+  	});
 });
 
 // Listening on the port
 app.listen(PORT, () => {
-  console.log(`Server listening on ${PORT}`);
+	console.log(`Server listening on ${PORT}`);
 });
