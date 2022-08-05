@@ -1,9 +1,10 @@
-import React from 'react'
-
+import HomeCarousel from "../effects/Carousel"; 
 function Home() {
   return (
-    <div>Home</div>
-  )
+    <>
+    <HomeCarousel />
+    </>
+  );
 }
 
-export default Home
+export default Home;

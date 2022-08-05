@@ -1,0 +1,9 @@
+.heightAdjust {
+  height: 800px;
+}
+
+@media (max-width: 768px) {
+  .heightAdjust {
+    height: 300px;
+  }
+}
