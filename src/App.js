@@ -8,7 +8,7 @@ function App() {
   return (
     <div className="App">
       <ThemeProvider theme={theme}>
-        <Navbar />
+        {/* <Navbar /> */}
         <Routes>
           <Route path="/" element={<Home />} />
         </Routes>

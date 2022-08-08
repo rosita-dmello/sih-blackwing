@@ -14,25 +14,27 @@ import MenuItem from "@mui/material/MenuItem";
 
 const pages = [
   {
-    title: "About Us",
-    link: "/about",
+    id: 1,
+    title: "Home",
+    link: "#home",
   },
   {
-    title: "Our Services",
-    link: "/services",
+    id: 2,
+    title: "Something",
+    link: "#something",
   },
-  {
-    title: "About Gold",
-    link: "/gold",
-  },
-  {
-    title: "About Hallmarking",
-    link: "/hallmarking",
-  },
-  {
-    title: "Contact Us",
-    link: "/contact",
-  },
+  // {
+  //   title: "About Gold",
+  //   link: "/gold",
+  // },
+  // {
+  //   title: "About Hallmarking",
+  //   link: "/hallmarking",
+  // },
+  // {
+  //   title: "Contact Us",
+  //   link: "/contact",
+  // },
 ];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
@@ -56,13 +58,7 @@ const Navbar = () => {
   };
 
   return (
-    <AppBar
-      position="static"
-      elevation={1}
-      position="sticky"
-      
-
-    >
+    <AppBar position="static" elevation={1} position="sticky">
       <Container maxWidth="xl">
         <Toolbar disableGutters color="#fff">
           <Box sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}>
@@ -91,10 +87,12 @@ const Navbar = () => {
             >
               BLACKWING
             </Typography>
-        
           </Box>
 
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }} color="#fff">
+          <Box
+            sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}
+            color="#fff"
+          >
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -125,9 +123,11 @@ const Navbar = () => {
             >
               {pages.map((page) => (
                 <MenuItem key={page.title} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center" color="primary">
-                    {page.title}
-                  </Typography>
+                  <a href={page.link} key={page.id}>
+                    <Typography textAlign="center" color="primary">
+                      {page.title}
+                    </Typography>
+                  </a>
                 </MenuItem>
               ))}
             </Menu>
@@ -164,15 +164,14 @@ const Navbar = () => {
             >
               BLACKWING
             </Typography>
-            
           </Box>
 
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
               <Typography
                 component="a"
-                href="/"
-                key={page.title}
+                href={page.link}
+                key={page.id}
                 color="#fff"
                 onClick={handleCloseNavMenu}
                 sx={{
@@ -200,7 +199,7 @@ const Navbar = () => {
                 my: 2,
                 mx: 1,
                 textDecoration: "none",
-                
+
                 "&:hover": {
                   color: "#f4f4f4",
                 },
