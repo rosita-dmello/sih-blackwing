@@ -1,6 +1,6 @@
 {
   "name": "sih-blackwing",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -17,7 +17,9 @@
     "cors": "^2.8.5",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
-    "mongoose": "^6.4.7",
+    "mongoose": "^6.4.7"
+  },
+  "devDependencies": {
     "morgan": "^1.10.0",
     "nodemon": "^2.0.19"
   }
