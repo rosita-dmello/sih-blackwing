@@ -3,6 +3,7 @@ import { ThemeProvider } from "@mui/material/styles";
 import { theme } from "./utils/theme";
 import { Routes, Route } from "react-router-dom";
 import Home from "./components/Home";
+import DSCCode from "./pages/DSCCode";
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
         {/* <Navbar /> */}
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/nodalofficer/verify" element={<DSCCode/>} />
         </Routes>
       </ThemeProvider>
     </div>
