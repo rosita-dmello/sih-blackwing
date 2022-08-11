@@ -3,7 +3,7 @@ const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
 const fs = require('fs');
-const db = require("./src/utilities/connection");
+const db = require('./utilities/connection');
 
 // Initializing an express app
 const app = express();
@@ -23,7 +23,7 @@ app.use(morgan('dev'));
 app.get('/api', (req, res) => {
 	res.status(200).json({
     	name: `${process.env.APP_NAME} API`,
-    	apiVersion: JSON.parse(fs.readFileSync("./package.json").toString()).version
+    	apiVersion: JSON.parse(fs.readFileSync('./package.json').toString()).version
   	});
 });
 
