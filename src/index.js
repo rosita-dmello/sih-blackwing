@@ -3,7 +3,7 @@ const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
 const fs = require('fs');
-const db = require("./src/utilities/connection");
+const db = require("./utilities/connection");
 
 // Initializing an express app
 const app = express();
