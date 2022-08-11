@@ -1,9 +1,9 @@
 import mongoose from 'mongoose';
-import { roleEnum, titleEnum } from '../enums';
+// import { roleEnum, titleEnum } from '../enums';
 
-const userSchema = new mongoose.Schema({
+const bidderSchema = new mongoose.Schema({
     title: {
-        type: titleEnum,
+        // type: titleEnum,
         required: true
     },
     name: {
@@ -35,7 +35,7 @@ const userSchema = new mongoose.Schema({
         required: false
     },
     role: {
-        type: roleEnum,
+        // type: roleEnum,
         required: true
     },
     companyId: {
@@ -44,4 +44,6 @@ const userSchema = new mongoose.Schema({
     }
 });
 
-const User = mongoose.model('user', userSchema);
+const Bidder = mongoose.model('bidder', bidderSchema);
+
+module.exports = Bidder;
