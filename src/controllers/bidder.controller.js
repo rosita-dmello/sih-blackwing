@@ -1,16 +1,15 @@
-import mongoose from 'mongoose';
-import { Bidder } from '../models/schemas/bidder.schema';
+const bidderCreate = require('./../services/bidder.service');
 
 const createBidder = async (req, res) => {
     try {
-        let newBidder = new Bidder(req.body);
+        let result = await bidderCreate(req);
 
-        await newBidder.save();
+        if (!result.data) {
+            res.status(400).json({ result });
+            return;
+        }
 
-        res.status(201).json({
-            message: 'Bidder created successfully!',
-            data: newBidder
-        });
+        res.status(201).json({ result });
     } catch (error) {
         res.status(400).json({
             message: error.message
