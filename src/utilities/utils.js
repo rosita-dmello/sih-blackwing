@@ -7,4 +7,4 @@ const generateOtp = (otpLength) => {
     return otp;
 };
 
-module.exports = generateOtp
+module.exports = generateOtp;
