@@ -1,71 +1,84 @@
-import mongoose from 'mongoose';
-import { Bidder } from '../models/schemas/bidder.schema';
+const { bidderList, bidderById, bidderCreate, bidderUpdate, bidderDelete } = require('./../services/bidder.service');
 
 const createBidder = async (req, res) => {
     try {
-        let newBidder = new Bidder(req.body);
+        let result = await bidderCreate(req);
 
-        await newBidder.save();
+        if (result.error) {
+            res.status(400).json({ result });
+            return;
+        }
 
-        res.status(201).json({
-            message: 'Bidder created successfully!',
-            data: newBidder
-        });
+        res.status(201).json({ result });
     } catch (error) {
         res.status(400).json({
-            message: error.message
+            result: {
+                message: error.message
+            }
         });
     }
-}
+};
 
-const getBidder = async (req, res) => {
+const getBidderById = async (req, res) => {
     try {
-        let bidder = await Bidder.findById(req.params.id);
+        let result = await bidderById(req);
 
-        res.status(200).json({
-            message: 'Bidder found!',
-            data: bidder
-        });
+        res.status(200).json({ result });
     } catch (error) {
         res.status(400).json({
-            message: error.message
+            result: {
+                message: error.message
+            }
         });
     }
 }
+
+const getBidderList = async (req, res) => {
+    try {
+        let result = await bidderList(req.query.serchText, req.headers.pageNo, req.headers.pageSize);
+
+        res.status(200).json({ result });
+    } catch (error) {
+        res.status(400).json({
+            result: {
+                message: error.message
+            }
+        });
+    }
+};
 
 const updateBidder = async (req, res) => {
     try {
-        let updatedBidder = await Bidder.findByIdAndUpdate(req.params.id, req.body);
+        let result = await bidderUpdate(req);
 
-        res.status(201).json({
-            message: 'Bidder updated!',
-            data: updatedBidder
-        });
+        res.status(200).json({ result });
     } catch (error) {
         res.status(400).json({
-            message: error.message
+            result: {
+                message: error.message
+            }
         });
     }
-}
+};
 
 const deleteBidder = async (req, res) => {
     try {
-        let deletedBidder = await Bidder.findByIdAndDelete(req.params.id);
+        let result = await bidderDelete(req);
 
-        res.status(201).json({
-            message: 'Bidder updated!',
-            data: deletedBidder
-        });
+        res.status(200).json({ result });
     } catch (error) {
         res.status(400).json({
-            message: error.message
+            result: {
+                message: error.message
+            }
         });
     }
-}
+};
 
 module.exports = {
     createBidder,
-    getBidder,
+    getBidderById,
+    getBidderList,
     updateBidder,
     deleteBidder
-}
+};

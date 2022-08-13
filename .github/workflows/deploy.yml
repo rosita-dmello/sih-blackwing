@@ -71,4 +71,4 @@ jobs:
           discord-webhook: ${{ secrets.DISCORD_WEBHOOK_URI }}
           username: "GitHub CI/CD"
           avatar-url: "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
-          title: SIH Blackwing API ${{steps.version.outputs.prop}}
+          title: SIH Blackwing API v${{steps.version.outputs.prop}}
