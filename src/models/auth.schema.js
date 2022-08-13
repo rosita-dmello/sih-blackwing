@@ -8,6 +8,9 @@ const authUserSchema = new mongoose.Schema(
         },
         email: {
             type: String
+        },
+        mobile: {
+            type: String
         }
     }
 );
