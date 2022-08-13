@@ -1,10 +1,11 @@
 // Importing modules
-const bidderRoutes = require('./routers/bidder.router');
-const cors = require('cors');
-const db = require('./utilities/connection');
 const express = require('express');
-const fs = require('fs');
+const db = require('./utilities/connection');
+const cors = require('cors');
 const morgan = require('morgan');
+const fs = require('fs');
+const authRoutes = require('./routers/auth.router');
+const bidderRoutes = require('./routers/bidder.router');
 
 // Initializing an express app
 const app = express();
@@ -21,6 +22,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(morgan('dev'));
 
 // API Routes
+app.use('api/auth', authRoutes);
 app.use('/api/bidder', bidderRoutes);
 
 // Test API
