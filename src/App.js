@@ -4,6 +4,7 @@ import { theme } from "./utils/theme";
 import { Routes, Route } from "react-router-dom";
 import Home from "./components/Home";
 import DSCCode from "./pages/DSCCode";
+import DSCPassword from "./pages/DSCPassword";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/nodalofficer/verify" element={<DSCCode/>} />
+          <Route path="/nodalofficer/setpassword" element={<DSCPassword/>} />
         </Routes>
       </ThemeProvider>
     </div>

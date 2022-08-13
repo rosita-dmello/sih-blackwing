@@ -40,7 +40,7 @@ const theme = useTheme();
       <CssBaseline />
       <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }} elevation={0}>
         <Toolbar>
-          <Typography variant="h4" noWrap component="div" fontFamily='Bebas Neue'>
+          <Typography variant="h4" noWrap component="div" fontFamily='Bebas Neue' sx={{letterSpacing: "0.3rem"}}>
             BLACKWING
           </Typography>
         </Toolbar>
