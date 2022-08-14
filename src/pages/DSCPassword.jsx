@@ -13,12 +13,12 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Layout from "../components/Layout";
 import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";
-
+import { useNavigate } from "react-router-dom";
 export default function DSCPassword() {
   const [pwError, setPwError] = React.useState("");
   const [confirmPwError, setConfirmPwError] = React.useState("");
   const [loginError, setLoginError] = React.useState("");
-
+  const navigate = useNavigate();
   const handleSubmitPassword = async (event) => {
     setPwError("");
     setConfirmPwError("");
@@ -35,6 +35,7 @@ export default function DSCPassword() {
         code: data.get("code"),
         password: data.get("password"),
       });
+      navigate("/");
     }
   };
 
@@ -87,7 +88,7 @@ export default function DSCPassword() {
               fullWidth
               id="code"
               name="code"
-              label="Verification Code for Email"
+              label="Verification Code from Email"
               autoFocus
               sx={{
                 mb: "1rem",
@@ -109,7 +110,7 @@ export default function DSCPassword() {
               required
               fullWidth
               name="password"
-              label="Password"
+              label="Set a New Password"
               type="password"
               id="password"
               autoComplete="new-password"

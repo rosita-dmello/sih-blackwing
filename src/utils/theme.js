@@ -11,12 +11,7 @@ export const theme = createTheme({
         main: '#e5e5e5',
       },
     },
-    typography: {
-      h1: {
-        fontFamily: '"Roboto Condensed", "Roboto", "Helvetica", "Arial", sans-serif',
-      },
-      
-    },
+   
     mixins: {
         toolbar: {
             minHeight: 80

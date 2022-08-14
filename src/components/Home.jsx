@@ -1,15 +1,18 @@
 import HomeCarousel from "../effects/Carousel"; 
 import Navbar from "./Navbar";
 import Something from "./Something";
+import Layout from "./Layout"
 function Home() {
   return (
-    <div id='home'>
-    <Navbar />
+    <Layout>
+      <div id='home'>
     <HomeCarousel />
     <div id='something'>
     <Something />
     </div>
     </div>
+    </Layout>
+    
   );
 }
 
