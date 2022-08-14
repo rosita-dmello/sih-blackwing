@@ -13,6 +13,8 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Layout from "../components/Layout";
 import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";
+import {useNavigate} from "react-router-dom";
+
 import {
   loadCaptchaEnginge,
   LoadCanvasTemplate,
@@ -26,18 +28,19 @@ export default function DSCCode() {
   const [loginError, setLoginError] = React.useState("");
   const [submitted, setSubmitted] = React.useState("");
   
-
+  const navigate = useNavigate();
   const handleSubmit = (event) => {
     setLoginError("");
     
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     if (validateCaptcha(captcha) == true) {
-      if (!data.get("loginid") || data.get("loginid")) {
+      if (!data.get("loginid") || data.get("loginid") === "") {
         setLoginError("Enter Login Id!");
       } else {
         setSubmitted(true);
         setLoginError("");
+        navigate("/nodalofficer/setpassword");
       }
     } else {
       alert("Captcha Does Not Match");

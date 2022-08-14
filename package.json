@@ -13,6 +13,7 @@
     "@testing-library/user-event": "^13.5.0",
     "bootstrap": "^5.2.0",
     "modern-react-captcha": "^3.0.0",
+    "moment": "^2.29.4",
     "node-polyfill-webpack-plugin": "^2.0.1",
     "react": "^18.2.0",
     "react-bootstrap": "^2.5.0",

@@ -5,7 +5,9 @@ import { Routes, Route } from "react-router-dom";
 import Home from "./components/Home";
 import DSCCode from "./pages/DSCCode";
 import DSCPassword from "./pages/DSCPassword";
-
+import UserLogin from "./pages/UserLogin";
+import DepartmentUsers from "./pages/DepartmentUsers";
+import NewDSCUser from "./pages/NewDSCUser";
 function App() {
   return (
     <div className="App">
@@ -15,6 +17,9 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/nodalofficer/verify" element={<DSCCode/>} />
           <Route path="/nodalofficer/setpassword" element={<DSCPassword/>} />
+          <Route path="/login" element={<UserLogin/>} />
+          <Route path="/dsc/users" element={<DepartmentUsers/>} />
+          <Route path="/dsc/users/new" element={<NewDSCUser/>} />
         </Routes>
       </ThemeProvider>
     </div>
