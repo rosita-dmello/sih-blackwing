@@ -22,7 +22,7 @@ moment().format();
 //   url: "/sampledoc"
 // }
 const columns = [
-  { id: "sr_no", label: "Sr. No.", minWidth: 20 },
+  
   { id: "name", label: "Name", minWidth: 100 },
   {
     id: "type",
