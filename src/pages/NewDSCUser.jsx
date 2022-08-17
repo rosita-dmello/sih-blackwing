@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
@@ -18,13 +18,15 @@ import Container from "@mui/material/Container";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormLabel from "@mui/material/FormLabel";
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/material.css";
 import {
   InputAdornment,
   FormControl,
   InputLabel,
   Select,
   MenuItem,
-  FormGroup, 
+  FormGroup,
 } from "@mui/material";
 // import { orderPost } from "../data/api";
 import { Done } from "@mui/icons-material";
@@ -50,7 +52,7 @@ export default function NewOrder() {
     firstname: "",
     lastname: "",
     dateofbirth: "",
-    loginid: "",
+    email: "",
     secretariatdepartment: "",
     organizationname: "",
     department: "",
@@ -107,7 +109,6 @@ export default function NewOrder() {
     } else {
       alert("Invalid Captcha!");
     }
-    
   };
   React.useEffect(() => {
     loadCaptchaEnginge(6);
@@ -276,8 +277,10 @@ export default function NewOrder() {
                               fullWidth
                               id={key}
                               label={field}
-                              name={key}
-                              multiline={key === "contactaddress" ? true : false}
+                              name={key === "loginid" ? "email" : key}
+                              multiline={
+                                key === "contactaddress" ? true : false
+                              }
                               rows={key === "contactaddress" ? 3 : 1}
                               onChange={handleChange}
                             />
@@ -286,9 +289,32 @@ export default function NewOrder() {
                       })}
                       {/* const key = field.trim().toLowerCase().replace(/\s/g, ""); */}
                       {["Phone", "Fax", "Mobile"].map((field) => {
+                        const key = field
+                          .trim()
+                          .toLowerCase()
+                          .replace(/\s/g, "");
                         return (
                           <Grid item xs={12} key={field}>
-                            <TextField
+                            <PhoneInput
+                              country={"in"}
+                              value={data[key]}
+                              onChange={(phone) =>
+                                setData((prev) => {
+                                  return { ...prev, [key]: phone };
+                                })
+                                }
+                              inputProps={{
+                                required: true,
+                                name: key
+                              }}
+                              specialLabel={field}
+                              inputStyle={{ width: "100%" }}
+                              containerStyle={{
+                                marginTop: "0.3rem",
+                                marginBottom: "0.3rem",
+                              }}
+                            />
+                            {/* <TextField
                               autoComplete="tel"
                               name={field
                                 .trim()
@@ -307,7 +333,7 @@ export default function NewOrder() {
                                   </InputAdornment>
                                 ),
                               }}
-                            />
+                            /> */}
                           </Grid>
                         );
                       })}
@@ -369,7 +395,6 @@ export default function NewOrder() {
             </Box>
           )}
         </Box>
-      
       </LocalizationProvider>
     </Layout>
   );

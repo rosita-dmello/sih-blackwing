@@ -14,7 +14,7 @@ import { Typography } from "@mui/material";
 moment().format();
 
 // name: "Mr. Sample User",
-// loginid: "SampleID",
+// email: "SampleID",
 // organisationchain: "Sample Organisation",
 // type: "gap",
 // status: "gap",
@@ -30,7 +30,7 @@ const columns = [
     minWidth: 100,
   },
   {
-    id: "loginid",
+    id: "email",
     label: "Login ID",
     minWidth: 100,
 

@@ -7,14 +7,34 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Layout from "../components/Layout";
 import Enroll from "../components/BidderEnrollment/Enroll";
-const steps = ["Enroll", "Personal Details", "Verification", "Confirmation"];
+import PersonalDetails from "../components/BidderEnrollment/PersonalDetails";
+const steps = ["Enroll", "Company Details", "Contact Details", "Confirmation", "Verification"];
 
 export default function BidderEnrollment() {
   const [activeStep, setActiveStep] = React.useState(0);
   const [credentials, setCredentials] = React.useState({
-    loginid: "",
+    email: "",
+    correspondenceEmail: "",
     password: "",
+    mobile: ""
   });
+  const [companyDetails, setCompanyDetails] = React.useState({
+    companyName: "",
+    preferentialBidder: "",
+    registrationNumber: "",
+    registeredAddress: "",
+    partners: [],
+    bidderType: "",
+    city: "",
+    state: "",
+    country: "",
+    postalCode: "",
+    panNumber: "",
+    establishmentYear: "",
+    natureOfBusiness: "",
+    legalStatus: "",
+    companyCategory: ""
+  })
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
@@ -26,6 +46,8 @@ export default function BidderEnrollment() {
   function Form() {
     if (activeStep === 0) {
       return <Enroll setCredentials={setCredentials} credentials={credentials} handleNext={handleNext} />;
+    } else if (activeStep === 1) {
+      return <PersonalDetails setCompanyDetails={setCompanyDetails} companyDetails={companyDetails} handleNext={handleNext} />;
     }
   }
 
