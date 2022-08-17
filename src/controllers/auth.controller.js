@@ -1,4 +1,5 @@
 const { sendOtpByEmail, sendOtpBySms, emailAndMobileVerification } = require('./../services/auth.service');
+const speakeasy = require('speakeasy');
 
 const verifyEmailAndMobile = async (req, res) => {
     try {
@@ -17,6 +18,18 @@ const verifyEmailAndMobile = async (req, res) => {
             }
         });
     }
+};
+
+const generateSecret = async (req, res) => {
+    const tempSecret = speakeasy.generateSecret(); 
+};
+
+const registerSecret = async (req, res) => {
+    
+};
+
+const verifyToken = async (req, res) => {
+
 };
 
 module.exports = verifyEmailAndMobile;
