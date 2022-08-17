@@ -52,7 +52,6 @@ function Layout({ children }) {
             noWrap
             component="a"
             fontFamily="Bebas Neue"
-            href="/"
             sx={{
               letterSpacing: "0.3rem",
               textDecoration: "none",
@@ -80,10 +79,10 @@ function Layout({ children }) {
         <Toolbar />
         <Box sx={{ overflow: "auto" }}>
           <List>
-            {["User Login", "Department Login", "Bidder enrollment"].map(
+            {["Bidder Here"].map(
               (text, index) => (
                 <ListItem key={text} disablePadding>
-                    <ListItemButton component={Link} to={index===0?"/login":index===1?"/nodalofficer/verify":index===2?"/bidder/enrollment":"/"}>
+                    <ListItemButton component={Link} to={index===0?"/bidder":index===1?"/nodalofficer/verify":index===2?"/bidder/enrollment":"/"}>
                       <ListItemIcon>
                         {index === 0 ? (
                           <LoginIcon />

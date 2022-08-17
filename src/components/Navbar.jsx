@@ -11,6 +11,7 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
+import Stambh from "../utils/stambh.png";
 
 const pages = [
   {
@@ -85,7 +86,7 @@ const Navbar = () => {
                 textDecoration: "none",
               }}
             >
-              BLACKWING
+              <img src={Stambh} alt="Stambh" style={{ width: "4rem" }} /> 
             </Typography>
           </Box>
 

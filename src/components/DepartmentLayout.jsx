@@ -37,6 +37,19 @@ const drawerPaper = {
 
 function Layout({ children }) {
   const theme = useTheme();
+  const [role, setRole] = React.useState("DEPARTMENT_STAFF");
+  const [list, setList] = React.useState(["Staff"]);
+
+  React.useEffect(() => {
+
+    if (role==="DEPARTMENT_HEAD") {
+      setList(["Staff", "Add Staff"]);
+    }
+    else if (role==="DEPARTMENT_STAFF") {
+      setList(["Staff"]);
+    }
+  } , [role]);
+
   return (
     <div style={{ display: "flex" }}>
       {/* app bar  */}
@@ -52,7 +65,6 @@ function Layout({ children }) {
             noWrap
             component="a"
             fontFamily="Bebas Neue"
-            href="/"
             sx={{
               letterSpacing: "0.3rem",
               textDecoration: "none",
@@ -80,10 +92,10 @@ function Layout({ children }) {
         <Toolbar />
         <Box sx={{ overflow: "auto" }}>
           <List>
-            {["User Login", "Department Login", "Bidder enrollment"].map(
+            {list.map(
               (text, index) => (
                 <ListItem key={text} disablePadding>
-                    <ListItemButton component={Link} to={index===0?"/login":index===1?"/nodalofficer/verify":index===2?"/bidder/enrollment":"/"}>
+                    <ListItemButton component={Link} to={index===0?"/department":index===1?"/nodalofficer/verify":index===2?"/bidder/enrollment":"/"}>
                       <ListItemIcon>
                         {index === 0 ? (
                           <LoginIcon />

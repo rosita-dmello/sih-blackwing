@@ -9,6 +9,9 @@ import UserLogin from "./pages/UserLogin";
 import DepartmentUsers from "./pages/DepartmentUsers";
 import NewDSCUser from "./pages/NewDSCUser";
 import BidderEnrollment from "./pages/BidderEnrollment";
+import BidderDash from "./pages/BidderDash";
+import DepartmentDash from "./pages/DepartmentDash";
+
 function App() {
   return (
     <div className="App">
@@ -25,6 +28,9 @@ function App() {
           <Route path="/dsc/users/new" element={<NewDSCUser/>} />
 
           <Route path="/bidder/enrollment" element={<BidderEnrollment/>} />
+          <Route path="/bidder" element={<BidderDash/>} />
+
+          <Route path="/department" element={<DepartmentDash/>} />
         </Routes>
       </ThemeProvider>
     </div>
