@@ -8,25 +8,27 @@ import {
   Fab,
   Button,
   InputAdornment,
-  TextField
+  TextField,
 } from "@mui/material";
 import Layout from "../components/Layout";
-import SearchIcon from '@mui/icons-material/Search';
+import SearchIcon from "@mui/icons-material/Search";
 import React, { useState, useEffect } from "react";
 import DepartmentUsersTable from "../components/DepartmentUsersTable";
 // import { getusers } from "../data/api";
 
 function DepartmentUsers() {
-  const [users, setUsers] = useState([{
-    name: "Mr. Sample User",
-    loginid: "SampleID",
-    organisationchain: "Sample Organisation",
-    type: "gap",
-    status: "gap",
-    certificate: {
-      url: "/sampledoc"
-    }
-  }]);
+  const [users, setUsers] = useState([
+    {
+      name: "Mr. Sample User",
+      email: "SampleID",
+      organisationchain: "Sample Organisation",
+      type: "gap",
+      status: "gap",
+      certificate: {
+        url: "/sampledoc",
+      },
+    },
+  ]);
   const setusersFn = async () => {
     // const response = await getusers(localStorage.getItem("token"));
     // if (response) {
@@ -78,8 +80,8 @@ function DepartmentUsers() {
                 href="/dsc/users/new"
                 sx={{
                   "&:hover": {
-                    color: "#fff"
-                  } 
+                    color: "#fff",
+                  },
                 }}
               >
                 <Add /> New User
@@ -98,24 +100,26 @@ function DepartmentUsers() {
             >
               <CircularProgress />
             </Box>
-          ) : (<Box>
-            <TextField
-          label="Search Users"
-          id="search"
-            fullWidth
-            sx={{
-              mb: 3
-            }}
-          InputProps={{
-            startAdornment: <InputAdornment position="start">
-              <SearchIcon/>
-            </InputAdornment>,
-          }}
-          variant="filled"
-        />
+          ) : (
+            <Box>
+              <TextField
+                label="Search Users"
+                id="search"
+                fullWidth
+                sx={{
+                  mb: 3,
+                }}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <SearchIcon />
+                    </InputAdornment>
+                  ),
+                }}
+                variant="filled"
+              />
               <DepartmentUsersTable users={users} />
-          </Box>
-
+            </Box>
           )}
         </Grid>
       </Grid>

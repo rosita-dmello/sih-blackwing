@@ -35,7 +35,7 @@ export default function DSCCode() {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     if (validateCaptcha(captcha) == true) {
-      if (!data.get("loginid") || data.get("loginid") === "") {
+      if (!data.get("email") || data.get("email") === "") {
         setLoginError("Enter Login Id!");
       } else {
         setSubmitted(true);
@@ -46,7 +46,7 @@ export default function DSCCode() {
       alert("Captcha Does Not Match");
     }
     console.log({
-      loginid: data.get("loginid"),
+      email: data.get("email"),
     });
   };
 
@@ -101,8 +101,8 @@ export default function DSCCode() {
                 margin="normal"
                 required
                 fullWidth
-                id="loginid"
-                name="loginid"
+                id="email"
+                name="email"
                 label="Login ID"
                 autoFocus
                 sx={{
