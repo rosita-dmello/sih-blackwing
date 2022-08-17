@@ -135,14 +135,6 @@ const bidderSchema = new mongoose.Schema(
             required: false,
             trim: true
         },
-        isEmailVerified: {
-            type: Boolean,
-            default: false
-        },
-        isMobileVerified: {
-            type: Boolean,
-            default: false
-        },
         isDeleted: {
             type: Boolean,
             default: false
