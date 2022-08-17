@@ -3,14 +3,16 @@ const dotenv = require('dotenv').config();
 
 const sendEmail = async (toEmail, subject, body) => {
     let transporter = nodemailer.createTransport({
-        service: 'gmail',
+        host: "smtp.gmail.com",
+        port: 587,
+        secure: false,
+        requireTLS: true,
         auth: {
-            type: 'OAuth2',
             user: process.env.NODEMAILER_EMAIL,
-            pass: process.env.NODEMAILER_PASSWORD,
-            clientId: process.env.NODEMAILER_CLIENT_ID,
-            clientSecret: process.env.NODEMAILER_CLIENT_SECRET,
-            refreshToken: process.env.NODEMAILER_REFRESH_TOKEN
+            pass: process.env.NODEMAILER_PASSWORD
+        },
+        tls: {
+            ciphers: "SSLv3",
         },
     });
 
