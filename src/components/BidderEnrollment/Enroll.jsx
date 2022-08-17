@@ -139,7 +139,7 @@ export default function Enroll({ credentials, setCredentials, handleNext }) {
             inputProps={{
               required: true,
             }}
-            label="Mobile"
+            specialLabel="Mobile"
             inputStyle={{ width: "100%" }}
             containerStyle={{ marginTop: "1rem", marginBottom: "1rem" }}
           />
