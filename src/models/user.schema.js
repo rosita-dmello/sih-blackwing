@@ -27,6 +27,14 @@ const userSchema = new mongoose.Schema(
             type: String,
             required: false
         },
+        istotpenabled: {
+            type: Boolean,
+            default: false
+        },
+        totpsecret: {
+            type: String,
+            required: false 
+        },
         isemailverified: {
             type: Boolean,
             default: false
