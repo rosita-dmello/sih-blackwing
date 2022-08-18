@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, {useState} from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -7,7 +7,6 @@ import {
   FormControlLabel,
   FormControl,
   RadioGroup,
-  FormControlGroup,
   FormLabel,
   MenuItem,
   Select,
@@ -26,39 +25,37 @@ import "react-phone-input-2/lib/material.css";
 import _ from "lodash";
 import TagsInput from "../TagsInput";
 
+
+// 27AAPFU0939F1ZV 27AASCS2460H1Z0 29AAGCB7383J1Z4
+function validateGST(g) {
+  var gstinformat = new RegExp(
+    "^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9]{1}Z[a-zA-Z0-9]{1}$"
+  );
+  if (gstinformat.test(g)) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
 export default function CompanyDetails({
-  credentials,
-  setCredentials,
+  companyDetails,
+  setCompanyDetails,
   handleNext,
 }) {
   const navigate = useNavigate();
 
-  const [data, setData] = React.useState({
-    companyName: "",
-    preferentialBidder: false,
-    registrationNumber: "",
-    registeredAddress: "",
-    partners: [],
-    bidderType: "",
-    city: "",
-    state: "",
-    country: "",
-    postalCode: "",
-    panNumber: "",
-    establishmentYear: "",
-    natureOfBusiness: "",
-    legalStatus: "",
-    companyCategory: "",
-  });
+  const [data, setData] = React.useState(companyDetails);
   const [chips, setChips] = React.useState([]);
   const [showState, setShowState] = React.useState(false);
   const [countryCode, setCountryCode] = React.useState("");
+  const [gstinError, setGstinError] = useState("");
+  const [panError, setPanError] = useState("");
   const fields = [
     "State",
     "Country",
     "City",
     "Postal Code",
-    "Pan Number",
     "Establishment Year",
     "Nature Of Business",
     "Legal Status",
@@ -73,7 +70,22 @@ export default function CompanyDetails({
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    setCredentials(data);
+
+    const formData = new FormData(event.currentTarget);
+    // eslint-disable-next-line no-console
+    setCompanyDetails(data);
+    handleNext();
+    // FORM VALIDATION
+    // if (formData.get("panNumber").length < 10) {
+    //   setPanError("PAN Number Invalid!")
+    // } else if (!validateGST(formData.get("gstinNumber"))) {
+    //   setGstinError("Please Enter a Valid GSTIN Number");
+    // } else {
+    //   setCompanyDetails(data);
+    // handleNext();
+    // }
+    
+    
   };
   const countries = Country.getAllCountries().map((country) => country.name);
 
@@ -110,7 +122,7 @@ export default function CompanyDetails({
             border: "none",
           }}
         />
-        <Box component="form" onSubmit={handleSubmit} width="100%">
+        <Box component="form" onSubmit={handleSubmit} width="100%" noValidate>
           <Grid container direction="column">
             <Grid item xs={12}>
               <TextField
@@ -121,6 +133,7 @@ export default function CompanyDetails({
                 id="companyName"
                 name="companyName"
                 label="Company Name / Licence Holder Name"
+                defaultValue={companyDetails.companyName}
               />
             </Grid>
             <Grid item xs={12}>
@@ -129,8 +142,11 @@ export default function CompanyDetails({
                 control={
                   <Checkbox
                     name="preferentialBidder"
-                    onChange={handleChange}
+                    onChange={(event) => setData((prev) => {
+                      return { ...prev, [event.target.name]: event.target.checked };
+                    })}
                     color="primary"
+                    
                   />
                 }
               />
@@ -144,6 +160,7 @@ export default function CompanyDetails({
                 id="registrationNumber"
                 name="registrationNumber"
                 label="Registration Number"
+                defaultValue={companyDetails.registrationNumber}
               />
             </Grid>
             <Grid item xs={12}>
@@ -157,6 +174,7 @@ export default function CompanyDetails({
                 id="registeredAddress"
                 name="registeredAddress"
                 label="Registered Address"
+                defaultValue={companyDetails.registeredAddress}
               />
             </Grid>
             {/* <Grid item xs={12}>
@@ -178,6 +196,7 @@ export default function CompanyDetails({
             </Grid> */}
             <Grid item xs={12}>
               <TagsInput
+               onKeyPress={(e) => { e.key === 'Enter' && e.preventDefault(); }}
                 selectedTags={(items) =>
                   setData((prev) => {
                     return { ...prev, partners: items };
@@ -191,6 +210,7 @@ export default function CompanyDetails({
                 placeholder="Enter names of Partners/Directors"
                 label="Partners/Directors"
                 color="primary"
+                defaultValue={companyDetails.partners}
               />
             </Grid>
             <Grid item xs={12}>
@@ -224,7 +244,8 @@ export default function CompanyDetails({
                   label="Country"
                   onChange={handleChange}
                   name="country"
-                  defaultValue={"India"}
+                  // defaultValue={"India"}
+                  defaultValue={companyDetails.country}
                 >
                   {Country.getAllCountries().map((field) => (
                     <MenuItem
@@ -250,6 +271,8 @@ export default function CompanyDetails({
                   label="Country"
                   onChange={handleChange}
                   name="state"
+                  // defaultValue={"Maharashtra"}
+                  defaultValue={companyDetails.state}
                 >
                   {showState &&
                     State.getStatesOfCountry(countryCode).map((field) => (
@@ -261,7 +284,7 @@ export default function CompanyDetails({
               </FormControl>
             </Grid>
             <Grid item xs={12}>
-              {fields.slice(2, 7).map((field) => {
+              {fields.slice(2, 6).map((field) => {
                 return (
                   <Grid item xs={12}>
                     <TextField
@@ -272,10 +295,39 @@ export default function CompanyDetails({
                       id={_.camelCase(field)}
                       name={_.camelCase(field)}
                       label={field}
+                      defaultValue={companyDetails[_.camelCase(field)]}
                     />
                   </Grid>
                 );
               })}
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                onChange={handleChange}
+                id="gstinNumber"
+                name="gstinNumber"
+                label="GSTIN Number"
+                defaultValue={companyDetails.gstinNumber}
+                error={gstinError === "" ? false : true}
+                helperText={gstinError === "" ? "" : gstinError}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                onChange={handleChange}
+                id="panNumber"
+                name="panNumber"
+                label="PAN Number"
+                defaultValue={companyDetails.panNumber}
+                error={panError === "" ? false : true}
+                helperText={panError === "" ? "PAN/TAN number must have 10 characters. For eg: AESTG2458A" : panError}
+              />
             </Grid>
             <Grid item xs={12}>
               <FormControl fullWidth margin="normal">
@@ -288,6 +340,8 @@ export default function CompanyDetails({
                   label="Country"
                   onChange={handleChange}
                   name="legalStatus"
+                  // defaultValue="Limited Company"
+                  defaultValue={companyDetails.legalStatus}
                 >
                   {[
                     "Limited Company",
@@ -306,7 +360,7 @@ export default function CompanyDetails({
             <Grid item xs={12}>
               <FormControl fullWidth margin="normal">
                 <InputLabel id="companyCategory-select-label">
-                  Legal Status
+                Company Category
                 </InputLabel>
                 <Select
                   labelId="companyCategory-select-label"
@@ -314,6 +368,8 @@ export default function CompanyDetails({
                   label="Company Category"
                   onChange={handleChange}
                   name="companyCategory"
+                  // defaultValue="Micro Unit as per MSME"
+                  defaultValue={companyDetails.companyCategory}
                 >
                   {[
                     "Micro Unit as per MSME",
@@ -337,8 +393,9 @@ export default function CompanyDetails({
                 fullWidth
                 variant="contained"
                 sx={{ mt: 3, mb: 2, borderRadius: 0 }}
+                onKeyPress={(e) => { e.key === 'Enter' && e.preventDefault(); }}
               >
-                Set Password
+                Set Company Details
               </Button>
             </Grid>
           </Grid>

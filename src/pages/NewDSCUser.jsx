@@ -33,7 +33,6 @@ import { Done } from "@mui/icons-material";
 import {
   loadCaptchaEnginge,
   LoadCanvasTemplate,
-  LoadCanvasTemplateNoReload,
   validateCaptcha,
 } from "react-simple-captcha";
 
@@ -41,7 +40,7 @@ import moment from "moment";
 import Layout from "../components/Layout";
 moment().format();
 
-export default function NewOrder() {
+export default function NewDSCUser() {
   const [created, setCreated] = useState(false);
   const [captcha, setCaptcha] = useState("");
   const [userroles, setUserroles] = useState([]);
@@ -219,7 +218,7 @@ export default function NewOrder() {
                             name="title"
                             defaultValue={"Mr."}
                           >
-                            {["Mr.", "Mrs.", "Master", "Ms.", "Dr."].map(
+                            {['Mrs', 'Mr', 'Ms', 'Dr', 'Sri'].map(
                               (field) => (
                                 <MenuItem key={field} value={field}>
                                   {field}
