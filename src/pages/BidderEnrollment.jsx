@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, {useState, useEffect} from "react";
 import Box from "@mui/material/Box";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
@@ -7,7 +7,10 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Layout from "../components/Layout";
 import Enroll from "../components/BidderEnrollment/Enroll";
-import PersonalDetails from "../components/BidderEnrollment/PersonalDetails";
+import CompanyDetails from "../components/BidderEnrollment/CompanyDetails"
+import ContactDetails from "../components/BidderEnrollment/ContactDetails";
+import Confirmation from "../components/BidderEnrollment/Confirmation";
+import Verification from "../components/BidderEnrollment/Verification";
 const steps = ["Enroll", "Company Details", "Contact Details", "Confirmation", "Verification"];
 
 export default function BidderEnrollment() {
@@ -20,7 +23,7 @@ export default function BidderEnrollment() {
   });
   const [companyDetails, setCompanyDetails] = React.useState({
     companyName: "",
-    preferentialBidder: "",
+    preferentialBidder: false,
     registrationNumber: "",
     registeredAddress: "",
     partners: [],
@@ -33,8 +36,16 @@ export default function BidderEnrollment() {
     establishmentYear: "",
     natureOfBusiness: "",
     legalStatus: "",
-    companyCategory: ""
-  })
+    companyCategory: "",
+    gstinNumber: ""
+  });
+  const [contactDetails, setContactDetails] = useState({
+    title: "",
+    contactName: "",
+    dateOfBirth: "",
+    designation: "",
+    phone: "",
+  });
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
@@ -47,7 +58,13 @@ export default function BidderEnrollment() {
     if (activeStep === 0) {
       return <Enroll setCredentials={setCredentials} credentials={credentials} handleNext={handleNext} />;
     } else if (activeStep === 1) {
-      return <PersonalDetails setCompanyDetails={setCompanyDetails} companyDetails={companyDetails} handleNext={handleNext} />;
+      return <CompanyDetails setCompanyDetails={setCompanyDetails} companyDetails={companyDetails} handleNext={handleNext} />;
+    } else if (activeStep === 2) {
+      return <ContactDetails setContactDetails={setContactDetails} contactDetails={contactDetails} handleNext={handleNext} />;
+    } else if (activeStep === 3) {
+      return <Confirmation credentials={credentials} companyDetails={companyDetails} contactDetails={contactDetails} handleNext={handleNext} handleBack={handleBack}/>
+    } else if (activeStep === 4) {
+      return <Verification credentials={credentials}/>
     }
   }
 
