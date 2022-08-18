@@ -1,0 +1,26 @@
+.adj{
+  height: 300px;
+  margin: 0;
+}
+
+.adj2 {
+  height: 250px;
+  margin: 0;
+  width: 100%;
+  padding: 10px;
+  overflow: scroll;
+}
+
+@media (max-width: 1200px) {
+  .adj{
+    height: 400px;
+    margin: 0;
+  }
+  .adj2 {
+    height: 200px;
+    margin: 0;
+    width: 100%;
+    padding: 10px;
+    overflow: scroll;
+  }
+}

@@ -4,6 +4,7 @@ import Option1 from '../home_selections/Option1';
 import Option2 from '../home_selections/Option2';
 import Option3 from '../home_selections/Option3';
 import Option4 from '../home_selections/Option4';
+import './something.css';
 
 function Something() {
   const [selected, setSelected] = React.useState(1);
@@ -11,7 +12,7 @@ function Something() {
     setSelected(val);
   }
   return (
-    <div style={{ margin: 0, height: '250px' }}>
+    <div className="adj">
       <Grid
         container
         direction="column"
@@ -32,8 +33,8 @@ function Something() {
             <Grid
               item
               lg={4}
-              md={5}
-              sm={6}
+              md={12}
+              sm={12}
               style={{ width: "100%", padding: "10px", textAlign: "center" }}
             >
               <ButtonGroup
@@ -50,9 +51,9 @@ function Something() {
             <Grid
               item
               lg={8}
-              md={7}
-              sm={6}
-              style={{ width: "100%", padding: "10px", overflow: 'scroll', height: '200px' }}
+              md={12}
+              sm={12}
+              className="adj2"
             >
               {selected === 1 && <Option1 />}
               {selected === 2 && <Option2 />}
