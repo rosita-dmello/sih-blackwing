@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import { motion } from "framer-motion";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
@@ -59,9 +59,8 @@ export default function UserLogin() {
       setEmailError("Invalid email address");
       setSubmitted(false);
     } else if (!data.get("password")) {
-        setPwError("Please enter your password!")
-    }
-    else {
+      setPwError("Please enter your password!");
+    } else {
       try {
         console.log({
           password: data.get("password"),
@@ -72,7 +71,7 @@ export default function UserLogin() {
         //   password: data.get("password"),
         //   email: data.get("email"),
         // });
-        // if (response.data && response.data.success) 
+        // if (response.data && response.data.success)
         // {
         //   const token = response.data.token;
         //   const user = JSON.stringify(response.data.data);
@@ -98,100 +97,110 @@ export default function UserLogin() {
     }
   };
 
-  return (<Layout>
-    <div style={{ m: 0, p: 0 }}>
-      <Box container component="main" sx={{ px: { xs: 4, md: 2 } }}>
-        <CssBaseline />
-        <Box
-          sx={{
-            marginTop: 8,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-          <Typography
-            variant="h5"
-            fontWeight="bold"
-            color="primary"
-            sx={{
-          
-              mb: "0.1rem",
-            }}
-            textAlign="center"
-          >
-            USER LOGIN
-          </Typography>
-          <hr
-            style={{
-              width: "12%",
-              height: "2px",
-              backgroundColor: "#3e92cc",
-              border: "none",
-            }}
-          />
+  return (
+    <Layout>
+      <motion.div
+        style={{ m: 0, p: 0 }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ type: "tween", duration: 0.7 }}
+        exit={{ opacity: 0, transition: { ease: "easeInOut", duration: 0.5 } }}
+      >
+        <Box container component="main" sx={{ px: { xs: 4, md: 2 } }}>
+          <CssBaseline />
           <Box
-            component="form"
-            onSubmit={handleSubmit}
-            noValidate
-            sx={{ mt: 1 }}
+            sx={{
+              marginTop: 8,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
           >
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
-              autoFocus
-              error={emailError === "" ? false : true}
-              helperText={emailError === "" ? "" : emailError}
-            />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-              error={pwError === "" ? false : true}
-              helperText={pwError === "" ? "" : pwError}
-            />
-            <Typography sx={{textAlign: "center"}} color="error">
-              {otherError}
-            </Typography>
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2, py: 1, borderRadius: 0 }}
-            >
-              Log In
-            </Button>
-            {submitted? <Box sx={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
+            <Typography
+              variant="h5"
+              fontWeight="bold"
+              color="primary"
+              sx={{
+                mb: "0.1rem",
               }}
+              textAlign="center"
+            >
+              USER LOGIN
+            </Typography>
+            <hr
+              style={{
+                width: "12%",
+                height: "2px",
+                backgroundColor: "#3e92cc",
+                border: "none",
+              }}
+            />
+            <Box
+              component="form"
+              onSubmit={handleSubmit}
+              noValidate
+              sx={{ mt: 1 }}
+            >
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="email"
+                label="Email Address"
+                name="email"
+                autoComplete="email"
+                autoFocus
+                error={emailError === "" ? false : true}
+                helperText={emailError === "" ? "" : emailError}
+              />
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+                autoComplete="current-password"
+                error={pwError === "" ? false : true}
+                helperText={pwError === "" ? "" : pwError}
+              />
+              <Typography sx={{ textAlign: "center" }} color="error">
+                {otherError}
+              </Typography>
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2, py: 1, borderRadius: 0 }}
               >
-                <CircularProgress/>
+                Log In
+              </Button>
+              {submitted ? (
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <CircularProgress />
                 </Box>
-               : ""}
-            <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
-                </Link>
+              ) : (
+                ""
+              )}
+              <Grid container>
+                <Grid item xs>
+                  <Link href="#" variant="body2">
+                    Forgot password?
+                  </Link>
+                </Grid>
               </Grid>
-            </Grid>
+            </Box>
           </Box>
+          <Copyright sx={{ mt: 8, mb: 4 }} />
         </Box>
-        <Copyright sx={{ mt: 8, mb: 4 }} />
-      </Box>
-    </div>
+      </motion.div>
     </Layout>
   );
 }

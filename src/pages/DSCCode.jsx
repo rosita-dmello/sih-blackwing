@@ -14,6 +14,7 @@ import Container from "@mui/material/Container";
 import Layout from "../components/Layout";
 import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";
 import {useNavigate} from "react-router-dom";
+import {motion} from "framer-motion";
 
 import {
   loadCaptchaEnginge,
@@ -58,6 +59,10 @@ export default function DSCCode() {
 
   return (
     <Layout>
+      <motion.div initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ type: "tween", duration: 0.7 }}
+        exit={{ opacity: 0, transition: { ease: "easeInOut", duration: 0.5 } }} >
       <Container component="main" maxWidth="xs">
         <CssBaseline />
        
@@ -145,6 +150,7 @@ export default function DSCCode() {
           </Box>
       
       </Container>
+      </motion.div>
     </Layout>
   );
 }

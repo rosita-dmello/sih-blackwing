@@ -11,6 +11,7 @@ import CompanyDetails from "../components/BidderEnrollment/CompanyDetails"
 import ContactDetails from "../components/BidderEnrollment/ContactDetails";
 import Confirmation from "../components/BidderEnrollment/Confirmation";
 import Verification from "../components/BidderEnrollment/Verification";
+import {motion} from "framer-motion";
 const steps = ["Enroll", "Company Details", "Contact Details", "Confirmation", "Verification"];
 
 export default function BidderEnrollment() {
@@ -70,6 +71,10 @@ export default function BidderEnrollment() {
 
   return (
     <Layout>
+      <motion.div initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ type: "tween", duration: 0.7 }}
+        exit={{ opacity: 0, transition: { ease: "easeInOut", duration: 0.5 } }} >
       <Box
         sx={{
           m: "2rem 3rem 1rem 3rem",
@@ -120,6 +125,7 @@ export default function BidderEnrollment() {
           </Box>
         )}
       </Box>
+      </motion.div>
     </Layout>
   );
 }
