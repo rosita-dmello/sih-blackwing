@@ -3,6 +3,7 @@ const User = require('./../models/user.schema');
 const  { generateOtp } = require('./../utilities/utils');
 const sendEmail = require('./email.service');
 const sendSms = require('./sms.service');
+const speakeasy = require('speakeasy');
 
 const sendOtpByEmail = async (req, user) => {
     const milliseconds = new Date().getTime();
@@ -113,7 +114,7 @@ const emailAndMobileVerification = async (req) => {
 
 const totpSecretGenerate = async (req) => {
     let result;
-    const user = await User.findById(req.params.id);
+    let user = await User.findById(req.params.id);
     if (!user) {
         result = {
             message: 'User not found',
@@ -124,7 +125,7 @@ const totpSecretGenerate = async (req) => {
     
     const tempSecret = speakeasy.generateSecret();
     
-    await User.findByIdAndUpdate(req.params.id, { totpsecret: tempSecret.base32 });
+    user = await User.findByIdAndUpdate(req.params.id, { totpsecret: tempSecret.base32 });
 
     result = {
         message: 'Secret generated',
@@ -137,7 +138,7 @@ const totpSecretGenerate = async (req) => {
 
 const totpEnable = async (req) => {
     let result;
-    const user = await User.findById(req.params.id);
+    let user = await User.findById(req.params.id);
     if (!user) {
         result = {
             message: 'User not found',
@@ -146,7 +147,7 @@ const totpEnable = async (req) => {
         return result;
     }
 
-    const verify = speackeasy.totp.verify({
+    const verify = speakeasy.totp.verify({
         secret: user.secret,
         encoding: 'base32',
         token: req.body.token
@@ -159,7 +160,7 @@ const totpEnable = async (req) => {
         };
     }
     
-    await User.findByIdAndUpdate(req.params.id, { istotpenabled: true });
+    user = await User.findByIdAndUpdate(req.params.id, { istotpenabled: true });
     result = {
         message: 'Token verified',
         user: user
@@ -178,7 +179,7 @@ const totpTokenVerify = async (req) => {
         return result;
     }
 
-    const verify = speackeasy.totp.verify({
+    const verify = speakeasy.totp.verify({
         secret: user.secret,
         encoding: 'base32',
         token: req.body.token
