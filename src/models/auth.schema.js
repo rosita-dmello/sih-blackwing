@@ -1,24 +1,19 @@
 const mongoose = require('mongoose');
 
-const authUserSchema = new mongoose.Schema(
-    {
-        id: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Bidder'
-        },
-        email: {
-            type: String
-        },
-        mobile: {
-            type: String
-        }
-    }
-);
-
 const authSchema = new mongoose.Schema(
     {
-        bidderId: {
-            type: authUserSchema,
+        user: {
+            type: {
+                id: {
+                    type: String
+                },
+                email: {
+                    type: String
+                },
+                mobile: {
+                    type: String
+                }
+            }
         },
         token: {
             type: String

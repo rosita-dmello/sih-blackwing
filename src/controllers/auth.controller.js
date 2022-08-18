@@ -1,5 +1,4 @@
-const { sendOtpByEmail, sendOtpBySms, emailAndMobileVerification } = require('./../services/auth.service');
-const speakeasy = require('speakeasy');
+const { sendOtpByEmail, sendOtpBySms, emailAndMobileVerification, totpSecretGenerate, totpEnable, totpTokenVerify } = require('./../services/auth.service');
 
 const verifyEmailAndMobile = async (req, res) => {
     try {
@@ -20,16 +19,66 @@ const verifyEmailAndMobile = async (req, res) => {
     }
 };
 
-const generateSecret = async (req, res) => {
-    const tempSecret = speakeasy.generateSecret(); 
+const generateTotpSecret = async (req, res) => {
+    try {
+        const result = await totpSecretGenerate(req);
+
+        if (result.error) {
+            res.status(result.error).json({ result });
+            return;
+        }
+
+        res.status(201).json({ result });
+    } catch (error) {
+        res.status(400).json({
+            result: {
+                message: error.message
+            }
+        });
+    }
 };
 
-const registerSecret = async (req, res) => {
-    
+const enableTotp = async (req, res) => {
+    try {
+        const result = await totpEnable(req);
+
+        if (result.error) {
+            res.status(result.error).json({ result });
+            return;
+        }
+
+        res.status(201).json({ result });
+    } catch (error) {
+        res.status(400).json({
+            result: {
+                message: error.message
+            }
+        });
+    }
 };
 
-const verifyToken = async (req, res) => {
+const verifyTotpToken = async (req, res) => {
+    try {
+        const result = await totpTokenVerify(req);
 
+        if (result.error) {
+            res.status(result.error).json({ result });
+            return;
+        }
+
+        res.status(201).json({ result });
+    } catch (error) {
+        res.status(400).json({
+            result: {
+                message: error.message
+            }
+        });
+    }
 };
 
-module.exports = verifyEmailAndMobile;
+module.exports =  {
+    verifyEmailAndMobile,
+    generateTotpSecret,
+    enableTotp,
+    verifyTotpToken
+};
