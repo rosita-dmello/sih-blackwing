@@ -1,10 +1,11 @@
 const Auth = require('./../models/auth.schema');
-const Bidder = require('./../models/bidder.schema');
-const generateOtp = require('./../utilities/utils');
+const User = require('./../models/user.schema');
+const  { generateOtp } = require('./../utilities/utils');
 const sendEmail = require('./email.service');
 const sendSms = require('./sms.service');
+const speakeasy = require('speakeasy');
 
-const sendOtpByEmail = async (req, bidder) => {
+const sendOtpByEmail = async (req, user) => {
     const milliseconds = new Date().getTime();
     const lessMinute = milliseconds - (1 * 60 * 1000);
     const lessMinuteDate = new Date(lessMinute);
@@ -12,12 +13,12 @@ const sendOtpByEmail = async (req, bidder) => {
     const otp = generateOtp(6);
     const emailSubject = 'Verification Code';
     const emailBody = `Your verification code is ${otp}`;
-    await sendEmail(bidder.email, emailSubject, emailBody);
+    await sendEmail(user.email, emailSubject, emailBody);
 
     const auth = await new Auth({
         user: {
-            id: bidder._id,
-            email: bidder.email
+            id: user._id,
+            email: user.email
         },
         token: otp,
         tokenType: 'EMAIL OTP',
@@ -27,24 +28,22 @@ const sendOtpByEmail = async (req, bidder) => {
         userAgent: req.headers["user-agent"]
     }).save();
 
-    return {
-        authId: auth._id
-    };
+    return auth._id;
 };
 
-const sendOtpBySms = async (req, bidder) => {
+const sendOtpBySms = async (req, user) => {
     const milliseconds = new Date().getTime();
     const lessMinute = milliseconds - (1 * 60 * 1000);
     const lessMinuteDate = new Date(lessMinute);
 
     const otp = generateOtp(6);
     const message = `Your verification code is ${otp}`;
-    await sendSms(message, bidder.mobile);
+    await sendSms(message, user.mobile);
 
     const auth = await new Auth({
         user: {
-            id: bidder._id,
-            mobile: bidder.mobile
+            id: user._id,
+            mobile: user.mobile
         },
         token: otp,
         tokenType: 'SMS OTP',
@@ -54,9 +53,7 @@ const sendOtpBySms = async (req, bidder) => {
         userAgent: req.headers["user-agent"]
     }).save();
 
-    return {
-        authId: auth._id
-    };
+    return auth._id;
 };
 
 const emailAndMobileVerification = async (req) => {
@@ -67,7 +64,7 @@ const emailAndMobileVerification = async (req) => {
             message: 'Email otp not found',
             error: true
         };
-        return;
+        return result;
     }
 
     const authMobile = await Auth.findById(req.body.authMobileId);
@@ -76,13 +73,13 @@ const emailAndMobileVerification = async (req) => {
             message: 'Mobile otp not found',
             error: true
         };
-        return;
+        return result;
     }
 
-    let bidder = await Bidder.findById(authEmail.user.id);
-    if (!bidder) {
+    let user = await User.findById(authEmail.user.id);
+    if (!user) {
         result = {
-            message: 'Bidder not found',
+            message: 'User not found',
             error: true
         };
         return result;
@@ -104,13 +101,100 @@ const emailAndMobileVerification = async (req) => {
         return result;
     } 
 
-    bidder = await Bidder.findByIdAndUpdate(bidder._id, { isEmailVerified: true, isMobileVerified: true });
+    user = await User.findByIdAndUpdate(user.id, { isemailverified: true, ismobileverified: true });
 
     result = {
         message: 'Verifcation Successful',
         data: {
-            bidder
+            user
         }
+    };
+    return result;
+};
+
+const totpSecretGenerate = async (req) => {
+    let result;
+    let user = await User.findById(req.params.id);
+    if (!user) {
+        result = {
+            message: 'User not found',
+            error: 404
+        };
+        return result;
+    }
+    
+    const tempSecret = speakeasy.generateSecret();
+    
+    user = await User.findByIdAndUpdate(req.params.id, { totpsecret: tempSecret.base32 });
+
+    result = {
+        message: 'Secret generated',
+        data:  {
+            url: tempSecret.otpauth_url
+        }
+    }
+    return result
+};
+
+const totpEnable = async (req) => {
+    let result;
+    let user = await User.findById(req.params.id);
+    if (!user) {
+        result = {
+            message: 'User not found',
+            error: 404
+        };
+        return result;
+    }
+
+    const verify = speakeasy.totp.verify({
+        secret: user.secret,
+        encoding: 'base32',
+        token: req.body.token
+    });
+
+    if (!verify) {
+        result = {
+            message: 'Invalid token',
+            error: 400
+        };
+    }
+    
+    user = await User.findByIdAndUpdate(req.params.id, { istotpenabled: true });
+    result = {
+        message: 'Token verified',
+        user: user
+    };
+    return result;
+};
+
+const totpTokenVerify = async (req) => {
+    let result;
+    const user = await User.findById(req.params.id);
+    if (!user) {
+        result = {
+            message: 'User not found',
+            error: 404
+        };
+        return result;
+    }
+
+    const verify = speakeasy.totp.verify({
+        secret: user.secret,
+        encoding: 'base32',
+        token: req.body.token
+    });
+
+    if (!verify) {
+        result = {
+            message: 'Invalid token',
+            error: 400
+        };
+    }
+
+    result = {
+        message: 'Token verified',
+        user: user
     };
     return result;
 };
@@ -118,5 +202,8 @@ const emailAndMobileVerification = async (req) => {
 module.exports = {
     sendOtpByEmail,
     sendOtpBySms,
-    emailAndMobileVerification
+    emailAndMobileVerification,
+    totpSecretGenerate,
+    totpEnable,
+    totpTokenVerify
 };

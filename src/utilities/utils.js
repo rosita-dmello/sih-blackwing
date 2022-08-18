@@ -1,3 +1,5 @@
+const bcrypt = require('bcryptjs');
+
 const generateOtp = (otpLength) => {
     let digits = "0123456789";
     let otp = "";
@@ -7,4 +9,12 @@ const generateOtp = (otpLength) => {
     return otp;
 };
 
-module.exports = generateOtp;
+const hashPassword = (password) => {
+    password = bcrypt.hash(password, 8); 
+    return password;
+}
+
+module.exports = { 
+    generateOtp,
+    hashPassword
+};
