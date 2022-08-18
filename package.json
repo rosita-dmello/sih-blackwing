@@ -1,6 +1,6 @@
 {
   "name": "sih-blackwing",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -16,6 +16,7 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^0.27.2",
+    "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
@@ -23,6 +24,7 @@
     "mongoose": "^6.4.7",
     "morgan": "^1.10.0",
     "nodemailer": "^6.7.7",
-    "nodemon": "^2.0.19"
+    "nodemon": "^2.0.19",
+    "speakeasy": "^2.0.0"
   }
 }

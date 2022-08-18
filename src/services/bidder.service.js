@@ -1,6 +1,6 @@
 const Bidder = require('../models/bidder.schema');
-const { sendOtpByEmail, sendOtpBySms } = require('./auth.service');
 const verifyGstin = require('./verification.service');
+const createUser = require('./user.service');
 
 const bidderList = async (searchText, pageNo, pageSize) => {
     let result;
@@ -50,6 +50,14 @@ const bidderById = async (req) => {
 
     const bidder = await Bidder.findById(req.params.id);
 
+    if (!bidder) {
+        result = {
+            message: 'Bidder not found',
+            error: 404
+        }
+        return result;
+    }
+
     result = {
         message: 'Bidder details',
         data: {
@@ -61,7 +69,7 @@ const bidderById = async (req) => {
 
 const bidderCreate = async (req) => {
     let result;
-    const newBidder = new Bidder(req.body);
+    let newBidder = new Bidder(req.body);
     
     let information = true;
     const panVerification = 1;
@@ -92,17 +100,17 @@ const bidderCreate = async (req) => {
         return result;
     }
 
-    await newBidder.save(req);
+    newBidder = await newBidder.save();
 
-    const authEmailId = await sendOtpByEmail(req, newBidder);
-    const authSmsId = await sendOtpBySms(req, newBidder);
+    const newUser = await createUser(req, newBidder, 'BIDDER');
 
     result = {
         message: 'Bidder successfully created',
         data: { 
-            authEmailId,
-            authSmsId,
-            newBidder
+            authEmailId: newUser.authEmailId,
+            authSmsId:  newUser.authSmsId,
+            newBidder,
+            newUser:  newUser.newUser
         }
     };
     return result;
@@ -112,6 +120,14 @@ const bidderUpdate = async (req) => {
     let result;
 
     const bidder = await Bidder.findByIdAndUpdate(req.params.id, req.body);
+
+    if (!bidder) {
+        result = {
+            message: 'Bidder not found',
+            error: 404
+        }
+        return result;
+    }
 
     result = {
         message: 'Bidder updated successfully',
@@ -124,6 +140,14 @@ const bidderDelete = async (req) => {
     let result;
 
     const bidder = await Bidder.findByIdAndUpdate(req.params.id, { isDeleted: true });
+
+    if (!bidder) {
+        result = {
+            message: 'Bidder not found',
+            error: 404
+        }
+        return result;
+    }
 
     result = {
         message: 'Bidder deleted successfully',
