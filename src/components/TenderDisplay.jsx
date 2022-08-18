@@ -117,7 +117,7 @@ function TenderDisplay() {
             onChange={(e) => {
               const search = e.target.value;
               const filteredUsers = tempTenders.filter((user) => {
-                return user.tenderName.includes(search);
+                return user.tenderName.toLowerCase().includes(search) || user.tenderDescription.toUpperCase().includes(search) || user.tenderAmount.includes(search) ;
               });
               setUsers(filteredUsers);
             } }

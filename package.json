@@ -17,6 +17,7 @@
     "country-state-city": "^3.0.1",
     "crypto-js": "^4.1.1",
     "downshift": "^6.1.9",
+    "framer-motion": "^7.2.0",
     "lodash": "^4.17.21",
     "material-ui-chip-input": "^2.0.0-beta.2",
     "modern-react-captcha": "^3.0.0",
