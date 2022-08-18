@@ -42,7 +42,7 @@ const documentSchema = new mongoose.Schema({
 });
 
 const tenderSchema = new mongoose.Schema({
-    tenderreferencenumber: {
+    tenderreferenceno: {
         type: String,
         required: false
     },
@@ -71,7 +71,7 @@ const tenderSchema = new mongoose.Schema({
         required: false
     },
     allowmulticurrency: {
-        type: boolean,
+        type: Boolean,
         required: false,
         default: false
     },
@@ -297,5 +297,13 @@ const tenderSchema = new mongoose.Schema({
     workdocuments: {
         type: documentSchema,
         required: false
+    },
+    isDeleted: {
+        type: Boolean,
+        default: false
     }
-})
+});
+
+const Tender = mongoose.model('tender', tenderSchema);
+
+module.exports = Tender;
