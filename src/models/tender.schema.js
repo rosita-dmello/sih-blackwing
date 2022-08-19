@@ -1,46 +1,5 @@
 const mongoose = require('mongoose');
 
-const coverSchema = new mongoose.Schema({
-    documentdescription: {
-        type: String,
-        required: false
-    },
-    documenttype: {
-        type: String,
-        required: false
-    },
-    isdeleted: {
-        type: Boolean,
-        required: false,
-        default: false
-    }
-});
-
-const documentSchema = new mongoose.Schema({
-    tenderid: {
-        type: String,
-        required: false
-    },
-    documentdescription: {
-        type: String,
-        required: false
-    },
-    documenttype: {
-        type: String,
-        required: false
-    },
-    isdeleted: {
-        type: Boolean,
-        required: false,
-        default: false
-    },
-    isverified: {
-        type: Boolean,
-        required: false,
-        default: false
-    }
-});
-
 const tenderSchema = new mongoose.Schema({
     tenderreferenceno: {
         type: String,
@@ -76,7 +35,25 @@ const tenderSchema = new mongoose.Schema({
         default: false
     },
     coverdetails: {
-        type: [coverSchema],
+        type: [{
+            documentdescription: {
+                type: String,
+                required: false
+            },
+            documenttype: {
+                type: String,
+                required: false
+            },
+            file: {
+                type: buffer,
+                required: false
+            },
+            isdeleted: {
+                type: Boolean,
+                required: false,
+                default: false
+            }
+        }],
         required: false
     },
     nitdescription: {
@@ -295,7 +272,34 @@ const tenderSchema = new mongoose.Schema({
         required: false
     },
     workdocuments: {
-        type: documentSchema,
+        type: [{
+            tenderid: {
+                type: String,
+                required: false
+            },
+            documentdescription: {
+                type: String,
+                required: false
+            },
+            documenttype: {
+                type: String,
+                required: false
+            },
+            file: {
+                type: Buffer,
+                required: true
+            },
+            isdeleted: {
+                type: Boolean,
+                required: false,
+                default: false
+            },
+            isverified: {
+                type: Boolean,
+                required: false,
+                default: false
+            }
+        }],
         required: false
     },
     isDeleted: {
