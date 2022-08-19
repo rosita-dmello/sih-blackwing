@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
 
 const tenderSchema = new mongoose.Schema({
+    parentid: {
+        type: String,
+        required: false
+    },
     tenderreferenceno: {
         type: String,
         required: false

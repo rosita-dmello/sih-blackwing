@@ -7,6 +7,7 @@ const fs = require('fs');
 const authRoutes = require('./routers/auth.router');
 const bidderRoutes = require('./routers/bidder.router');
 const tenderRoutes = require('./routers/tender.router');
+const departmentRoutes = require('./routers/department.router');
 
 // Initializing an express app
 const app = express();
@@ -26,6 +27,7 @@ app.use(morgan('dev'));
 app.use('/api/auth', authRoutes);
 app.use('/api/bidder', bidderRoutes);
 app.use('/api/tender', tenderRoutes);
+app.use('/api/department', departmentRoutes);
 
 // Test API
 app.get('/api', (req, res) => {
