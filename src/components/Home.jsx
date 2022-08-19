@@ -13,7 +13,7 @@ function Home() {
   React.useEffect(() => {
     setTimeout(() => {
       setLoading(false);
-    }, 2000);
+    }, 2300);
   }, []);
   if(loading){
     return ( <>

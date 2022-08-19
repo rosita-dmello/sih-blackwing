@@ -25,3 +25,13 @@ html{
   -webkit-transform: translate(-50%,-50%);
   transform: translate(-50%,-50%);
 }
+
+.cat{
+  display: inline-flex;
+  justify-content: space-between;
+}
+
+.lower-adjust{
+  margin: 20px;
+  text-align: center;
+}

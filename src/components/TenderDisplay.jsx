@@ -8,81 +8,22 @@ import './td.css'
 function TenderDisplay() {
   const tempTenders = [
     {
-      tenderId: "Tender1",
-      tenderName: "Tender1",
-      tenderDescription: "Tender1",
-      tenderAmount: "Tender1",
-      tenderDate: "Tender1",
+      tenderId: 25612,
+      tenderName: "Public Health and Sanitation",
+      tenderLocation: "Kathmandu",
+      tenderDescription: ["Pipes and Fittings", "Electrical", "Plumbing"],
+      tenderAmount: "100,000",
+      tenderOpeningDate: "17 Oct 2022",
+      tenderClosingDate: "2 Dec 2022",
     },
     {
-      tenderId: "Tender2",
-      tenderName: "Tender2",
-      tenderDescription: "Tender2",
-      tenderAmount: "Tender2",
-      tenderDate: "Tender2",
-    },
-    {
-      tenderId: "Tender3",
-      tenderName: "Tender3",
-      tenderDescription: "Tender3",
-      tenderAmount: "Tender3",
-      tenderDate: "Tender3",
-    },
-    {
-      tenderId: "Tender4",
-      tenderName: "Tender4",
-      tenderDescription: "Tender4",
-      tenderAmount: "Tender4",
-      tenderDate: "Tender4",
-    },
-    {
-      tenderId: "Tender5",
-      tenderName: "Tender5",
-      tenderDescription: "Tender5",
-      tenderAmount: "Tender5",
-      tenderDate: "Tender5",
-    },
-    {
-      tenderId: "Tender6",
-      tenderName: "Tender6",
-      tenderDescription: "Tender6",
-      tenderAmount: "Tender6",
-      tenderDate: "Tender6",
-    },
-    {
-      tenderId: "Tender6",
-      tenderName: "Tender6",
-      tenderDescription: "Tender6",
-      tenderAmount: "Tender6",
-      tenderDate: "Tender6",
-    },
-    {
-      tenderId: "Tender6",
-      tenderName: "Tender6",
-      tenderDescription: "Tender6",
-      tenderAmount: "Tender6",
-      tenderDate: "Tender6",
-    },
-    {
-      tenderId: "Tender6",
-      tenderName: "Tender6",
-      tenderDescription: "Tender6",
-      tenderAmount: "Tender6",
-      tenderDate: "Tender6",
-    },
-    {
-      tenderId: "Tender6",
-      tenderName: "Tender6",
-      tenderDescription: "Tender6",
-      tenderAmount: "Tender6",
-      tenderDate: "Tender6",
-    },
-    {
-      tenderId: "Tender6",
-      tenderName: "Tender6",
-      tenderDescription: "Tender6",
-      tenderAmount: "Tender6",
-      tenderDate: "Tender6",
+      tenderId: 25615,
+      tenderName: "Public Health and Sanitation",
+      tenderLocation: "Kathmandu",
+      tenderDescription: ["Pipes and Fittings", "Electrical", "Plumbing"],
+      tenderAmount: "100,000",
+      tenderOpeningDate: "17 Oct 2022",
+      tenderClosingDate: "2 Dec 2022",
     },
   ];
 
@@ -109,6 +50,7 @@ function TenderDisplay() {
           <h1>Tender Display</h1>
         </Grid>
         <Grid item style={{ paddingLeft: "50px", marginBottom: "20px" }}>
+          {/* <div style={{textAlign:'center'}}>By Field:</div><br /> */}
           <TextField
             id="outlined-basic"
             label="Search"
@@ -116,8 +58,9 @@ function TenderDisplay() {
             style={{ position: "relative", width: "250px" }}
             onChange={(e) => {
               const search = e.target.value;
+              console.log(search);
               const filteredUsers = tempTenders.filter((user) => {
-                return user.tenderName.toLowerCase().includes(search) || user.tenderDescription.toUpperCase().includes(search) || user.tenderAmount.includes(search) ;
+                return user.tenderName.toLowerCase().includes(search) || user.tenderName.toUpperCase().includes(search) || user.tenderName.includes(search) ;
               });
               setUsers(filteredUsers);
             } }
@@ -142,7 +85,7 @@ function TenderDisplay() {
           >
             {users.slice(pagesVisited, pagesVisited + usersPerPage).map((tender) => {
               return (
-                <Grid item>
+                <Grid item key={tender.tenderId}>
                   <TenderCard tender={tender} />
                 </Grid>
               );
