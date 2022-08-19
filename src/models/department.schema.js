@@ -6,12 +6,16 @@ const departmentSchema = new mongoose.Schema({
         required: true,
         trim: true
     },
-    type: {
+    address: {
         type: String,
         required: false
     },
-    category: {
+    secretariatDepartment: {
         type: String,
+        required: false
+    },
+    noOfTenders: {
+        type: Number,
         required: false
     },
     isDeleted: {

@@ -8,10 +8,10 @@ const {
 
 const router = new express.Router();
 
-router.post('/', [auth.userTypeAdmin], createDepartment);
+router.post('/', createDepartment);
 
-router.put('/:id', [auth.userTypeAdmin], updateDepartment);
+router.put('/:id', updateDepartment);
 
-router.delete(':id', [auth.userTypeAdmin], deleteDepartment);
+router.delete('/:id', deleteDepartment);
 
 module.exports = router;
