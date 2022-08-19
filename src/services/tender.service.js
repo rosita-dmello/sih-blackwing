@@ -1,6 +1,6 @@
 const Tender = require('../models/tender.schema');
 
-const tenderList = async (searchText, pageNo, pageSize) => {
+const tenderList = async (query, pageNo, pageSize) => {
     let result, tenders;
     const queryObj = { isDeleted: false };
 
@@ -8,17 +8,29 @@ const tenderList = async (searchText, pageNo, pageSize) => {
     let searchObj;
     let skip, limit;
 
-    if (searchText && searchText !== 'undefined') {
-        searchObj = {
-            'index': 'tender',
-            'text': {
-                'query': searchText,
-                'path': ['tenderreferencenumber', 'tendertype', 'tendercategory', 'nitdescription', 'worktitle', 'workdescription', 'productcategory', 'productsubcategory', 'contracttype', 'locationdetail', 'prebidmeetingplace', 'bidopeningplace', 'invitingofficer']
-            }
-        };
-
-        aggregationPipeline.push({ $search: searchObj });
+    if (query.tendertype && !query.tendertype.includes('undefined')) {
+        queryObj['tendertype'] = { $in: query.tendertype.split(",") };
     }
+
+    if (query.tendercategory && !query.tendercategory.includes('undefined')) {
+        queryObj['tendercategory'] = { $in: query.tendercategory.split(",") };
+    }
+
+    if (query.status && !query.status.includes('undefined')) {
+        queryObj['status'] = { $in: query.status.split(",") };
+    }
+
+    // if (searchText && searchText !== 'undefined') {
+    //     searchObj = {
+    //         'index': 'tender',
+    //         'text': {
+    //             'query': searchText,
+    //             'path': ['tenderreferencenumber', 'tendertype', 'tendercategory', 'nitdescription', 'worktitle', 'workdescription', 'productcategory', 'productsubcategory', 'contracttype', 'locationdetail', 'prebidmeetingplace', 'bidopeningplace', 'invitingofficer']
+    //         }
+    //     };
+
+    //     aggregationPipeline.push({ $search: searchObj });
+    // }
 
     aggregationPipeline.push({ $match: queryObj });
 

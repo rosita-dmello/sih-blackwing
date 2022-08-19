@@ -73,7 +73,8 @@ const bidderCreate = async (req) => {
     
     let information = true;
     const panVerification = 1;
-    const gstinVerfication = await verifyGstin(newBidder.gstinNumber);
+    // const gstinVerfication = await verifyGstin(newBidder.gstinNumber);
+    const gstinVerfication = 1;
 
     if (!panVerification) {
         result = {
