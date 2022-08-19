@@ -78,21 +78,21 @@ const bidderCreate = async (req) => {
     if (!panVerification) {
         result = {
             message: 'Enter correct PAN',
-            error: true
+            error: 400
         }
         information = false;
     }
     if (!gstinVerfication) {
         result = {
             message: 'Enter correct GSTIN',
-            error: true
+            error: 400
         }
         information = false;
     }
     if (!panVerification && !gstinVerfication) {
         result = {
             message: 'Enter correct PAN & GSTIN',
-            error: true
+            error: 400
         }
         information = false;
     }
