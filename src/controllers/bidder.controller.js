@@ -1,4 +1,10 @@
-const { bidderList, bidderById, bidderCreate, bidderUpdate, bidderDelete } = require('./../services/bidder.service');
+const { 
+    bidderList, 
+    bidderById, 
+    bidderCreate, 
+    bidderUpdate, 
+    bidderDelete 
+} = require('./../services/bidder.service');
 
 const createBidder = async (req, res) => {
     try {
