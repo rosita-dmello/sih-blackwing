@@ -20,17 +20,17 @@ const tenderList = async (query, pageNo, pageSize) => {
         queryObj['status'] = { $in: query.status.split(",") };
     }
 
-    if (searchText && searchText !== 'undefined') {
-        searchObj = {
-            'index': 'tender',
-            'text': {
-                'query': searchText,
-                'path': ['tenderreferencenumber', 'tendertype', 'tendercategory', 'nitdescription', 'worktitle', 'workdescription', 'productcategory', 'productsubcategory', 'contracttype', 'locationdetail', 'prebidmeetingplace', 'bidopeningplace', 'invitingofficer']
-            }
-        };
+    // if (searchText && searchText !== 'undefined') {
+    //     searchObj = {
+    //         'index': 'tender',
+    //         'text': {
+    //             'query': searchText,
+    //             'path': ['tenderreferencenumber', 'tendertype', 'tendercategory', 'nitdescription', 'worktitle', 'workdescription', 'productcategory', 'productsubcategory', 'contracttype', 'locationdetail', 'prebidmeetingplace', 'bidopeningplace', 'invitingofficer']
+    //         }
+    //     };
 
-        aggregationPipeline.push({ $search: searchObj });
-    }
+    //     aggregationPipeline.push({ $search: searchObj });
+    // }
 
     aggregationPipeline.push({ $match: queryObj });
 
