@@ -45,7 +45,7 @@ const tenderSchema = new mongoose.Schema({
                 required: false
             },
             file: {
-                type: buffer,
+                type: Buffer,
                 required: false
             },
             isdeleted: {
