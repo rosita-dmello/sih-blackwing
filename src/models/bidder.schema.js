@@ -122,7 +122,7 @@ const bidderSchema = new mongoose.Schema(
             trim: true
         },
         dateOfBirth: {
-            type: Date,
+            type: String,
             required: true
         },
         designation: {
