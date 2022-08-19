@@ -41,7 +41,7 @@ const getTenderById = async (req, res) => {
 
 const getTenderList = async (req, res) => {
     try {
-        let result = await tenderList(req.query.searchText, req.headers.pageNo, req.headers.pageSize);
+        let result = await tenderList(req.query, req.headers.pageNo, req.headers.pageSize);
 
         res.status(200).json({ result });
     } catch (error) {

@@ -1,12 +1,24 @@
 const Tender = require('../models/tender.schema');
 
-const tenderList = async (searchText, pageNo, pageSize) => {
+const tenderList = async (query, pageNo, pageSize) => {
     let result, tenders;
     const queryObj = { isDeleted: false };
 
     let aggregationPipeline = [];
     let searchObj;
     let skip, limit;
+
+    if (query.tendertype && !query.tendertype.includes('undefined')) {
+        queryObj['tendertype'] = { $in: query.tendertype.split(",") };
+    }
+
+    if (query.tendercategory && !query.tendercategory.includes('undefined')) {
+        queryObj['tendercategory'] = { $in: query.tendercategory.split(",") };
+    }
+
+    if (query.status && !query.status.includes('undefined')) {
+        queryObj['status'] = { $in: query.status.split(",") };
+    }
 
     if (searchText && searchText !== 'undefined') {
         searchObj = {
