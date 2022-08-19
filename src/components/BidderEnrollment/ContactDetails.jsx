@@ -35,13 +35,7 @@ export default function ContactDetails({
   handleNext,
 }) {
   const navigate = useNavigate();
-  const [data, setData] = useState({
-    title: "",
-    contactName: "",
-    dateOfBirth: "",
-    designation: "",
-    phone: "",
-  });
+  const [data, setData] = useState(contactDetails);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -106,7 +100,7 @@ export default function ContactDetails({
                         label="Title"
                         onChange={handleChange}
                         name="title"
-                        defaultValue={"Mr."}
+                        defaultValue={contactDetails.title}
                       >
                         {["Mrs", "Mr", "Ms", "Dr", "Sri"].map((field) => (
                           <MenuItem key={field} value={field}>
@@ -124,7 +118,7 @@ export default function ContactDetails({
                       label="Contact Name"
                       onChange={handleChange}
                       name={"contactName"}
-                      value={contactDetails.companyName}
+                      defaultValue={contactDetails.contactName}
                     />
                   </Grid>
 
@@ -142,7 +136,7 @@ export default function ContactDetails({
                         })
                       }
                       renderInput={(params) => (
-                        <TextField {...params} fullWidth error={false} />
+                        <TextField {...params} fullWidth error={false} defaultValue={contactDetails.dateOfBirth} />
                       )}
                     />
                   </Grid>
@@ -154,13 +148,14 @@ export default function ContactDetails({
                       label="Designation"
                       onChange={handleChange}
                       name={"designation"}
-                    //   value={contactDetails.designation}
+                      defaultValue={contactDetails.designation}
                     />
                   </Grid>
                   <Grid item xs={12}>
                     <PhoneInput
                       country={"in"}
                       value={contactDetails.phone}
+                      enableSearch
                       onChange={(phone) =>
                         setData((prev) => {
                           return { ...prev, phone: phone };

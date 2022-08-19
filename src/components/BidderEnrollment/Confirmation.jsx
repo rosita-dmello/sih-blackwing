@@ -1,7 +1,7 @@
 import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
 import sha256 from "crypto-js/sha256";
 
-import React from "react";
+import React, {useState} from "react";
 import {
   Box,
   CssBaseline,
@@ -22,6 +22,7 @@ function Confirmation({
   handleBack,
   handleNext,
 }) {
+  const [error, setError] = useState("")
   const handleSubmit = async (event) => {
     // handleNext();
     const allData = {
@@ -31,6 +32,12 @@ function Confirmation({
     };
     console.log("data", allData);
     const response = await createBidderPost(allData);
+    if(response.error) {
+      setError(response.message)
+    } else {
+      const {data} = response;
+      console.log("done", data);
+    }
     console.log(response);
     // Encrypt
     var ciphertext = CryptoJS.AES

@@ -2,9 +2,9 @@ import axios from "axios";
 
 const apiUrl = "https://sih-blackwing-api.herokuapp.com/api";
 
-export const createBidderPost = async (formData) => {
+export const verifyOtpPost = async (formData) => {
     try {
-        const response = await axios.post(apiUrl + "/bidder/", formData);
+        const response = await axios.post(apiUrl + "/verify/otp", formData);
         console.log(response);
     if (response.data) {
         return (response.data)
@@ -18,9 +18,9 @@ export const createBidderPost = async (formData) => {
     
 }
 
-export const verifyOtpPost = async (formData) => {
+export const loginPost = async (formData) => {
     try {
-        const response = await axios.post(apiUrl + "/verify/otp", formData);
+        const response = await axios.post(apiUrl + "/auth/login", formData);
         console.log(response);
     if (response.data) {
         return (response.data)

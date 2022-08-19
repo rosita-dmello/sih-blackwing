@@ -12,7 +12,9 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import { CircularProgress } from "@mui/material";
 import Layout from "../components/Layout";
-// import { loginPost } from "../data/api";
+import {Avatar} from "@mui/material";
+import VpnKeyIcon from '@mui/icons-material/VpnKey';
+import { loginPost } from "../api/common";
 
 import moment from "moment";
 moment().format();
@@ -66,11 +68,13 @@ export default function UserLogin() {
           password: data.get("password"),
           email: data.get("email"),
         });
+      
 
-        // const response = await loginPost({
-        //   password: data.get("password"),
-        //   email: data.get("email"),
-        // });
+        const response = await loginPost({
+          password: data.get("password"),
+          email: data.get("email"),
+        });
+        console.log(response);
         // if (response.data && response.data.success)
         // {
         //   const token = response.data.token;
@@ -116,16 +120,18 @@ export default function UserLogin() {
               alignItems: "center",
             }}
           >
+            <Avatar sx={{ m: 1, bgcolor: "primary.main" }}>
+              <VpnKeyIcon/>
+            </Avatar>
             <Typography
+              component="h1"
               variant="h5"
               fontWeight="bold"
-              color="primary"
               sx={{
-                mb: "0.1rem",
+                mt: 2,
               }}
-              textAlign="center"
             >
-              USER LOGIN
+              LOGIN
             </Typography>
             <hr
               style={{
