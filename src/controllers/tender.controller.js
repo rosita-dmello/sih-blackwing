@@ -1,4 +1,10 @@
-const { tenderList, tenderById, tenderCreate, tenderUpdate, tenderDelete } = require('./../services/tender.service');
+const { 
+    tenderList, 
+    tenderById, 
+    tenderCreate, 
+    tenderUpdate, 
+    tenderDelete
+} = require('./../services/tender.service');
 
 const createTender = async (req, res) => {
     try {
