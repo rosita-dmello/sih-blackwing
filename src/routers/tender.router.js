@@ -1,5 +1,11 @@
-const { createTender, getTenderById, getTenderList, updateTender, deleteTender } = require('./../controllers/tender.controller');
 const express = require("express");
+const { 
+    createTender, 
+    getTenderById, 
+    getTenderList, 
+    updateTender, 
+    deleteTender
+} = require('./../controllers/tender.controller');
 
 const router = new express.Router();
 
