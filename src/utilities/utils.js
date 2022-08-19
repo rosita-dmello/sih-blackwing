@@ -10,11 +10,17 @@ const generateOtp = (otpLength) => {
 };
 
 const hashPassword = (password) => {
-    password = bcrypt.hash(password, 8); 
+    password = bcrypt.hashSync(password, 8); 
     return password;
+}
+
+const validatePassword = (password, hashPassword) => {
+    const verify = bcrypt.compareSync(password, hashPassword);
+    return verify;
 }
 
 module.exports = { 
     generateOtp,
-    hashPassword
+    hashPassword,
+    validatePassword
 };
