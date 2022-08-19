@@ -1,8 +1,14 @@
-const Staff = require('./../models/staff.schema');
+const { 
+    staffList, 
+    staffById, 
+    staffCreate, 
+    staffUpdate, 
+    staffDelete 
+} = require('./../services/bidder.service');
 
 const createStaff = async (req, res) => {
     try {
-        let result = await (req);
+        let result = await staffCreate(req);
 
         if (result.error) {
             res.status(400).json({ result });
@@ -21,7 +27,7 @@ const createStaff = async (req, res) => {
 
 const getStaffById = async (req, res) => {
     try {
-        let result = await (req);
+        let result = await staffById(req);
 
         if (result.error) {
             res.status(result.error).json({ result });
@@ -40,7 +46,7 @@ const getStaffById = async (req, res) => {
 
 const getStaffList = async (req, res) => {
     try {
-        let result = await (req.query.serchText, req.headers.pageNo, req.headers.pageSize);
+        let result = await staffList(req);
 
         if (result.error) {
             res.status(result.error).json({ result });
@@ -59,7 +65,7 @@ const getStaffList = async (req, res) => {
 
 const updateStaff = async (req, res) => {
     try {
-        let result = await bidderUpdate(req);
+        let result = await staffUpdate(req);
 
         if (result.error) {
             res.status(result.error).json({ result });
@@ -78,7 +84,7 @@ const updateStaff = async (req, res) => {
 
 const deleteStaff = async (req, res) => {
     try {
-        let result = await bidderDelete(req);
+        let result = await staffDelete(req);
 
         if (result.error) {
             res.status(result.error).json({ result });
@@ -93,4 +99,12 @@ const deleteStaff = async (req, res) => {
             }
         });
     }
+};
+
+module.exports = {
+    createStaff,
+    getStaffById,
+    getStaffList,
+    updateStaff,
+    deleteStaff
 };
