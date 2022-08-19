@@ -17,6 +17,7 @@ import { useNavigate } from "react-router-dom";
 import PasswordIcon from "@mui/icons-material/Password";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/material.css";
+import Iframe from 'react-iframe';
 
 export default function Enroll({ credentials, setCredentials, handleNext }) {
   const [pwError, setPwError] = React.useState("");
@@ -202,7 +203,14 @@ export default function Enroll({ credentials, setCredentials, handleNext }) {
             error={confirmPwError === "" ? false : true}
             helperText={confirmPwError === "" ? "" : confirmPwError}
           />
-
+         
+          {/* <Iframe url="https://res.cloudinary.com/venq-technologies/image/upload/v1658494070/moa/Another%20Startup.pdf"
+        width="450px"
+        height="450px"
+        id="myId"
+       
+        display="initial"
+        /> */}
           <Button
             type="submit"
             fullWidth
