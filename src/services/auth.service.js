@@ -1,9 +1,10 @@
 const Auth = require('./../models/auth.schema');
 const User = require('./../models/user.schema');
-const  { generateOtp } = require('./../utilities/utils');
+const  { generateOtp, validatePassword } = require('./../utilities/utils');
 const sendEmail = require('./email.service');
 const sendSms = require('./sms.service');
 const speakeasy = require('speakeasy');
+const jwt = require('jsonwebtoken');
 
 const sendOtpByEmail = async (req, user) => {
     const milliseconds = new Date().getTime();
@@ -25,7 +26,7 @@ const sendOtpByEmail = async (req, user) => {
         expireAt: lessMinuteDate,
         lastAccess: new Date(),               
         clientIPAddress: req.connection.remoteAddress,
-        userAgent: req.headers["user-agent"]
+        userAgent: req.headers['user-agent']
     }).save();
 
     return auth._id;
@@ -50,7 +51,7 @@ const sendOtpBySms = async (req, user) => {
         expireAt: lessMinuteDate,
         lastAccess: new Date(),               
         clientIPAddress: req.connection.remoteAddress,
-        userAgent: req.headers["user-agent"]
+        userAgent: req.headers['user-agent']
     }).save();
 
     return auth._id;
@@ -128,7 +129,7 @@ const totpSecretGenerate = async (req) => {
     user = await User.findByIdAndUpdate(req.params.id, { totpsecret: tempSecret.base32 });
 
     result = {
-        message: 'Secret generated',
+        message: 'Totp Secret generated',
         data:  {
             url: tempSecret.otpauth_url
         }
@@ -148,22 +149,25 @@ const totpEnable = async (req) => {
     }
 
     const verify = speakeasy.totp.verify({
-        secret: user.secret,
+        secret: user.totpsecret,
         encoding: 'base32',
-        token: req.body.token
+        token: req.body.totp
     });
 
     if (!verify) {
         result = {
-            message: 'Invalid token',
+            message: 'Invalid totp',
             error: 400
         };
+        return result;
     }
     
     user = await User.findByIdAndUpdate(req.params.id, { istotpenabled: true });
     result = {
-        message: 'Token verified',
-        user: user
+        message: 'Totp verified',
+        data: {
+            user
+        }
     };
     return result;
 };
@@ -180,24 +184,108 @@ const totpTokenVerify = async (req) => {
     }
 
     const verify = speakeasy.totp.verify({
-        secret: user.secret,
+        secret: user.totpsecret,
         encoding: 'base32',
-        token: req.body.token
+        token: req.body.totp
     });
 
     if (!verify) {
         result = {
-            message: 'Invalid token',
+            message: 'Invalid totp',
             error: 400
         };
+        return result;
     }
 
+    const { jwtToken, expireDate } = await generateBearerToken(req, user);
+
     result = {
-        message: 'Token verified',
-        user: user
+        message: 'Totp verified',
+        data: {
+            jwtToken,
+            expireDate,
+            user
+        }
     };
     return result;
 };
+
+const loginUser = async (req) => {
+    let result;
+    const user = await User.findOne({ email: req.body.email, isDeleted: false });
+
+    if (!user) {
+        result = {
+            message: 'Incorrect email',
+            error: 404
+        };
+        return result;
+    }
+
+    if (!validatePassword(req.body.password, user.password)) {
+        result = {
+            message: 'Incorrect password',
+            error: 400
+        };
+        return result;
+    }
+
+    if (user.istotpenabled) {
+        result = {
+            message: 'Please enter totp',
+            data: {
+                user
+            }
+        };
+        return result;
+    }
+
+    const { jwtToken, expireDate } = await generateBearerToken(req, user);
+
+    result = {
+        message: 'Bearer token generated',
+        data: {
+            jwtToken,
+            expireDate,
+            user
+        }
+    }
+    return result;
+};
+
+const generateBearerToken = async (req, user) => {
+    const jwtToken = jwt.sign({
+        userId: user._id,
+        parentId: user.parentid,
+        name: user.name,
+        email: user.email,
+        role: user.role
+    }, process.env.JWT_SECRET, {
+        expiresIn: '24h',
+    });
+
+    const expireDate = new Date();
+    expireDate.setHours(expireDate.getHours() + 24);
+
+    await new Auth({
+        token: jwtToken,
+        user: {
+            id: user._id,
+            email: user.email,
+            mobile: user.mobile
+        },
+        userAgent: req.headers['user-agent'],
+        tokenType: 'BEARER',
+        clientIPAddress: req.connection.remoteAddress,
+        expireAt: expireDate,
+        lastAccess: new Date()
+    }).save();
+
+    return {
+        jwtToken,
+        expireDate
+    };
+}
 
 module.exports = {
     sendOtpByEmail,
@@ -205,5 +293,6 @@ module.exports = {
     emailAndMobileVerification,
     totpSecretGenerate,
     totpEnable,
-    totpTokenVerify
+    totpTokenVerify,
+    loginUser
 };
