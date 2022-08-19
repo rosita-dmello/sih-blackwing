@@ -31,7 +31,17 @@ html{
   justify-content: space-between;
 }
 
+.cat2{
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 25px;
+}
+
 .lower-adjust{
   margin: 20px;
   text-align: center;
+}
+
+.select-adj{
+  width: 200px;
 }

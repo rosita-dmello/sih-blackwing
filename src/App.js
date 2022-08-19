@@ -12,6 +12,8 @@ import BidderEnrollment from "./pages/BidderEnrollment";
 import BidderDash from "./pages/BidderDash";
 import DepartmentDash from "./pages/DepartmentDash";
 import { AnimatePresence } from "framer-motion";
+import BidderSideTender from "./pages/BidderSideTender";
+
 
 function App() {
   const loc = useLocation();
@@ -32,6 +34,7 @@ function App() {
 
           <Route path="/bidder/enrollment" element={<BidderEnrollment/>} />
           <Route path="/bidder" element={<BidderDash/>} />
+          <Route path="/bidder/tender" element={<BidderSideTender/>} />
 
           <Route path="/department" element={<DepartmentDash/>} />
         </Routes>

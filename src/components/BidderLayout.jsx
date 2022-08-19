@@ -13,8 +13,10 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import Stambh from "../utils/stambh.png";
 import MailIcon from "@mui/icons-material/Mail";
+import BackupTableIcon from '@mui/icons-material/BackupTable';
 
-import LoginIcon from "@mui/icons-material/Login";
+import LogoutIcon from '@mui/icons-material/Logout';
+
 import ViewInArIcon from '@mui/icons-material/ViewInAr';
 import GavelIcon from '@mui/icons-material/Gavel';
 
@@ -79,15 +81,15 @@ function Layout({ children }) {
         <Toolbar />
         <Box sx={{ overflow: "auto" }}>
           <List>
-            {["Bidder Here"].map(
+            {["Tenders","Logout"].map(
               (text, index) => (
                 <ListItem key={text} disablePadding>
-                    <ListItemButton component={Link} to={index===0?"/bidder":index===1?"/nodalofficer/verify":index===2?"/bidder/enrollment":"/"}>
+                    <ListItemButton component={Link} to={index===0?"/bidder/tender":index===1?"/":index===2?"/bidder/enrollment":"/"}>
                       <ListItemIcon>
                         {index === 0 ? (
-                          <LoginIcon />
+                          <BackupTableIcon />
                         ) : index === 1 ? (
-                          <ViewInArIcon />
+                          <LogoutIcon />
                         ) : index === 2 ?(
                           <GavelIcon />
                         ):(

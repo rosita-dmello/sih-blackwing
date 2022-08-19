@@ -6,6 +6,7 @@ import TenderDisplay from "./TenderDisplay";
 import { motion } from "framer-motion";
 import Spinner from "../utils/chakra.gif";
 import { Typography } from "@mui/material";
+import {getAllTenders} from "../api/tender";
 
 function Home() {
   const [loading, setLoading] = React.useState(true);
@@ -13,6 +14,10 @@ function Home() {
   React.useEffect(() => {
     setTimeout(() => {
       setLoading(false);
+      getAllTenders().then((res) => {
+        console.log(res);
+      }
+      );
     }, 2300);
   }, []);
   if(loading){

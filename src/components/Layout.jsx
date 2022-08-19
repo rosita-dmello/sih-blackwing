@@ -80,7 +80,7 @@ function Layout({ children }) {
         <Toolbar />
         <Box sx={{ overflow: "auto" }}>
           <List>
-            {["User Login", "Department Login", "Bidder enrollment"].map(
+            {["User Login", "Department Registration", "Bidder enrollment"].map(
               (text, index) => (
                 <ListItem key={text} disablePadding>
                     <ListItemButton component={Link} to={index===0?"/login":index===1?"/nodalofficer/verify":index===2?"/bidder/enrollment":"/"}>
