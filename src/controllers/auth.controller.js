@@ -17,8 +17,8 @@ const generateEmailAndMobileOtp = async (req, res) => {
             res.status(user.error).json({ user });
         }
 
-        const authEmailId = await sendOtpByEmail(req, newUser);
-        const authSmsId = await sendOtpBySms(req, newUser);
+        const authEmailId = await sendOtpByEmail(req, user);
+        const authSmsId = await sendOtpBySms(req, user);
 
         result = { 
             message: 'OTP sent',
