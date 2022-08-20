@@ -6,9 +6,16 @@ const createUser = async (req, user, role) => {
     let result;
     const password = await hashPassword(req.body.password);
 
+    let name;
+    if (user.companyName) {
+        name = user.companyName;
+    } else {
+        name = user.name;
+    }
+
     const newUserObj = {
         parentid: user._id,
-        name: user.companyName,
+        name: name,
         email: user.email,
         mobile: user.mobile,
         role: role,
@@ -32,4 +39,24 @@ const createUser = async (req, user, role) => {
     return result;
 };
 
-module.exports = createUser;
+const getUserById = async(id) => {
+    let result;
+    const user = await User.findById(id);
+
+    if (!user) {
+        result = {
+            message: 'User not found',
+            error: 404
+        };
+    } 
+
+    result = {
+        user
+    }
+    return result
+}
+
+module.exports =  {
+    createUser,
+    getUserById
+};

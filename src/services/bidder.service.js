@@ -1,6 +1,6 @@
 const Bidder = require('../models/bidder.schema');
 const verifyGstin = require('./verification.service');
-const createUser = require('./user.service');
+const { createUser } = require('./user.service');
 
 const bidderList = async (searchText, pageNo, pageSize) => {
     let result;
@@ -79,21 +79,21 @@ const bidderCreate = async (req) => {
     if (!panVerification) {
         result = {
             message: 'Enter correct PAN',
-            error: true
+            error: 400
         }
         information = false;
     }
     if (!gstinVerfication) {
         result = {
             message: 'Enter correct GSTIN',
-            error: true
+            error: 400
         }
         information = false;
     }
     if (!panVerification && !gstinVerfication) {
         result = {
             message: 'Enter correct PAN & GSTIN',
-            error: true
+            error: 400
         }
         information = false;
     }
