@@ -14,32 +14,51 @@ import Container from "@mui/material/Container";
 import Layout from "../components/Layout";
 import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";
 import { useNavigate } from "react-router-dom";
-export default function DSCPassword() {
-  const [pwError, setPwError] = React.useState("");
-  const [confirmPwError, setConfirmPwError] = React.useState("");
+import {verifyTotpPost} from "../api/common";
+
+import moment from "moment";
+moment().format();
+
+export default function Complete2FA() {
   const [loginError, setLoginError] = React.useState("");
+  const [phoneError, setPhoneError] = React.useState("");
+  const [hotp, setHotp] = React.useState("");
+
   const navigate = useNavigate();
   const handleSubmitPassword = async (event) => {
-    setPwError("");
-    setConfirmPwError("");
+      event.preventDefault();
     setLoginError("");
+    const code = hotp;
 
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    if (data.get("password").length < 8) {
-      setPwError("Password too short.");
-    } else if (data.get("password") !== data.get("confirmPassword")) {
-      setConfirmPwError("This field does not match with the password.");
+    const user = JSON.parse(localStorage.getItem("user"));
+
+    const response = await verifyTotpPost(
+      user._id,
+      localStorage.getItem("token"),
+      {
+        totp: code
+      }
+    );
+    console.log(response);
+    if (response.error) {
+      setLoginError("Invalid Code!");
     } else {
-      console.log({
-        code: data.get("code"),
-        password: data.get("password"),
-      });
-      navigate("/");
+      const token = response.result.data.jwtToken;
+
+      const user = JSON.stringify(response.result.data.user);
+      localStorage.setItem("token", token);
+      localStorage.setItem("user", user);
+      const time = moment();
+      localStorage.setItem("setAt", time);
+      localStorage.setItem("expireAt", response.result.data.expireDate);
+      
+      if (response.result.data.user.role === "BIDDER" ) {
+        navigate("/bidder");
+      } else {
+          navigate("/department");
+      } 
     }
   };
-
-  
 
   return (
     <Layout>
@@ -65,7 +84,7 @@ export default function DSCPassword() {
               mt: 2,
             }}
           >
-            SET A PASSWORD
+            TWO FACTOR AUTHENTICATION
           </Typography>
 
           <hr
@@ -82,57 +101,21 @@ export default function DSCPassword() {
             noValidate
             sx={{ mt: 1 }}
           >
+            <Typography variant="h5" textAlign="center">
+              Secret Code generated on your Authentication App (Authy or Google
+              Authenticator)
+            </Typography>
             <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="code"
-              name="code"
-              label="Verification Code from Email"
-              autoFocus
-              sx={{
-                mb: "1rem",
-              }}
-              error={loginError === "" ? false : true}
-              helperText={loginError === "" ? "" : loginError}
-            />
-
-            <hr
-              style={{
-                width: "100%",
-                height: "2px",
-                backgroundColor: "#3e92cc",
-                border: "none",
-              }}
-            />
-
-            <TextField
-              required
-              fullWidth
-              name="password"
-              label="Set a New Password"
-              type="password"
-              id="password"
-              autoComplete="new-password"
-              error={pwError === "" ? false : true}
-              helperText={pwError === "" ? "" : pwError}
-              sx={{
-                  my: "1rem"
-              }}
-            />
-
-            <TextField
-              required
-              fullWidth
-              name="password"
-              label="Confirm Password"
-              name="confirmPassword"
-              type="password"
-              id="confirmPassword"
-              autoComplete="new-password"
-              error={confirmPwError === "" ? false : true}
-              helperText={confirmPwError === "" ? "" : confirmPwError}
-            />
+                          id="hotp"
+                          label="Enter 6 digit Code Generated"
+                          onChange={(event) => setHotp(event.target.value)}
+                          fullWidth
+                          sx={{
+                            mt: 1.5,
+                          }}
+                          error={loginError === "" ? false : true}
+                          helperText={loginError === "" ? "" : loginError}
+                        />
 
             <Button
               type="submit"
@@ -140,7 +123,7 @@ export default function DSCPassword() {
               variant="contained"
               sx={{ mt: 3, mb: 2, borderRadius: 0 }}
             >
-              Set Password
+              Verify
             </Button>
           </Box>
         </Box>

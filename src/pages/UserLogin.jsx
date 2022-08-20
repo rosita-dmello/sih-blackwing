@@ -14,7 +14,7 @@ import { CircularProgress } from "@mui/material";
 import Layout from "../components/Layout";
 import {Avatar} from "@mui/material";
 import VpnKeyIcon from '@mui/icons-material/VpnKey';
-import { loginPost } from "../api/common";
+import { generateOtpGet, loginPost } from "../api/common";
 
 import moment from "moment";
 moment().format();
@@ -75,25 +75,33 @@ export default function UserLogin() {
           email: data.get("email"),
         });
         console.log(response);
-        // if (response.data && response.data.success)
-        // {
-        //   const token = response.data.token;
-        //   const user = JSON.stringify(response.data.data);
-        //   localStorage.setItem("token", token);
-        //   localStorage.setItem("user", user);
-        //   const time = moment();
-        //   localStorage.setItem("setAt", time);
-        //   setLoggedIn(true);
-        //   if (response.data.data.type === "CUSTOMER") {
-        //     navigate("/orders");
-        //   } else if (response.data.data.type === "ADMIN") {
-        //     navigate("/admin/orders");
-        //   } else if (response.data.data.type === "DELIVERY") {
-        //     navigate("/delivery/orders");
-        //   }
-        // } else {
-        //   setOtherError("Incorrect Email or Password!");
-        // }
+
+        if (response.result.data)
+        {
+          const token = response.result.data.jwtToken;
+
+          const userObj = response.result.data.user;
+          const user = JSON.stringify(response.result.data.user);
+          localStorage.setItem("token", token);
+          localStorage.setItem("user", user);
+          const time = moment();
+          localStorage.setItem("setAt", time);
+          
+          if (!(userObj.isemailverified) || !(userObj.ismobileverified)) {
+            const response = await generateOtpGet(userObj._id);
+            console.log(response);
+            // if(response.result.data) {
+            //   navigate("/otp/enter")
+            // }
+            
+          } else if (userObj.istotpenabled ) {
+            navigate("/totp/enter");
+          } else {
+              navigate("/totp/enable");
+          }
+        } else {
+          setOtherError("Incorrect Email or Password!");
+        }
         // console.log(response);
       } catch (err) {
         console.log(err);
