@@ -1,6 +1,7 @@
 const express = require('express');
 const auth = require('./../middlewares/authentication.middleware');
 const  { 
+    generateEmailAndMobileOtp,
     verifyEmailAndMobile, 
     generateTotpSecret, 
     enableTotp, 
@@ -9,6 +10,8 @@ const  {
 } = require('./../controllers/auth.controller');
 
 const router = new express.Router();
+
+router.get('/generate/otp', generateEmailAndMobileOtp)
 
 router.post('/verify/otp', verifyEmailAndMobile);
 

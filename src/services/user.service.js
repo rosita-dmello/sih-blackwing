@@ -48,11 +48,10 @@ const getUserById = async(id) => {
             message: 'User not found',
             error: 404
         };
+        return result
     } 
 
-    result = {
-        user
-    }
+    result = { user }
     return result
 }
 
