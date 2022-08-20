@@ -5,7 +5,7 @@ const apiUrl = "https://sih-blackwing-api.herokuapp.com/api";
 export const createBidderPost = async (formData) => {
     try {
         const response = await axios.post(apiUrl + "/bidder/", formData);
-        console.log(response);
+        console.log("line8", response);
     if (response.data) {
         return (response.data)
     } else {
