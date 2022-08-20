@@ -11,7 +11,7 @@ const  {
 
 const router = new express.Router();
 
-router.get('/generate/otp', generateEmailAndMobileOtp)
+router.get('/generate/otp/:id', generateEmailAndMobileOtp)
 
 router.post('/verify/otp', verifyEmailAndMobile);
 
