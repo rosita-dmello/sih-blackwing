@@ -13,8 +13,9 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Layout from "../components/Layout";
 import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";
+import Card from "@mui/material/Card";
 import { useNavigate } from "react-router-dom";
-import {verifyTotpPost} from "../api/common";
+import { verifyTotpPost } from "../api/common";
 
 import moment from "moment";
 moment().format();
@@ -26,7 +27,7 @@ export default function Complete2FA() {
 
   const navigate = useNavigate();
   const handleSubmitPassword = async (event) => {
-      event.preventDefault();
+    event.preventDefault();
     setLoginError("");
     const code = hotp;
 
@@ -36,7 +37,7 @@ export default function Complete2FA() {
       user._id,
       localStorage.getItem("token"),
       {
-        totp: code
+        totp: code,
       }
     );
     console.log(response);
@@ -51,83 +52,105 @@ export default function Complete2FA() {
       const time = moment();
       localStorage.setItem("setAt", time);
       localStorage.setItem("expireAt", response.result.data.expireDate);
-      
-      if (response.result.data.user.role === "BIDDER" ) {
+
+      if (response.result.data.user.role === "BIDDER") {
         navigate("/bidder");
       } else {
-          navigate("/department");
-      } 
+        navigate("/department");
+      }
     }
   };
 
   return (
     <Layout>
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
-
+      <Box
+        sx={{
+         
+          display: "flex",
+         
+          alignItems: "center",
+          justifyContent: "center"
+        }}
+      >
+        
         <Box
           sx={{
             marginTop: 8,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
+            justifyContent: "center",
+            maxWidth: "30vw",
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: "primary.main" }}>
-            <VerifiedUserIcon />
-          </Avatar>
-          <Typography
-            component="h1"
-            variant="h5"
-            fontWeight="bold"
+          <Card
             sx={{
-              mt: 2,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              padding: 5,
+              borderRadius: 5
             }}
+            elevation={4}
           >
-            TWO FACTOR AUTHENTICATION
-          </Typography>
-
-          <hr
-            style={{
-              width: "20%",
-              height: "2px",
-              backgroundColor: "#3e92cc",
-              border: "none",
-            }}
-          />
-          <Box
-            component="form"
-            onSubmit={handleSubmitPassword}
-            noValidate
-            sx={{ mt: 1 }}
-          >
-            <Typography variant="h5" textAlign="center">
-              Secret Code generated on your Authentication App (Authy or Google
-              Authenticator)
-            </Typography>
-            <TextField
-                          id="hotp"
-                          label="Enter 6 digit Code Generated"
-                          onChange={(event) => setHotp(event.target.value)}
-                          fullWidth
-                          sx={{
-                            mt: 1.5,
-                          }}
-                          error={loginError === "" ? false : true}
-                          helperText={loginError === "" ? "" : loginError}
-                        />
-
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2, borderRadius: 0 }}
+            <Avatar sx={{ m: 1, bgcolor: "primary.main" }}>
+              <VerifiedUserIcon />
+            </Avatar>
+            <Typography
+              component="h1"
+              variant="h5"
+              fontWeight="bold"
+              sx={{
+                mt: 2,
+              }}
+              textAlign="center"
             >
-              Verify
-            </Button>
-          </Box>
+              TWO FACTOR AUTHENTICATION
+            </Typography>
+
+            <hr
+              style={{
+                width: "20%",
+                height: "2px",
+                backgroundColor: "#3e92cc",
+                border: "none",
+              }}
+            />
+            <Box
+              component="form"
+              onSubmit={handleSubmitPassword}
+              noValidate
+              sx={{ mt: 1 }}
+            >
+              <Typography variant="body2" textAlign="center">
+                Secret Code generated on your Authentication App (Authy or
+                Google Authenticator)
+              </Typography>
+              <TextField
+                id="hotp"
+                label="Enter 6 digit Code"
+                onChange={(event) => setHotp(event.target.value)}
+                fullWidth
+                sx={{
+                  mt: 1.5,
+                }}
+                error={loginError === "" ? false : true}
+                helperText={loginError === "" ? "" : loginError}
+              />
+
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2, borderRadius: 0 }}
+              >
+                Verify
+              </Button>
+            </Box>
+          </Card>
         </Box>
-      </Container>
+      </Box>
     </Layout>
   );
 }

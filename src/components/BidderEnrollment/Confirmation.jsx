@@ -1,5 +1,4 @@
 import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
-import sha256 from "crypto-js/sha256";
 
 import React, {useState} from "react";
 import {
