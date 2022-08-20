@@ -12,13 +12,11 @@ function Home() {
   const [loading, setLoading] = React.useState(true);
 
   React.useEffect(() => {
-    setTimeout(() => {
-      setLoading(false);
       getAllTenders().then((res) => {
         console.log(res);
+        setLoading(false);
       }
       );
-    }, 2300);
   }, []);
   if(loading){
     return ( <>

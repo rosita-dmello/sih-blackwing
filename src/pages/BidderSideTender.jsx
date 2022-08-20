@@ -11,6 +11,9 @@ import Layout from "../components/BidderLayout";
 import { Button, Grid, Switch } from "@mui/material";
 import Select from 'react-select';
 import {getTenderByFilter, getAllTenders} from "../api/tender";
+import TenderView from "../components/TenderView";
+import Spinner from "../utils/chakra.gif";
+
 const columns = [
   { id: "reference_id", label: "Reference ID", minWidth: 170 },
   { id: "type", label: "Type", minWidth: 100 },
@@ -51,6 +54,8 @@ export default function BidderSideTender() {
   };
 
   const [tenders, setTenders] = React.useState([]);
+
+  const [loading, setLoading] = React.useState(true);
 
   const types = [
     { value: 'None', label: 'None' },
@@ -96,13 +101,29 @@ export default function BidderSideTender() {
 
   React.useEffect(() => {
     getTenderByFilter(type, category, status).then(res => {
-      console.log(res.result.data)
       setTenders(res.result.data.tenders)
+      setLoading(false);
     }).catch(err => {
       console.log(err)
     })
-  } , [type, category, status])
+  } , [type, category, status])  
 
+  const [selectedTender, setSelectedTender] = React.useState(null);
+
+  if(selectedTender) {
+    return (
+      <Layout>
+        <TenderView tender={selectedTender} />
+      </Layout>
+    )
+  } 
+  else if(loading){
+    return ( <>
+      <div className="spinner">
+        <img src={Spinner} alt="Loading..." />
+      </div>
+    </>);
+  }
 
   return (
     <Layout>
@@ -152,7 +173,7 @@ export default function BidderSideTender() {
                           key={row.code}
                           compnent={Button}
                           onClick={() => {
-                            console.log(row);
+                            setSelectedTender(tenders.find(tender => tender.tenderreferenceno === row.reference_id));
                           }}
                         >
                           {columns.map((column) => {
@@ -168,6 +189,7 @@ export default function BidderSideTender() {
                         </TableRow>
                       );
                     })}
+                    {tenders.length === 0 && <div style={{textAlign: 'center'}}>No Tenders Found</div>}
                 </TableBody>
               </Table>
             </TableContainer>
