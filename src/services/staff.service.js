@@ -1,11 +1,12 @@
 const Staff = require('./../models/staff.schema');
-const verifyGstin = require('./verification.service');
-const createUser = requiSre('./user.service');
+const { createUser } = require('./user.service');
 
-const staffList = async () => {
+const staffList = async (req) => {
     let result;
     let staffs;
-    const queryObj = { isDeleted: false };
+
+    const staff = await Staff.findById(req.parentId);
+    const queryObj = { isdeleted: false, parentid: staff.parentid };
 
     let aggregationPipeline = [];
 
@@ -38,7 +39,7 @@ const staffById = async (req) => {
     result = {
         message: 'Staff details',
         data: {
-            Staff
+            staff
         }
     };
     return result;
@@ -47,37 +48,6 @@ const staffById = async (req) => {
 const staffCreate = async (req) => {
     let result;
     let newStaff = new Staff(req.body);
-    
-    let information = true;
-    const panVerification = 1;
-    // const gstinVerfication = await verifyGstin(newStaff.gstinNumber);
-    const gstinVerfication = 1;
-
-    if (!panVerification) {
-        result = {
-            message: 'Enter correct PAN',
-            error: 400
-        }
-        information = false;
-    }
-    if (!gstinVerfication) {
-        result = {
-            message: 'Enter correct GSTIN',
-            error: 400
-        }
-        information = false;
-    }
-    if (!panVerification && !gstinVerfication) {
-        result = {
-            message: 'Enter correct PAN & GSTIN',
-            error: 400
-        }
-        information = false;
-    }
-    if (!information) {
-        return result;
-    }
-
     newStaff = await newStaff.save();
 
     const newUser = await createUser(req, newStaff, req.body.role);
