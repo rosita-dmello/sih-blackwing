@@ -1,6 +1,6 @@
 const Bidder = require('../models/bidder.schema');
 const verifyGstin = require('./verification.service');
-const createUser = require('./user.service');
+const { createUser } = require('./user.service');
 
 const bidderList = async (searchText, pageNo, pageSize) => {
     let result;
