@@ -1,10 +1,42 @@
 const { 
+    sendOtpByEmail,
+    sendOtpBySms,
     emailAndMobileVerification, 
     totpSecretGenerate, 
     totpEnable, 
     totpTokenVerify, 
     loginUser 
 } = require('./../services/auth.service');
+const { getUserById } = require('./../services/user.service');
+
+const generateEmailAndMobileOtp = async (req, res) => {
+    try {
+        const user = await getUserById(req.params.id);
+
+        if (user.error) {
+            res.status(user.error).json({ user });
+        }
+
+        const authEmailId = await sendOtpByEmail(req, newUser);
+        const authSmsId = await sendOtpBySms(req, newUser);
+
+        result = { 
+            message: 'OTP sent',
+            data: {
+                authEmailId,
+                authSmsId,
+                user
+            }
+        };
+        return result;
+    } catch (error) {
+        res.status(400).json({
+            result: {
+                message: error.message
+            }
+        });
+    }
+}
 
 const verifyEmailAndMobile = async (req, res) => {
     try {
@@ -102,6 +134,7 @@ const login = async (req, res) => {
 };
 
 module.exports =  {
+    generateEmailAndMobileOtp,
     verifyEmailAndMobile,
     generateTotpSecret,
     enableTotp,
