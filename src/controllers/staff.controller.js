@@ -4,7 +4,7 @@ const {
     staffCreate, 
     staffUpdate, 
     staffDelete 
-} = require('./../services/bidder.service');
+} = require('./../services/staff.service');
 
 const createStaff = async (req, res) => {
     try {
