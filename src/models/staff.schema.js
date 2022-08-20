@@ -11,18 +11,13 @@ const staffSchema = new mongoose.Schema(
             require: true,
             enum: ['Mrs', 'Mr', 'Ms', 'Dr', 'Sri']
         },
-        firstname: {
-            type: String,
-            required: true,
-            trim: true
-        },
-        lastname: {
+        name: {
             type: String,
             required: true,
             trim: true
         },
         dateofbirth: {
-            type: Date,
+            type: String,
             required: true
         },
         email: {
@@ -37,9 +32,6 @@ const staffSchema = new mongoose.Schema(
             type: String
         },
         organizationname: {
-            type: String
-        },
-        departmentcircle: {
             type: String
         },
         designation: {
