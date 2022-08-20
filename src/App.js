@@ -14,6 +14,7 @@ import BidderSideTender from "./pages/BidderSideTender";
 import Enable2FA from "./pages/Enable2FA";
 import Complete2FA from "./pages/Complete2FA";
 import EnterOTPs from "./pages/EnterOTPs";
+import TenderCreation from './pages/TenderCreation';
 
 
 function App() {
@@ -41,7 +42,7 @@ function App() {
           <Route path="/bidder/tender" element={<BidderSideTender/>} />
 
           <Route path="/department" element={<DepartmentDash/>} />
-
+          <Route path="/department/createtender" element={<TenderCreation/>} />
 
         </Routes>
         </AnimatePresence>
