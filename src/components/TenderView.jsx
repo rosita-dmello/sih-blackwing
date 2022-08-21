@@ -53,13 +53,13 @@ function TenderView({ tender }) {
                 <div className="tdview">{tender.formofcontract}</div>
               </div>
               <div>
-                Publish Date:{" "}
+                Publish Date:
                 <div className="tdview">
                   {moment(tender.publishingdate).format("DD-MM-YYYY")}
                 </div>
               </div>
               <div>
-                Publish Time:{" "}
+                Publish Time:
                 <div className="tdview">{tender.publishingat}</div>
               </div>
             </div>

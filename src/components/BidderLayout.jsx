@@ -14,11 +14,8 @@ import ListItemText from "@mui/material/ListItemText";
 import Stambh from "../utils/stambh.png";
 import MailIcon from "@mui/icons-material/Mail";
 import BackupTableIcon from '@mui/icons-material/BackupTable';
-
+import BookIcon from '@mui/icons-material/Book';
 import LogoutIcon from '@mui/icons-material/Logout';
-
-import ViewInArIcon from '@mui/icons-material/ViewInAr';
-import GavelIcon from '@mui/icons-material/Gavel';
 
 import { useTheme } from "@mui/material/styles";
 import { Link } from "react-router-dom";
@@ -30,12 +27,6 @@ const page = {
 };
 
 const drawerWidth = 240;
-const drawerStyle = {
-  width: 240,
-};
-const drawerPaper = {
-  width: 240,
-};
 
 function Layout({ children }) {
   const theme = useTheme();
@@ -81,22 +72,21 @@ function Layout({ children }) {
         <Toolbar />
         <Box sx={{ overflow: "auto" }}>
           <List>
-            {["Tenders","Logout"].map(
+            {["Tenders","Progress Log","Logout"].map(
               (text, index) => (
                 <ListItem key={text} disablePadding>
-                    <ListItemButton component={Link} to={index===0?"/bidder/tender":index===1?"/":index===2?"/bidder/enrollment":"/"}>
+                    <ListItemButton component={Link} to={index===0?"/bidder/tender":index===1?"/bidder/progress":index===2?"/":"/"}>
                       <ListItemIcon>
                         {index === 0 ? (
                           <BackupTableIcon />
                         ) : index === 1 ? (
-                          <LogoutIcon />
+                          <BookIcon />
                         ) : index === 2 ?(
-                          <GavelIcon />
+                          <LogoutIcon />
                         ):(
                           <MailIcon />
                         )}
                       </ListItemIcon>
-
                       <ListItemText primary={text} />
                     </ListItemButton>
                 </ListItem>

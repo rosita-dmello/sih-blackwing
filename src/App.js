@@ -15,7 +15,7 @@ import Enable2FA from "./pages/Enable2FA";
 import Complete2FA from "./pages/Complete2FA";
 import EnterOTPs from "./pages/EnterOTPs";
 import TenderCreation from './pages/TenderCreation';
-
+import BidderProgress from "./components/BidderProgress";
 
 function App() {
   const loc = useLocation();
@@ -40,6 +40,7 @@ function App() {
           <Route path="/bidder/enrollment" element={<BidderEnrollment/>} />
           <Route path="/bidder" element={<BidderDash/>} />
           <Route path="/bidder/tender" element={<BidderSideTender/>} />
+          <Route path="/bidder/progress" element={<BidderProgress/>} />
 
           <Route path="/department" element={<DepartmentDash/>} />
           <Route path="/department/createtender" element={<TenderCreation/>} />
