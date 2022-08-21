@@ -1,10 +1,10 @@
 import axios from "axios";
 
-const apiUrl = "https://sih-blackwing-api.herokuapp.com/api";
+const apiUrl = "https://950b-2400-3c20-200-40b5-9c6a-5729-3372-9ac6.in.ngrok.io/query/";
 
-export const createBidderPost = async (formData) => {
+export const sendQueryPost = async (formData) => {
     try {
-        const response = await axios.post(apiUrl + "/bidder/", formData);
+        const response = await axios.post(apiUrl, formData);
         console.log("line8", response);
     if (response.data) {
         return (response.data)

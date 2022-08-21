@@ -1,5 +1,5 @@
+import React, {useState} from "react";
 import Navbar from "./components/Navbar";
-import { ThemeProvider } from "@mui/material/styles";
 import { theme } from "./utils/theme";
 import { Routes, Route, useLocation } from "react-router-dom";
 import Home from "./components/Home";
@@ -16,12 +16,45 @@ import Complete2FA from "./pages/Complete2FA";
 import EnterOTPs from "./pages/EnterOTPs";
 import TenderCreation from './pages/TenderCreation';
 import BidderProgress from "./components/BidderProgress";
+import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
+import Typography from '@mui/material/Typography'
+import SizeChange from "./components/SizeChange";
+import Chatbot from 'react-chatbot-kit'
+import 'react-chatbot-kit/build/main.css'
+import chatbotConfig from "./utils/chatbotConfig";
+import MessageParser from "./components/Chatbot/MessageParser";
+import ActionProvider from "./components/Chatbot/ActionProvider";
 
 function App() {
   const loc = useLocation();
+  const [size, setSize] = useState(14);
+
+  const newTheme = createTheme({
+    palette: {
+      type: 'light',
+      primary: {
+        main: '#3e92cc',
+        light: '#87adf3',
+      },
+      secondary: {
+        main: '#e5e5e5',
+      },
+    },
+   
+    mixins: {
+        toolbar: {
+            minHeight: 80
+        }
+    },
+    typography: {
+      fontSize: size
+    }
+  });
+
+
   return (
     <div className="App">
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={newTheme}>
         <AnimatePresence exitBeforeEnter>
         {/* <Navbar /> */}
         <Routes location={loc} key={loc.key}>
@@ -46,6 +79,14 @@ function App() {
           <Route path="/department/createtender" element={<TenderCreation/>} />
 
         </Routes>
+        <div style={{marginLeft: "40%"}}>
+        <Chatbot
+          config={chatbotConfig}
+          messageParser={MessageParser}
+          actionProvider={ActionProvider}
+        />
+      </div>
+        <SizeChange size={size} setSize={setSize} />
         </AnimatePresence>
       </ThemeProvider>
     </div>

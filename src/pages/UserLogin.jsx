@@ -64,12 +64,7 @@ export default function UserLogin() {
       setPwError("Please enter your password!");
     } else {
       try {
-        console.log({
-          password: data.get("password"),
-          email: data.get("email"),
-        });
       
-
         const response = await loginPost({
           password: data.get("password"),
           email: data.get("email"),
@@ -79,20 +74,24 @@ export default function UserLogin() {
         if (response.result.data)
         {
           const token = response.result.data.jwtToken;
-
           const userObj = response.result.data.user;
-          const user = JSON.stringify(response.result.data.user);
+          const userString = JSON.stringify(response.result.data.user);
           localStorage.setItem("token", token);
-          localStorage.setItem("user", user);
+          localStorage.setItem("user", userString);
           const time = moment();
           localStorage.setItem("setAt", time);
           
           if (!(userObj.isemailverified) || !(userObj.ismobileverified)) {
             const response = await generateOtpGet(userObj._id);
             console.log(response);
-            // if(response.result.data) {
-            //   navigate("/otp/enter")
-            // }
+            if(response.result.data) {
+              const {authEmailId, authSmsId, user} = response.result.data;
+              localStorage.setItem("authEmailId", authEmailId);
+              localStorage.setItem("authSmsId", authSmsId);
+              navigate("/otp/enter")
+            } else {
+              console.log(response.result)
+            }
             
           } else if (userObj.istotpenabled ) {
             navigate("/totp/enter");

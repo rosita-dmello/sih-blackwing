@@ -14,29 +14,39 @@ import Container from "@mui/material/Container";
 import Layout from "../components/Layout";
 import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";
 import { useNavigate } from "react-router-dom";
+import { verifyOtpPost } from "../api/common";
 
 export default function EnterOTPs() {
- 
   const [loginError, setLoginError] = React.useState("");
   const [phoneError, setPhoneError] = React.useState("");
   const navigate = useNavigate();
   const handleSubmitPassword = async (event) => {
-    
     setLoginError("");
     setPhoneError("");
 
     event.preventDefault();
     const data = new FormData(event.currentTarget);
+    console.log(localStorage.getItem("authSmsId"));
     const postData = {
       emailOtp: data.get("emailOtp"),
       mobileOtp: data.get("mobileOtp"),
-      authMobileId: localStorage.getItem("authMobileId"),
-      authEmailId: localStorage.getItem("authEmailId")
-  }
-    
-  };
+      authMobileId: localStorage.getItem("authSmsId"),
+      authEmailId: localStorage.getItem("authEmailId"),
+    };
 
-  
+    const response = await verifyOtpPost(postData);
+    if (response.result.data) {
+      const { user } = response.result.data;
+      const userString = JSON.stringify(user);
+      localStorage.setItem("user", userString);
+      if (user.istotpenabled ) {
+        navigate("/totp/enter");
+      } else {
+          navigate("/totp/enable");
+      }
+      
+    }
+  };
 
   return (
     <Layout>
