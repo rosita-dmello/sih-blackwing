@@ -1,5 +1,6 @@
 const bcrypt = require('bcryptjs');
 const crypto = require('crypto-js');
+const nodemailer = require('nodemailer');
 const dotenv = require('dotenv').config();
 
 const generateOtp = (otpLength) => {
@@ -10,6 +11,49 @@ const generateOtp = (otpLength) => {
     }
     return otp;
 };
+
+const sendEmail = async (toEmail, subject, body) => {
+    let transporter = nodemailer.createTransport({
+        host: "smtp.gmail.com",
+        port: 587,
+        secure: false,
+        requireTLS: true,
+        auth: {
+            user: process.env.NODEMAILER_EMAIL,
+            pass: process.env.NODEMAILER_PASSWORD
+        },
+        tls: {
+            ciphers: "SSLv3",
+        },
+    });
+
+    let mailOptions = {
+        from: process.env.NODEMAILER_EMAIL,
+        to:toEmail,
+        subject: subject,
+        text: body
+    };
+
+    await transporter.sendMail(mailOptions);
+};
+
+const sendSms = (message, mobile) => {
+    const accountSid = process.env.TWILIO_ACCOUNT_SID;
+    const authToken = process.env.TWILIO_AUTH_TOKEN;
+    
+    const client = require('twilio')(accountSid, authToken, {
+        lazyLoading: true
+    });
+
+    client.messages
+        .create({
+            from: '+13862725859',
+            to: mobile,
+            body: message
+        })
+        .then(message => console.log(`Message SID ${message.sid}`))
+        .catch(error => console.error(error));
+}
 
 const hashPassword = (password) => {
     password = bcrypt.hashSync(password, 8); 
@@ -36,6 +80,8 @@ const decrypt = (data) => {
 
 module.exports = { 
     generateOtp,
+    sendEmail,
+    sendSms,
     hashPassword,
     validatePassword,
     encrypt,
