@@ -7,16 +7,18 @@ import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 import Container from "@mui/material/Container";
 function SizeChange({ size, setSize }) {
   return (
-    <Container maxWidth="xl" minHeight="30vh" sx={{ ml: 40 }}>
+    <Container maxWidth="xl" minHeight="30vh" sx={{ ml: 40, margin:'0px' }}>
       <IconButton
         aria-label="increase-fontSize"
         onClick={() => setSize((prev) => prev + 2)}
+        sx={{ color: "white" }}
       >
         <AddCircleIcon />
       </IconButton>
       <IconButton
         aria-label="increase-fontSize"
         onClick={() => setSize((prev) => prev - 2)}
+        sx={{ color: "white" }}
       >
         <RemoveCircleIcon />
       </IconButton>

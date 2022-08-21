@@ -112,3 +112,18 @@ export const verifyTotpPost = async (userId, token, totp) => {
     }
     
 }
+
+export const getApiVersion = async () => {
+    try {
+        const response = await axios.get(apiUrl);
+    if (response.data) {
+        return (response.data)
+    } else {
+        console.log(response);
+    }   
+    } catch(err) {
+        console.log(err.response.data.result);
+        return (err.response.data.result)
+    }
+    
+}
