@@ -1,5 +1,4 @@
 import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
-import sha256 from "crypto-js/sha256";
 
 import React, {useState} from "react";
 import {
@@ -14,6 +13,7 @@ import {
 } from "@mui/material";
 import _ from "lodash";
 import { createBidderPost } from "../../api/bidder";
+import { useNavigate } from "react-router-dom";
 var CryptoJS = require("crypto-js");
 function Confirmation({
   contactDetails,
@@ -23,6 +23,7 @@ function Confirmation({
   handleNext,
 }) {
   const [error, setError] = useState("")
+  const navigate = useNavigate();
   const handleSubmit = async (event) => {
     // handleNext();
     const allData = {
@@ -35,8 +36,14 @@ function Confirmation({
     if(response.error) {
       setError(response.message)
     } else {
-      const {data} = response;
-      console.log("done", data);
+      if(response.result.data) {
+        const {authEmailId, authSmsId, newUser, newBidder} = response.result.data;
+        localStorage.setItem("authEmailId", authEmailId);
+        localStorage.setItem("authSmsId", authSmsId);
+        handleNext();
+      } else {
+        console.log(response.result)
+      }
     }
     console.log(response);
     // Encrypt

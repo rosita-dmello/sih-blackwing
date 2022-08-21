@@ -13,6 +13,8 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";
 import { useNavigate } from "react-router-dom";
+import { verifyOtpPost } from "../../api/common";
+
 export default function Verification({credentials}) {
   const [pwError, setPwError] = React.useState("");
   const [confirmPwError, setConfirmPwError] = React.useState("");
@@ -26,11 +28,28 @@ export default function Verification({credentials}) {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     console.log({
-        emailOtp: data.get("emailOtp"),
-        mobileOtp: data.get("mobileOtp"),
-        authMobileId: localStorage.getItem("authMobileId"),
-        authEmailId: localStorage.getItem("authEmailId")
-    })
+      emailOtp: data.get("emailOtp"),
+      mobileOtp: data.get("mobileOtp"),
+      authMobileId: localStorage.getItem("authSmsId"),
+      authEmailId: localStorage.getItem("authEmailId")
+  })
+    const response = await verifyOtpPost({
+      emailOtp: data.get("emailOtp"),
+      mobileOtp: data.get("mobileOtp"),
+      authMobileId: localStorage.getItem("authSmsId"),
+      authEmailId: localStorage.getItem("authEmailId")
+  });
+    if (response.result.data) {
+      const { user } = response.result.data;
+      const userString = JSON.stringify(user);
+      localStorage.setItem("user", userString);
+      if (user.istotpenabled ) {
+        navigate("/totp/enter");
+      } else {
+          navigate("/totp/enable");
+      }
+      
+    }
     // if (data.get("password").length < 8) {
     //   setPwError("Password too short.");
     // } else if (data.get("password") !== data.get("confirmPassword")) {
@@ -102,8 +121,8 @@ export default function Verification({credentials}) {
               margin="normal"
               required
               fullWidth
-              id="phoneOtp"
-              name="phoneOtp"
+              id="mobileOtp"
+              name="mobileOtp"
               label="Verification Code from Phone"
               autoFocus
               sx={{

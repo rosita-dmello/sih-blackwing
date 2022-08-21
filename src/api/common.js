@@ -1,10 +1,10 @@
 import axios from "axios";
 
-const apiUrl = "https://sih-blackwing-api.herokuapp.com/api";
+const apiUrl = "https://sih-blackwing-new.herokuapp.com/api";
 
 export const verifyOtpPost = async (formData) => {
     try {
-        const response = await axios.post(apiUrl + "/verify/otp", formData);
+        const response = await axios.post(apiUrl + "/auth/verify/otp", formData);
         console.log(response);
 
     if (response.data) {
@@ -18,6 +18,7 @@ export const verifyOtpPost = async (formData) => {
     }
     
 }
+
 
 export const generateOtpGet = async (userId) => {
     try {
