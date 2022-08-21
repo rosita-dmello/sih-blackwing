@@ -7,6 +7,9 @@ const MessageParser =  ({ children, actions }) => {
     const response = await sendQueryPost({
         query: message
     });
+    if(response && response.data) {
+        actions.handleMessage(response.data)
+    }
     console.log(response);
   };
 
