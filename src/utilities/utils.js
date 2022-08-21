@@ -1,7 +1,10 @@
 const bcrypt = require('bcryptjs');
 const crypto = require('crypto-js');
 const nodemailer = require('nodemailer');
+const ipfsClient = require('ipfs-http-client');
+const fs = require("fs");
 const dotenv = require('dotenv').config();
+const axios = require('axios');
 
 const generateOtp = (otpLength) => {
     let digits = "0123456789";
@@ -78,6 +81,23 @@ const decrypt = (data) => {
     return decryptData;
 };
 
+const ipfs = async (data) => {
+    const auth = 'Basic ' + Buffer.from(process.env.INFURA_API_KEY + ':' + process.env.INFURA_API_SECRET).toString('base64');
+
+    const client = ipfsClient.create({
+        host: 'ipfs.infura.io',
+        port: 5001,
+        protocol: 'https',
+        headers: {
+            authorization: auth,
+        },
+    });
+    
+    let result = await client.add(data);
+    let url = process.env.IPFS_URI + '/' + result.path;
+    return url;
+}
+
 module.exports = { 
     generateOtp,
     sendEmail,
@@ -85,5 +105,6 @@ module.exports = {
     hashPassword,
     validatePassword,
     encrypt,
-    decrypt
+    decrypt,
+    ipfs
 };
