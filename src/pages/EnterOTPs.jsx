@@ -26,10 +26,11 @@ export default function EnterOTPs() {
 
     event.preventDefault();
     const data = new FormData(event.currentTarget);
+    console.log(localStorage.getItem("authSmsId"));
     const postData = {
       emailOtp: data.get("emailOtp"),
       mobileOtp: data.get("mobileOtp"),
-      authMobileId: localStorage.getItem("authMobileId"),
+      authMobileId: localStorage.getItem("authSmsId"),
       authEmailId: localStorage.getItem("authEmailId"),
     };
 
@@ -44,8 +45,7 @@ export default function EnterOTPs() {
           navigate("/totp/enable");
       }
       
-    } else {
-    } 
+    }
   };
 
   return (
