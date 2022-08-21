@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const apiUrl = "https://sih-blackwing-new.herokuapp.com/api";
+const apiUrl = "https://sih-blackwing-api.herokuapp.com/api";
 
 export const createBidderPost = async (formData) => {
     try {
