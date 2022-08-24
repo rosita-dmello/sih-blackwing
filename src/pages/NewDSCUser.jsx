@@ -349,7 +349,7 @@ export default function NewDSCUser() {
                           ].map((field) => {
                             return (
                               <FormControlLabel
-                                control={<Checkbox name={field} />}
+                                control={<Checkbox name={field === "Nodal Officer" ? "DEPARTMENT_HEAD": "DEPARTMENT_STAFF"} />}
                                 label={field}
                                 onChange={handleCheck}
                               />

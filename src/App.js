@@ -19,11 +19,7 @@ import BidderProgress from "./components/BidderProgress";
 import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
 import Typography from '@mui/material/Typography'
 import SizeChange from "./components/SizeChange";
-import Chatbot from 'react-chatbot-kit'
-import 'react-chatbot-kit/build/main.css'
-import chatbotConfig from "./utils/chatbotConfig";
-import MessageParser from "./components/Chatbot/MessageParser";
-import ActionProvider from "./components/Chatbot/ActionProvider";
+
 import Footer from "./components/Footer";
 
 
@@ -80,15 +76,9 @@ function App() {
           <Route path="/department" element={<DepartmentDash/>} />
           <Route path="/department/createtender" element={<TenderCreation/>} />
         </Routes>
+        
         <Footer size={size} setSize={setSize}/>
-        {/* <div style={{marginLeft: "40%"}}>
-        <Chatbot
-          config={chatbotConfig}
-          messageParser={MessageParser}
-          actionProvider={ActionProvider}
-        />
-      </div>
-        <SizeChange size={size} setSize={setSize} /> */}
+      
         </AnimatePresence>
       </ThemeProvider>
     </div>
