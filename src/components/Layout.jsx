@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import AppBar from "@mui/material/AppBar";
@@ -16,10 +16,16 @@ import MailIcon from "@mui/icons-material/Mail";
 import LoginIcon from "@mui/icons-material/Login";
 import ViewInArIcon from '@mui/icons-material/ViewInAr';
 import GavelIcon from '@mui/icons-material/Gavel';
-
+import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
+import Button from "@mui/material/Button";
 import { useTheme } from "@mui/material/styles";
 import { Link } from "react-router-dom";
 
+import Chatbot from 'react-chatbot-kit'
+import 'react-chatbot-kit/build/main.css'
+import chatbotConfig from "../utils/chatbotConfig";
+import MessageParser from "./Chatbot/MessageParser";
+import ActionProvider from "./Chatbot/ActionProvider";
 // import theme from "../App";
 
 const page = {
@@ -34,8 +40,25 @@ const drawerPaper = {
   width: 240,
 };
 
+const style = {
+  margin: 0,
+  top: 'auto',
+  right: 20,
+  bottom: 20,
+  left: 'auto',
+  position: 'fixed',
+  backgroundColor:'#3e92cc',
+  color:'#FFFFFF',
+  zIndex: (theme) => theme.zIndex.drawer + 2
+ };
+
 function Layout({ children }) {
   const theme = useTheme();
+  const [showChat, setShowChat] = useState(false);
+
+  const toggleDiv = () => {
+    setShowChat((prev) => !prev);
+  }
   return (
     <div style={{ display: "flex" }}>
       {/* app bar  */}
@@ -107,6 +130,31 @@ function Layout({ children }) {
         <Box sx={{ ...theme.mixins.toolbar, paddingBottom: 10 }}></Box>
         {children}
       </div>
+      <div>
+      <div>
+       { showChat && <Box sx={{
+         margin: 0,
+         top: 'auto',
+         right: 20,
+         bottom: 20,
+         left: 'auto',
+         position: 'fixed',
+         marginBottom: "3rem",
+         zIndex: (theme) => theme.zIndex.drawer + 2
+       }}>
+       <Chatbot
+          config={chatbotConfig}
+          messageParser={MessageParser}
+          actionProvider={ActionProvider}
+        /> 
+        </Box>}
+      </div>
+     <Button variant="fab" aria-label="add" sx={style} onClick={toggleDiv} >
+    <ChatBubbleIcon/>
+     </Button>
+     </div>
+        
+        {/* <SizeChange size={size} setSize={setSize} /> */}
     </div>
   );
 }

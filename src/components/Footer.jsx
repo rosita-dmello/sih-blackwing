@@ -50,6 +50,7 @@ function Footer({ size, setSize }) {
                 "Kunal Chandwani",
                 "Vidhita Pai",
                 "Harsh Mangukiya",
+                "Sarthak Bhan"
               ].map((name) => {
                 return (
                   <Grid item>
