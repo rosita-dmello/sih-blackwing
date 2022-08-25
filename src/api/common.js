@@ -1,5 +1,7 @@
 import axios from "axios";
 
+import { encryptedData, decryptedData } from "../utils/encryption";
+
 const apiUrl = "https://sih-blackwing-api.herokuapp.com/api";
 
 export const verifyOtpPost = async (formData) => {
@@ -128,20 +130,22 @@ export const getApiVersion = async () => {
     
 }
 
-export const submitProgress = async (description, file , token) => {
+export const submitProgress = async (description, file , token, name) => {
     try {
-        const response = await axios.post(apiUrl + "/progresslog/", {
+        const response = await axios.post(apiUrl + "/progresslog/", encryptedData({
             description: description,
-            fileName: file.name,
-            file: file
-        }, {
+            filename: name,
+            progresslogfile: file,
+            tenderid: "6300e18fd12b075c01647df1"
+        }), {
             headers: {
                 Authorization: `Bearer ${token}`
             }
         });
         console.log(response);
-    if (response.data) {
-        return (response.data)
+    if (response) {
+        console.log(response);
+        return (response)
     } else {
         console.log(response);
     }   
@@ -149,7 +153,6 @@ export const submitProgress = async (description, file , token) => {
         console.log(err.response.data.result);
         return (err.response.data.result)
     }
-    
 }
 
     

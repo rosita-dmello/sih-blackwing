@@ -62,3 +62,12 @@ html{
 }
 
 
+.fieldset{
+  width: 700px;
+}
+
+@media(max-width: 920px){
+  .fieldset{
+    width: 400px;
+  }
+}

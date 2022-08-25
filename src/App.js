@@ -23,6 +23,7 @@ import GrievanceForm from "./components/GrievanceForm";
 import BidderStatus from "./components/BidderStatus";
 import TextAdjust from "./components/TextAdjust";
 import Footer from "./components/Footer";
+import Ebazaar from "./components/Ebazaar";
 
 
 function App() {
@@ -74,6 +75,7 @@ function App() {
           <Route path="/bidder/progress" element={<BidderProgress/>} />
           <Route path="/bidder/grievance" element={<GrievanceForm/>} />
           <Route path="/bidder/status" element={<BidderStatus/>} />
+          <Route path="/bidder/ebazar" element={<Ebazaar/>} />
 
           <Route path="/department" element={<DepartmentDash/>} />
           <Route path="/department/createtender" element={<TenderCreation/>} />

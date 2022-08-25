@@ -30,6 +30,7 @@ import CommentIcon from "@mui/icons-material/Comment";
 import StackedLineChartIcon from "@mui/icons-material/StackedLineChart";
 import {IconButton} from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
+import StorefrontIcon from '@mui/icons-material/Storefront';
 
 // import theme from "../App";
 
@@ -76,6 +77,7 @@ function Layout({ children, size, setSize }) {
             "Progress Log",
             "Report Grievance",
             "Track Status",
+            "E-Bazaar",
             "Logout",
           ].map((text, index) => (
             <ListItem key={text} disablePadding>
@@ -90,10 +92,12 @@ function Layout({ children, size, setSize }) {
                     ? "/bidder/grievance"
                     : index === 3
                     ? "/bidder/status"
+                    : index === 4
+                    ? "/bidder/ebazar"
                     : "/"
                 }
                 onClick={() => {
-                  if (index === 4) {
+                  if (index === 5) {
                     localStorage.removeItem("user");
                     localStorage.removeItem("setAt");
                     localStorage.removeItem("expireAt");
@@ -113,8 +117,11 @@ function Layout({ children, size, setSize }) {
                   ) : index === 3 ? (
                     <StackedLineChartIcon />
                   ) : index === 4 ? (
+                    <StorefrontIcon />
+                  ) : index === 5 ? (
                     <LogoutIcon />
-                  ) : (
+                  ) : 
+                  (
                     <MailIcon />
                   )}
                 </ListItemIcon>

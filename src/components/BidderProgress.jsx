@@ -2,6 +2,7 @@ import React from "react";
 import Layout from "./BidderLayout";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import FileBase from "react-file-base64";
 import {
   Grid,
   Typography,
@@ -21,6 +22,7 @@ function BidderProgress() {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  const [fileName, setFileName] = React.useState("");
   const [submitted, setSubmitted] = React.useState(false);
   const [file, setFile] = React.useState(null);
   const [dummy, setDummy] = React.useState([
@@ -46,7 +48,7 @@ function BidderProgress() {
     event.preventDefault();
     setSubmitted(true);
     const data = new FormData(event.currentTarget);
-    submitProgress(data.get('description'),file,localStorage.getItem('token')).then((res) => {
+    submitProgress(data.get('description'),file,localStorage.getItem('token'),file.name).then((res) => {
       console.log(res);
       setSubmitted(false);
       setShow(false);
@@ -108,6 +110,7 @@ function BidderProgress() {
                     sx={{ mb: 1 }}
                     onChange={(e) => setFile(e.target.files[0])}
                   />
+                  {/* <FileBase type="file" multiple={false} onDone={({base64, name}) => {setFile(base64); setFileName(name)}}/> */}
                 </InputLabel>
                 <br />
                 {submitted ? (

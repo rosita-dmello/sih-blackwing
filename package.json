@@ -32,6 +32,7 @@
     "react-bootstrap": "^2.5.0",
     "react-chatbot-kit": "^2.1.0",
     "react-dom": "^18.2.0",
+    "react-file-base64": "^1.0.3",
     "react-icons": "^4.4.0",
     "react-iframe": "^1.8.0",
     "react-paginate": "^8.1.3",
