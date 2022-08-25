@@ -52,7 +52,7 @@ const WorkItemDetails = (props) => {
                     justifyContent: "space-between"
                 }}>
           <Button onClick={props.prevStep}>previous</Button>
-          <Button onClick={() => { props.nextStep(WorkItemDetails) }}>next</Button>
+          <Button onClick={() => { props.nextStep(workItemDetails) }}>next</Button>
         </Grid>
       </Grid>
     </>
