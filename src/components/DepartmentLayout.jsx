@@ -82,7 +82,7 @@ function Layout({ children }) {
       {role==="DEPARTMENT_HEAD"?list.map(
         (text, index) => (
           <ListItem key={text} disablePadding>
-              <ListItemButton component={Link} to={index===0?"/department":index===1?"/nodalofficer/verify":index===2?"/bidder/enrollment":"/"}>
+              <ListItemButton component={Link} to={index===0?"/department/users/":index===1?"/department/users/new/":index===2?"/bidder/enrollment":"/"}>
                 <ListItemIcon>
                   {index === 0 ? (
                     <PeopleIcon />
