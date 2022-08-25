@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import AppBar from "@mui/material/AppBar";
@@ -17,7 +17,13 @@ import BackupTableIcon from "@mui/icons-material/BackupTable";
 import BookIcon from "@mui/icons-material/Book";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { useNavigate } from "react-router-dom";
-
+import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
+import Button from "@mui/material/Button";
+import Chatbot from 'react-chatbot-kit'
+import 'react-chatbot-kit/build/main.css'
+import chatbotConfig from "../utils/chatbotConfig";
+import MessageParser from "./Chatbot/MessageParser";
+import ActionProvider from "./Chatbot/ActionProvider";
 import { useTheme } from "@mui/material/styles";
 import { Link } from "react-router-dom";
 
@@ -29,9 +35,26 @@ const page = {
 
 const drawerWidth = 240;
 
+const style = {
+  margin: 0,
+  top: 'auto',
+  right: 20,
+  bottom: 20,
+  left: 'auto',
+  position: 'fixed',
+  backgroundColor:'#3e92cc',
+  color:'#FFFFFF',
+  zIndex: (theme) => theme.zIndex.drawer + 2
+ };
+
 function Layout({ children }) {
   const theme = useTheme();
   const navigate = useNavigate();
+  const [showChat, setShowChat] = useState(false);
+
+  const toggleDiv = () => {
+    setShowChat((prev) => !prev);
+  }
   return (
     <div style={{ display: "flex" }}>
       {/* app bar  */}
@@ -118,6 +141,33 @@ function Layout({ children }) {
       <div style={page}>
         <Box sx={{ ...theme.mixins.toolbar, paddingBottom: 10 }}></Box>
         {children}
+      </div>
+      <div>
+        <div>
+          {showChat && (
+            <Box
+              sx={{
+                margin: 0,
+                top: "auto",
+                right: 20,
+                bottom: 20,
+                left: "auto",
+                position: "fixed",
+                marginBottom: "3rem",
+                zIndex: (theme) => theme.zIndex.drawer + 2,
+              }}
+            >
+              <Chatbot
+                config={chatbotConfig}
+                messageParser={MessageParser}
+                actionProvider={ActionProvider}
+              />
+            </Box>
+          )}
+        </div>
+        <Button variant="fab" aria-label="add" sx={style} onClick={toggleDiv}>
+          <ChatBubbleIcon />
+        </Button>
       </div>
     </div>
   );
