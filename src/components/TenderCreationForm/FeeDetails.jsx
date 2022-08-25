@@ -66,7 +66,7 @@ const FeeDetails = (props) => {
           <Button onClick={props.prevStep}>previous</Button>
         </Grid>
         <Grid item>
-          <Button onClick={props.nextStep}>next</Button>
+          <Button onClick={()=>{props.nextStep(feeDetails)}}>next</Button>
         </Grid>
       </Grid>
     </>

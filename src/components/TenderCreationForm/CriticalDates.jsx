@@ -6,17 +6,8 @@ import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import moment from 'moment';
 
 const CriticalDates = (props) => {
-    const today = new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate()
-    const [publishingDate, setPublishingDate] = useState(new Date())
-    const [downloadDoc, setDownloadDoc] = useState(new Date())
-    const [seekClarificationStart, setSeekClarificationStart] = useState(new Date())
-    const [seekClarificationEnd, setSeekClarificationEnd] = useState(new Date())
-    const [preBidMeeting, setPreBidMeeting] = useState(new Date())
-    const [bidSubmissionStart, setBidSubmissionStart] = useState(new Date())
-    const [bidSubmissionEnd, setBidSubmissionEnd] = useState(new Date())
-    const [bidOpeningDate, setBidOpeningDate] = useState(new Date())
+    const [criticalDates,setCriticalDates]=useState({})
 
-    console.log(moment(publishingDate).format("YYYY-MM-DDTHH:mm:00"))
     return (
         <>
             <Grid container sx={{ display: 'flex', justifyContent: 'center' }}>
@@ -32,9 +23,9 @@ const CriticalDates = (props) => {
                         <DateTimePicker
                             imputFormat="DD/MM/YYYY HH:mm"
                             renderInput={(params) => <TextField {...params} />}
-                            value={publishingDate}
+                            value={criticalDates.publishingDate}
                             onChange={(newValue) => {
-                                setPublishingDate(moment(newValue).format("YYYY-MM-DDTHH:mm:00"))
+                                setCriticalDates({...criticalDates,publishingDate:`${moment(newValue).format("YYYY-MM-DDTHH:mm:00")}`})
                             }}
 
                         />
@@ -54,9 +45,9 @@ const CriticalDates = (props) => {
                         <DateTimePicker
                             imputFormat="DD/MM/YYYY HH:mm"
                             renderInput={(params) => <TextField {...params} />}
-                            value={downloadDoc}
+                            value={criticalDates.downloadDoc}
                             onChange={(newValue) => {
-                                setDownloadDoc(moment(newValue).format("YYYY-MM-DDTHH:mm:00"))
+                                setCriticalDates({...criticalDates,downloadDoc:`${moment(newValue).format("YYYY-MM-DDTHH:mm:00")}`})
                             }}
 
                         />
@@ -76,9 +67,9 @@ const CriticalDates = (props) => {
                         <DateTimePicker
                             imputFormat="DD/MM/YYYY HH:mm"
                             renderInput={(params) => <TextField {...params} />}
-                            value={seekClarificationStart}
+                            value={criticalDates.seekClarificationStart}
                             onChange={(newValue) => {
-                                setSeekClarificationStart(moment(newValue).format("YYYY-MM-DDTHH:mm:00"))
+                                setCriticalDates({...criticalDates,seekClarificationStart:`${moment(newValue).format("YYYY-MM-DDTHH:mm:00")}`})
                             }}
 
                         />
@@ -98,9 +89,9 @@ const CriticalDates = (props) => {
                         <DateTimePicker
                             imputFormat="DD/MM/YYYY HH:mm"
                             renderInput={(params) => <TextField {...params} />}
-                            value={seekClarificationEnd}
+                            value={criticalDates.seekClarificationEnd}
                             onChange={(newValue) => {
-                                setSeekClarificationEnd(moment(newValue).format("YYYY-MM-DDTHH:mm:00"))
+                                setCriticalDates({...criticalDates,seekClarificationEnd:`${moment(newValue).format("YYYY-MM-DDTHH:mm:00")}`})
                             }}
 
                         />
@@ -120,9 +111,9 @@ const CriticalDates = (props) => {
                         <DateTimePicker
                             imputFormat="DD/MM/YYYY HH:mm"
                             renderInput={(params) => <TextField {...params} />}
-                            value={preBidMeeting}
+                            value={criticalDates.preBidMeeting}
                             onChange={(newValue) => {
-                                setPreBidMeeting(moment(newValue).format("YYYY-MM-DDTHH:mm:00"))
+                                setCriticalDates({...criticalDates,preBidMeeting:`${moment(newValue).format("YYYY-MM-DDTHH:mm:00")}`})
                             }}
 
                         />
@@ -142,9 +133,9 @@ const CriticalDates = (props) => {
                         <DateTimePicker
                             imputFormat="DD/MM/YYYY HH:mm"
                             renderInput={(params) => <TextField {...params} />}
-                            value={bidSubmissionStart}
+                            value={criticalDates.bidSubmissionStart}
                             onChange={(newValue) => {
-                                setBidSubmissionStart(moment(newValue).format("YYYY-MM-DDTHH:mm:00"))
+                                setCriticalDates({...criticalDates,bidSubmissionStart:`${moment(newValue).format("YYYY-MM-DDTHH:mm:00")}`})
                             }}
 
                         />
@@ -164,9 +155,9 @@ const CriticalDates = (props) => {
                         <DateTimePicker
                             imputFormat="DD/MM/YYYY HH:mm"
                             renderInput={(params) => <TextField {...params} />}
-                            value={bidSubmissionEnd}
+                            value={criticalDates.bidSubmissionEnd}
                             onChange={(newValue) => {
-                                setBidSubmissionEnd(moment(newValue).format("YYYY-MM-DDTHH:mm:00"))
+                                setCriticalDates({...criticalDates,bidSubmissionEnd:`${moment(newValue).format("YYYY-MM-DDTHH:mm:00")}`})
                             }}
 
                         />
@@ -186,24 +177,24 @@ const CriticalDates = (props) => {
                         <DateTimePicker
                             imputFormat="DD/MM/YYYY HH:mm"
                             renderInput={(params) => <TextField {...params} />}
-                            value={bidOpeningDate}
+                            value={criticalDates.bidOpeningDate}
                             onChange={(newValue) => {
-                                setBidOpeningDate(moment(newValue).format("YYYY-MM-DDTHH:mm:00"))
+                                setCriticalDates({...criticalDates,bidOpeningDate:`${moment(newValue).format("YYYY-MM-DDTHH:mm:00")}`})
                             }}
-
                         />
                     </Stack>
                 </LocalizationProvider>
                 </Grid>
 
             </Grid>
+            
 
             <Grid container>
                 <Grid item>
                     <Button onClick={props.prevStep}>previous</Button>
                 </Grid>
                 <Grid item>
-                    <Button onClick={props.nextStep}>next</Button>
+                    <Button onClick={()=>{props.nextStep(criticalDates)}}>next</Button>
                 </Grid>
             </Grid></>
     )
