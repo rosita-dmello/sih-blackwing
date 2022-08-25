@@ -45,10 +45,10 @@ const columns = [
 ];
 
 
-export default function BidOpenersTable({ users }) {
+export default function BidOpenersTable({ users,bidOpeners,setBidOpeners }) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
-  const [bidOpeners, setBidOpeners] = React.useState([]);
+  
   // console.log(moment("2022-08-07T14:07:25.489Z").utcOffset("+05:30").format('DD MMMM YYYY'));
   const handleCheck = (event, id) => {
     const { name, checked } = event.target;
