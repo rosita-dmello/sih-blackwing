@@ -1,11 +1,14 @@
 import React,{useState} from 'react'
 import { Grid,Button,Typography,Table,TableCell,TableBody,TableHead,TableRow,Box,TextField,Input,InputLabel,Checkbox,Modal } from '@mui/material'
 import FolderIcon from '@mui/icons-material/Folder';
+import { postTender } from '../../api/tender';
 
 const WorkItemDocuments = (props) => {
+    const {allData}=props
     const [checked, setChecked] = useState(false)
     const [openModal, setOpenModal] = useState(false)
-    const [docs,setDocs]=useState()
+    const [workdocument,setDocs]=useState()
+    let token = localStorage.getItem('token')
     if (checked) {
         let result = window.confirm("Do you want to delete the following packet")
         if (result === true) {
@@ -15,18 +18,15 @@ const WorkItemDocuments = (props) => {
     }
     const handleSubmit=()=>{
         setProp()
-        postData()
+        postTender(allData,token)
     }
     const setProp=()=>{
         props.setAllData((prev) => {
             return {
                 ...prev,
-                docs
+                workdocument
             }
         })
-    }
-    const postData=()=>{
-        
     }
     const style = {
         position: 'absolute',
@@ -72,13 +72,13 @@ const WorkItemDocuments = (props) => {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {docs === undefined ? "" :
+                            {workdocument === undefined ? "" :
                                 <TableRow>
                                     <TableCell>
                                         NIT
                                     </TableCell>
                                     <TableCell>
-                                        {docs.name}
+                                        {workdocument.name}
                                     </TableCell>
                                     <TableCell>
                                         <Checkbox onClick={() => setChecked(!checked)} checked={checked} />
@@ -104,7 +104,7 @@ const WorkItemDocuments = (props) => {
                             </Grid>
                             <Grid item xs={7}>
                                 <TextField
-                                    value={docs === undefined ? "" : docs.name}
+                                    value={workdocument === undefined ? "" : workdocument.name}
                                     disabled
                                     size="small" sx={{
                                         width: '70%', '& legend': { display: 'none' },
