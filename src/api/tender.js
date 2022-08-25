@@ -73,3 +73,23 @@ export const getAppliedTenders = async (userId, token) => {
     console.log(err);
   }
 }
+export const postTender = async (data,token) => {
+  try {
+    const response = await axios.post(
+      apiUrl+"/tender/",data,{
+        headers:{
+          Authorization: `Bearer ${token}`
+        }})
+        console.log(response);
+
+    if (response) {
+        return (response)
+    } else {
+        console.log(response);
+    }   
+    }
+   catch(err) {
+        console.log(err);
+        // return (err.response.data.result)
+    }
+}

@@ -9,11 +9,6 @@ const FeeDetails = (props) => {
   const EMDfee = [{ value: 'fixed', label: 'fixed' }, { value: 'percentage', label: 'percentage' }]
   const extemption = [{ label: 'Yes', value: true }, { label: 'No', value: false }]
   const offlineInstruments=[{label:'DD-Demand Draft',value:false,name:'demandDraft'},]
-  console.log(feeDetails)
-  const handleChange=(e)=>{
-    const name=e.target.name
-    console.log(name)
-  }
   return (
 
     <>
