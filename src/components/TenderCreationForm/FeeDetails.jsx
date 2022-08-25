@@ -22,7 +22,7 @@ const FeeDetails = (props) => {
         <hr style={{ width: '100%' }}></hr>
         <Grid container sx={{ width: '100%' }}>
           <Grid item xs={12}>
-            <CustomSelect array={paymentMode} value="feePaymentMode" textlabel="Fee Payment Mode" values={feeDetails} setValues={setFeeDetails} />
+            <CustomSelect array={paymentMode} value="feepaymentmode" textlabel="Fee Payment Mode" values={feeDetails} setValues={setFeeDetails} />
           </Grid>
           <Grid item xs={12} >
             <Grid item xs={12} sx={{ marginLeft: '-5%' }}>
@@ -39,33 +39,36 @@ const FeeDetails = (props) => {
         <hr style={{ width: '100%' }}></hr>
         <Grid container sx={{ width: '100%' }}>
           <Grid item xs={12}>
-            <CustomSelect array={EMDfee} value="emdFee" textlabel="EMD Fee" values={feeDetails} setValues={setFeeDetails} />
+            <CustomSelect array={EMDfee} value="emdfee" textlabel="EMD Fee" values={feeDetails} setValues={setFeeDetails} />
           </Grid>
           <Grid item xs={12} >
             <Grid item xs={12} sx={{ marginLeft: '-5%' }}>
-              <CustomTextField textlabel="EMD Amount(INR)" value="emdAmount" values={feeDetails} setValues={setFeeDetails} />
+              <CustomTextField textlabel="EMD Amount(INR)" value="emdamount" values={feeDetails} setValues={setFeeDetails} />
             </Grid>
             <Grid item xs={12} sx={{ marginLeft: '-5%' }}>
-              <CustomTextField textlabel="EMD ECV %" value="emdECV" values={feeDetails} setValues={setFeeDetails} />
+              <CustomTextField textlabel="EMD ECV %" value="emdecv" values={feeDetails} setValues={setFeeDetails} />
             </Grid>
             <Grid item xs={12}>
-              <CustomSelect array={extemption} value="emdExtemption" textlabel="EMD Extemption Allowed" values={feeDetails} setValues={setFeeDetails} />
+              <CustomSelect array={extemption} value="emdextemption" textlabel="EMD Extemption Allowed" values={feeDetails} setValues={setFeeDetails} />
             </Grid>
             <Grid item xs={12} sx={{ marginLeft: '-5%' }}>
-              <CustomTextField textlabel="EMD Fee Payable to" value="emdFeePayTo" values={feeDetails} setValues={setFeeDetails} />
+              <CustomTextField textlabel="EMD Fee Payable to" value="emdfeepayableto" values={feeDetails} setValues={setFeeDetails} />
             </Grid>
             <Grid item xs={12} sx={{ marginLeft: '-5%' }}>
-              <CustomTextField textlabel="EMD Fee Payable At" value="emdFeePayAt" values={feeDetails} setValues={setFeeDetails} />
+              <CustomTextField textlabel="EMD Fee Payable At" value="emdfeepayableat" values={feeDetails} setValues={setFeeDetails} />
             </Grid>
           </Grid>
         </Grid>
       </Box>
       
-      <Grid container>
-        <Grid item>
+      <Grid container direction="column" sx={{
+                padding: "3rem"
+            }}>
+        <Grid item sx={{
+                    display: "flex",
+                    justifyContent: "space-between"
+                }}>
           <Button onClick={props.prevStep}>previous</Button>
-        </Grid>
-        <Grid item>
           <Button onClick={()=>{props.nextStep(feeDetails)}}>next</Button>
         </Grid>
       </Grid>
