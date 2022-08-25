@@ -1,5 +1,4 @@
 import { Stepper,Step,StepLabel,Box } from '@mui/material'
-import { set } from 'lodash'
 import React, { useState } from 'react'
 import Layout from '../components/Layout'
 import BasicDetails from '../components/TenderCreationForm/BasicDetails'
@@ -8,10 +7,11 @@ import CriticalDates from '../components/TenderCreationForm/CriticalDates'
 import FeeDetails from '../components/TenderCreationForm/FeeDetails'
 import WorkItemDetails from '../components/TenderCreationForm/WorkItemDetails'
 import WorkItemDocuments from '../components/TenderCreationForm/WorkItemDocuments'
+import BoqDepartment from '../components/TenderCreationForm/BoqDepartment'
 
 const TenderCreation = () => {
     const[step,setStep]=useState(1)
-    const stepperSteps = ['Basic Details', 'Work/Item Details', 'Fee Details','Critical Dates','Bid Openers','Work/Item Documents']
+    const stepperSteps = ['Basic Details','BOQ Details', 'Work/Item Details', 'Fee Details','Critical Dates','Bid Openers','Work/Item Documents']
     const [allData,setAllData]=useState({})
     console.log(allData)
     const nextStep=(data)=>{
@@ -25,21 +25,27 @@ const TenderCreation = () => {
         switch (step) {
             case 1:
                 return <BasicDetails nextStep={nextStep} prevStep={prevStep} allData={allData} setAllData={setAllData}/>
-        
+
             case 2:
+                return <BoqDepartment nextStep={nextStep} prevStep={prevStep} allData={allData} setAllData={setAllData}/>
+        
+            case 3:
                 return <WorkItemDetails nextStep={nextStep} prevStep={prevStep} allData={allData} setAllData={setAllData}/>
 
-            case 3:
+            case 4:
                 return <FeeDetails nextStep={nextStep} prevStep={prevStep} allData={allData} setAllData={setAllData}/>
             
-            case 4:
+            case 5:
                 return <CriticalDates nextStep={nextStep} prevStep={prevStep} allData={allData} setAllData={setAllData}/>
 
-            case 5:
+            case 6:
                 return <BidOpeners nextStep={nextStep} prevStep={prevStep} allData={allData} setAllData={setAllData}/>
 
-            case 6:
-                return<WorkItemDocuments nextStep={nextStep} prevStep={prevStep} allData={allData} setAllData={setAllData}/>
+            case 7:
+                return<WorkItemDocuments prevStep={prevStep} allData={allData} setAllData={setAllData}/>
+        }
+        if(step>=8){
+            
         }
     }
   return (

@@ -1,10 +1,8 @@
 import React, { useState } from 'react'
-import { Box, Grid, Table, TableCell, TableHead, TableRow, Typography, Input, InputLabel, TableBody, Button, Modal, TextField, MenuItem, Select, FormControl } from '@mui/material'
+import { Box, Grid, Table, TableCell, TableHead, TableRow, Typography, Input, InputLabel, TableBody, Button, Modal, TextField, MenuItem, Select, FormControl, Checkbox } from '@mui/material'
 import CustomTextField from './CustomTextField'
 import CustomDropDown from './CustomDropDown'
 import FolderIcon from '@mui/icons-material/Folder';
-import { CheckBox, CleaningServices } from '@mui/icons-material';
-import { width } from '@mui/system';
 
 const BasicDetails = (props) => {
     const tenderType = ['EOI', 'Limited', 'Open Limited', 'Open Tender', 'Single', 'Test']
@@ -15,13 +13,12 @@ const BasicDetails = (props) => {
     const noOfBidOpeners = ['', '2 Off 4', '2 Off 3', '3 Off 3', '2 Off 2']
     const [basicDetails, setBasicDetails] = useState({ noofcover: 1 })
     const [files, setFiles] = useState([[], [], [], []])
-    const [desc, setDesc] = useState('')
     const [coverDetails, setCoverDetails] = useState({ docDesc: '', docType: '' })
-    const [nitDesc, setNITDesc] = useState('')
     const [open, setOpen] = useState(false)
     const [number, setNumber] = useState(0)
     const [nitDoc, setNitDoc] = useState()
     const [openModal, setOpenModal] = useState(false)
+    const [checked, setChecked] = useState(false)
     const handleModal = () => {
         setOpenModal(true)
     }
@@ -40,7 +37,6 @@ const BasicDetails = (props) => {
         borderRadius: '10px',
         width: '70%'
     }
-    console.log(basicDetails)
     const handleClose = () => {
 
         setOpen(false)
@@ -49,7 +45,7 @@ const BasicDetails = (props) => {
         setOpen(true)
         setNumber(number)
     }
-    const handleChange = (e, number) => {
+    const handleChange = (e) => {
         let name = e.target.name
         let value = e.target.value
         setCoverDetails({ ...coverDetails, [name]: value })
@@ -61,14 +57,17 @@ const BasicDetails = (props) => {
         setCoverDetails({ docDesc: '', docType: '' })
     }
     const handleFile = (e) => {
-        
         setNitDoc(e.target.files[0])
-    }
-    console.log(nitDoc)
+        handleCloseModal()
 
-    console.log(number)
-    console.log(files)
-    console.log(coverDetails)
+    }
+    if (checked) {
+        let result = window.confirm("Do you want to delete the following packet")
+        if (result === true) {
+            setNitDoc(undefined)
+        }
+        setChecked(false)
+    }
     const renderElement = () => {
         if (basicDetails.noofcover === 1) {
             return <TableRow>
@@ -261,7 +260,7 @@ const BasicDetails = (props) => {
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {files[number] !== 0 ? files[number].map((file, index) => {
+                                {files[number] === 0 ? files[number].map((file, index) => {
                                     return <TableRow>
                                         <TableCell>
                                             {index}
@@ -337,9 +336,6 @@ const BasicDetails = (props) => {
             <Box sx={{ width: '80%', margin: '3vh auto' }}>
                 <Typography variant='h5'>NIT Documents</Typography>
                 <hr style={{ width: '100%' }}></hr>
-                {
-
-                }
                 <Grid container>
                     <Table>
                         <TableHead>
@@ -351,7 +347,7 @@ const BasicDetails = (props) => {
                                     Document Type
                                 </TableCell>
                                 <TableCell>
-                                    Uploaded date
+                                    File Name
                                 </TableCell>
                                 <TableCell>
                                     Delete
@@ -359,17 +355,19 @@ const BasicDetails = (props) => {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            <TableRow>
-                                <TableCell>
-                                    NIT
-                                </TableCell>
-                                <TableCell>
-                                    
-                                </TableCell>
-                                <TableCell>
-                                    <CheckBox/>
-                                </TableCell>
-                            </TableRow>
+                            {nitDoc === undefined ? "" :
+                                <TableRow>
+                                    <TableCell>
+                                        NIT
+                                    </TableCell>
+                                    <TableCell>
+                                        {nitDoc.name}
+                                    </TableCell>
+                                    <TableCell>
+                                        <Checkbox onClick={() => setChecked(!checked)} checked={checked} />
+                                    </TableCell>
+                                </TableRow>
+                            }
                         </TableBody>
                     </Table>
                     <Button onClick={handleModal}>Upload Document</Button>
@@ -401,7 +399,7 @@ const BasicDetails = (props) => {
                             </Grid>
                             <Grid item xs={7}>
                                 <TextField
-                                    
+                                    value={nitDoc === undefined ? "" : nitDoc.name}
                                     disabled
                                     size="small" sx={{
                                         width: '70%', '& legend': { display: 'none' },
@@ -425,7 +423,17 @@ const BasicDetails = (props) => {
                     <Button onClick={props.prevStep}>previous</Button>
                 </Grid>
                 <Grid item>
-                    <Button onClick={()=>props.nextStep(basicDetails)}>next</Button>
+                    <Button onClick={() => {
+                        props.nextStep(basicDetails)
+                        props.setAllData((prev) => {
+                            return {
+                                ...prev,
+                                nitDoc
+                            }
+                        })
+                        console.log(nitDoc)
+                    }
+                    }>next</Button>
                 </Grid>
             </Grid>
         </>
