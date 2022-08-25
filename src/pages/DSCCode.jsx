@@ -92,7 +92,7 @@ export default function DSCCode() {
               style={{
                 width: "20%",
                 height: "2px",
-                backgroundColor: "#3e92cc",
+                backgroundColor: "#243665",
                 border: "none",
               }}
             />
@@ -121,12 +121,12 @@ export default function DSCCode() {
                 style={{
                   width: "100%",
                   height: "2px",
-                  backgroundColor: "#3e92cc",
+                  backgroundColor: "#243665",
                   border: "none",
                 }}
               />
               <div style={{ marginTop: "3rem" }}>
-                <LoadCanvasTemplate reloadColor="#3e92cc" />
+                <LoadCanvasTemplate reloadColor="#243665" />
               </div>
 
               <TextField

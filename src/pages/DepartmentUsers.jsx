@@ -66,7 +66,7 @@ function DepartmentUsers() {
               sx={{
                 mb: "3rem",
                 textDecoration: "underline",
-                textDecorationColor: "#3e92cc",
+                textDecorationColor: "#243665",
                 textDecorationThickness: "3px",
                 textUnderlineOffset: "1rem",
               }}

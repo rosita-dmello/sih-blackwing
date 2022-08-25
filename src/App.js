@@ -34,11 +34,11 @@ function App() {
     palette: {
       type: 'light',
       primary: {
-        main: '#3e92cc',
-        light: '#87adf3',
+        main: '#243665',
+      
       },
       secondary: {
-        main: '#e5e5e5',
+        main: '#dcdcdc',
       },
     },
    

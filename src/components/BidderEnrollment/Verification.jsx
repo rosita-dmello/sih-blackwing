@@ -92,7 +92,7 @@ export default function Verification({ credentials }) {
         style={{
           width: "20%",
           height: "2px",
-          backgroundColor: "#3e92cc",
+          backgroundColor: "#243665",
           border: "none",
         }}
       />

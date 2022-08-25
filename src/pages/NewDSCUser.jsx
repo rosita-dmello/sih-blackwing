@@ -182,7 +182,7 @@ export default function NewDSCUser() {
                     sx={{
                       mb: "3rem",
                       textDecoration: "underline",
-                      textDecorationColor: "#3e92cc",
+                      textDecorationColor: "#243665",
                       textDecorationThickness: "3px",
                       textUnderlineOffset: "1rem",
                     }}
@@ -388,7 +388,7 @@ export default function NewDSCUser() {
                         style={{
                           width: "100%",
                           height: "2px",
-                          backgroundColor: "#3e92cc",
+                          backgroundColor: "#243665",
                           border: "none",
                         }}
                       />
@@ -428,7 +428,7 @@ export default function NewDSCUser() {
                       </Grid>
                       <Grid item xs={12}>
                         <div>
-                          <LoadCanvasTemplate reloadColor="#3e92cc" />
+                          <LoadCanvasTemplate reloadColor="#243665" />
                         </div>
 
                         <TextField

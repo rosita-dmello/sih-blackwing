@@ -118,7 +118,7 @@ export default function CompanyDetails({
           style={{
             width: "20%",
             height: "2px",
-            backgroundColor: "#3e92cc",
+            backgroundColor: "#243665",
             border: "none",
           }}
         />
