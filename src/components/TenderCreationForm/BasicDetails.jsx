@@ -47,13 +47,13 @@ const BasicDetails = (props) => {
     const handleChange = (e) => {
         let name = e.target.name
         let value = e.target.value
-        setCoverDetails({ ...coverDetails, [name]: value })
+        setCoverDetails((prev)=>{return {...prev,[name]:value}})
     }
     const handleClick = () => {
         let array = [...files]
         array[number - 1] = [...files[number - 1], coverDetails]
         setFiles(array)
-        setCoverDetails({ docDesc: '', docType: '' })
+        setCoverDetails({ docdesc: '', doctype: '' })
     }
     const handleFile = (e) => {
         setNitDoc(e.target.files[0])
@@ -214,7 +214,7 @@ const BasicDetails = (props) => {
                                 width: '100%'}}
                                 size="small">
                                 <Select
-                                    name="docType"
+                                    name="doctype"
                                     defaultValue=''
                                     value={coverDetails.doctype}
                                     onChange={handleChange}
