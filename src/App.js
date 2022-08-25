@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import Navbar from "./components/Navbar";
 import { theme } from "./utils/theme";
 import { Routes, Route, useLocation } from "react-router-dom";
@@ -24,12 +24,26 @@ import BidderStatus from "./components/BidderStatus";
 import TextAdjust from "./components/TextAdjust";
 import Footer from "./components/Footer";
 import Ebazaar from "./components/Ebazaar";
-
-
+import alanBtn from '@alan-ai/alan-sdk-web';
+// require('dotenv').config();
+import Box from '@mui/material/Box';
+import SpeedDial from '@mui/material/SpeedDial';
+import SpeedDialIcon from '@mui/material/SpeedDialIcon';
+import SpeedDialAction from '@mui/material/SpeedDialAction';
+import FileCopyIcon from '@mui/icons-material/FileCopyOutlined';
+import SaveIcon from '@mui/icons-material/Save';
+import PrintIcon from '@mui/icons-material/Print';
+import ShareIcon from '@mui/icons-material/Share';
 function App() {
   const loc = useLocation();
   const [size, setSize] = useState(14);
 
+  const actions = [
+    { icon: <FileCopyIcon />, name: 'Copy' },
+    { icon: <SaveIcon />, name: 'Save' },
+    { icon: <PrintIcon />, name: 'Print' },
+    { icon: <ShareIcon />, name: 'Share' },
+  ];
   const newTheme = createTheme({
     palette: {
       type: 'light',
@@ -52,7 +66,16 @@ function App() {
     }
   });
 
-
+  useEffect(() => {
+    alanBtn({
+        key: '4b4aadc895ad47b6d4238641af136e712e956eca572e1d8b807a3e2338fdd0dc/stage',
+        onCommand: (commandData) => {
+          if (commandData.command === 'go:back') {
+            // Call the client code that will react to the received command
+          }
+        }
+    });
+  }, []);
   return (
     <div className="App">
       <ThemeProvider theme={newTheme}>
@@ -83,6 +106,21 @@ function App() {
           <Route path="/department/users/new" element={<NewDSCUser/>} />
         </Routes>
         {/* <TextAdjust size={size} setSize={setSize} /> */}
+        <Box sx={{ height: 320, transform: 'translateZ(0px)', flexGrow: 1 }}>
+      <SpeedDial
+        ariaLabel="SpeedDial basic example"
+        sx={{ position: 'fixed', bottom: 16, right: 16 }}
+        icon={<SpeedDialIcon />}
+      >
+        {actions.map((action) => (
+          <SpeedDialAction
+            key={action.name}
+            icon={action.icon}
+            tooltipTitle={action.name}
+          />
+        ))}
+      </SpeedDial>
+    </Box>
         <Footer size={size} setSize={setSize}/>
         </AnimatePresence>
       </ThemeProvider>

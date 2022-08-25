@@ -108,10 +108,7 @@ export default function NewDSCUser() {
       } else if (data.password !== data.confirmPassword) {
         setConfirmPwError("This field does not match with the password.");
       } else {
-        console.log({
-          ...data,
-          name: data.firstname + " " + data.lastname,
-        });
+        
         const user = JSON.parse(localStorage.getItem("user"));
         const formData = {
           ...data,
@@ -119,6 +116,12 @@ export default function NewDSCUser() {
           parentid: user.parentid,
           mobile: "+" + data.mobile
         };
+        console.log({
+          ...data,
+          name: data.firstname + " " + data.lastname,
+          parentid: user.parentid,
+          mobile: "+" + data.mobile
+        }, localStorage.getItem("token"));
         const response = await createStaffPost(
           formData,
           localStorage.getItem("token")
@@ -160,13 +163,13 @@ export default function NewDSCUser() {
           ) : (
             <Box
               sx={{
-                margin: 8,
+                margin: {md: 8, xs: 3},
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
               }}
             >
-              <Box width="40vw">
+              <Box width={{md: "40vw", xs: "80vw"}}>
                 <Box
                   sx={{
                     marginTop: 8,
@@ -185,6 +188,7 @@ export default function NewDSCUser() {
                       textDecorationColor: "#243665",
                       textDecorationThickness: "3px",
                       textUnderlineOffset: "1rem",
+                      lineHeight: "3rem"
                     }}
                   >
                     NEW DEPARTMENT USER

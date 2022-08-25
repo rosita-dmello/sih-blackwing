@@ -69,6 +69,7 @@ function DepartmentUsers() {
                 textDecorationColor: "#243665",
                 textDecorationThickness: "3px",
                 textUnderlineOffset: "1rem",
+                lineHeight: "3rem"
               }}
             >
               DEPARTMENT USERS
