@@ -103,6 +103,7 @@ function Layout({ children, size, setSize }) {
                     localStorage.removeItem("expireAt");
                     localStorage.removeItem("authSmsId");
                     localStorage.removeItem("authEmailId");
+                    localStorage.removeItem("token");
                     navigate("/");
                   }
                 }}

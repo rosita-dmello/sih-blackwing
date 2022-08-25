@@ -54,7 +54,7 @@ function GrievanceForm() {
                   id="title"
                   name="title"
                   variant="outlined"
-                  sx={{ width: "300px" }}
+                  sx={{ width: "400px" }}
                 />
               </Grid>
               <Grid item>
