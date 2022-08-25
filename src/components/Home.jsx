@@ -5,7 +5,7 @@ import Layout from "./Layout";
 import TenderDisplay from "./TenderDisplay";
 import { motion } from "framer-motion";
 import Spinner from "../utils/chakra.gif";
-import { Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import {getAllTenders} from "../api/tender";
 
 function Home() {
@@ -20,9 +20,9 @@ function Home() {
   }, []);
   if(loading){
     return ( <>
-      <div className="spinner">
+      <Box className="spinner" sx={{zIndex: (theme) => theme.zIndex.drawer + 10, backgroundColor: 'white', padding: '50rem'}}>
         <img src={Spinner} alt="Loading..." />
-      </div>
+      </Box>
     </>);
   }
   return (

@@ -26,6 +26,8 @@ import MessageParser from "./Chatbot/MessageParser";
 import ActionProvider from "./Chatbot/ActionProvider";
 import { useTheme } from "@mui/material/styles";
 import { Link } from "react-router-dom";
+import CommentIcon from '@mui/icons-material/Comment';
+import StackedLineChartIcon from '@mui/icons-material/StackedLineChart';
 
 
 
@@ -102,7 +104,7 @@ function Layout({ children, size, setSize }) {
         <Toolbar />
         <Box sx={{ overflow: "auto" }}>
           <List>
-            {["Tenders", "Progress Log", "Logout"].map((text, index) => (
+            {["Tenders", "Progress Log", "Report Grievance", "Track Status","Logout"].map((text, index) => (
               <ListItem key={text} disablePadding>
                 <ListItemButton
                   component={Link}
@@ -111,10 +113,14 @@ function Layout({ children, size, setSize }) {
                       ? "/bidder/tender"
                       : index === 1
                       ? "/bidder/progress"
+                      : index === 2
+                      ? "/bidder/grievance"
+                      : index === 3
+                      ? "/bidder/status"
                       : "/"
                   }
                   onClick={() => {
-                    if (index === 2) {
+                    if (index === 4) {
                       localStorage.removeItem("user");
                       localStorage.removeItem("setAt");
                       localStorage.removeItem("expireAt");
@@ -130,8 +136,14 @@ function Layout({ children, size, setSize }) {
                     ) : index === 1 ? (
                       <BookIcon />
                     ) : index === 2 ? (
+                      <CommentIcon />
+                    ) : index === 3 ? (
+                      <StackedLineChartIcon />
+                    ) :
+                    index === 4 ? (
                       <LogoutIcon />
-                    ) : (
+                    ) : 
+                    (
                       <MailIcon />
                     )}
                   </ListItemIcon>

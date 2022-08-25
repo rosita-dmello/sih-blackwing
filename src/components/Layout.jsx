@@ -104,7 +104,7 @@ function Layout({ children }) {
         <Toolbar />
         <Box sx={{ overflow: "auto" }}>
           <List>
-            {["User Login", "Department Registration", "Bidder enrollment"].map(
+            {["User Login", "Bidder enrollment"].map(
               (text, index) => (
                 <ListItem key={text} disablePadding>
                   <ListItemButton
@@ -113,8 +113,6 @@ function Layout({ children }) {
                       index === 0
                         ? "/login"
                         : index === 1
-                        ? "/nodalofficer/verify"
-                        : index === 2
                         ? "/bidder/enrollment"
                         : "/"
                     }
@@ -123,8 +121,6 @@ function Layout({ children }) {
                       {index === 0 ? (
                         <LoginIcon />
                       ) : index === 1 ? (
-                        <ViewInArIcon />
-                      ) : index === 2 ? (
                         <GavelIcon />
                       ) : (
                         <MailIcon />

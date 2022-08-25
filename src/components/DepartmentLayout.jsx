@@ -6,7 +6,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import Toolbar from "@mui/material/Toolbar";
 import List from "@mui/material/List";
 import Typography from "@mui/material/Typography";
-import Divider from "@mui/material/Divider";
+import GroupAddIcon from '@mui/icons-material/GroupAdd';
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
@@ -20,7 +20,7 @@ import GavelIcon from '@mui/icons-material/Gavel';
 
 import { useTheme } from "@mui/material/styles";
 import { Link } from "react-router-dom";
-
+import PeopleIcon from '@mui/icons-material/People';
 import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
 import Button from "@mui/material/Button";
 import Chatbot from 'react-chatbot-kit'
@@ -56,7 +56,7 @@ const style = {
 
 function Layout({ children }) {
   const theme = useTheme();
-  const [role, setRole] = React.useState("DEPARTMENT_STAFF");
+  const [role, setRole] = React.useState("DEPARTMENT_HEAD");
   const [list, setList] = React.useState(["Staff"]);
   const [showChat, setShowChat] = useState(false);
 
@@ -66,7 +66,7 @@ function Layout({ children }) {
   React.useEffect(() => {
 
     if (role==="DEPARTMENT_HEAD") {
-      setList(["Staff", "Add Staff"]);
+      setList(["Department Users", "New Department User"]);
     }
     else if (role==="DEPARTMENT_STAFF") {
       setList(["Staff"]);
@@ -116,7 +116,27 @@ function Layout({ children }) {
         <Toolbar />
         <Box sx={{ overflow: "auto" }}>
           <List>
-            {list.map(
+            {role==="DEPARTMENT_HEAD"?list.map(
+              (text, index) => (
+                <ListItem key={text} disablePadding>
+                    <ListItemButton component={Link} to={index===0?"/department":index===1?"/nodalofficer/verify":index===2?"/bidder/enrollment":"/"}>
+                      <ListItemIcon>
+                        {index === 0 ? (
+                          <PeopleIcon />
+                        ) : index === 1 ? (
+                          <GroupAddIcon />
+                        ) : index === 2 ?(
+                          <GavelIcon />
+                        ):(
+                          <MailIcon />
+                        )}
+                      </ListItemIcon>
+
+                      <ListItemText primary={text} />
+                    </ListItemButton>
+                </ListItem>
+              )
+            ):list.map(
               (text, index) => (
                 <ListItem key={text} disablePadding>
                     <ListItemButton component={Link} to={index===0?"/department":index===1?"/nodalofficer/verify":index===2?"/bidder/enrollment":"/"}>
@@ -136,7 +156,9 @@ function Layout({ children }) {
                     </ListItemButton>
                 </ListItem>
               )
-            )}
+            )
+            }
+
           </List>
         </Box>
       </Drawer>

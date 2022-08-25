@@ -19,6 +19,8 @@ import BidderProgress from "./components/BidderProgress";
 import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
 import Typography from '@mui/material/Typography'
 import SizeChange from "./components/SizeChange";
+import GrievanceForm from "./components/GrievanceForm";
+import BidderStatus from "./components/BidderStatus";
 
 import Footer from "./components/Footer";
 
@@ -71,6 +73,8 @@ function App() {
           <Route path="/bidder" element={<BidderDash/>} />
           <Route path="/bidder/tender" element={<BidderSideTender/>} />
           <Route path="/bidder/progress" element={<BidderProgress/>} />
+          <Route path="/bidder/grievance" element={<GrievanceForm/>} />
+          <Route path="/bidder/status" element={<BidderStatus/>} />
 
           <Route path="/department" element={<DepartmentDash/>} />
           <Route path="/department/createtender" element={<TenderCreation/>} />
