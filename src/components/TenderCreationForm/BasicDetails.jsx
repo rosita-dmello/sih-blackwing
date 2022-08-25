@@ -25,6 +25,7 @@ const BasicDetails = (props) => {
         margin: 0,
         "&:hover": { color: 'white', background: '#6C197499' },
     }
+    console.log(stage1)
     console.log(basicDetails)
     const renderElement = () => {
         if (basicDetails.noofcover === 1) {
@@ -193,7 +194,7 @@ const BasicDetails = (props) => {
     }
     return (
         <>
-            <Box sx={{ width: '85%', margin: '3vh auto' }}>
+            <Box sx={{ width: '80%', margin: '3vh auto' }}>
                 <Typography variant='h5'>Basic Details</Typography>
                 <hr style={{ width: '100%' }}></hr>
                 <Grid container>
@@ -220,8 +221,9 @@ const BasicDetails = (props) => {
                     </Grid>
                 </Grid>
             </Box>
-            <Box sx={{ width: '85%', margin: '3vh auto' }}>
+            <Box sx={{ width: '80%', margin: '3vh auto' }}>
                 <Typography variant='h5'>Cover Details</Typography>
+
                 <hr style={{ width: '100%' }}></hr>
                 <Grid container>
                     <Table>
@@ -241,7 +243,7 @@ const BasicDetails = (props) => {
                     </Table>
                 </Grid>
             </Box>
-            <Box sx={{ width: '85%', margin: '3vh auto' }}>
+            <Box sx={{ width: '80%', margin: '3vh auto' }}>
                 <Typography variant='h5'>NIT Documents</Typography>
                 <hr style={{ width: '100%' }}></hr>
                 <Grid container>
