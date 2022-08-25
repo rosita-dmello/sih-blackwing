@@ -1,7 +1,12 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import { Grid,Button } from '@mui/material'
+import { viewAllStaffGet } from '../../api/department'
 
 const BidOpeners = (props) => {
+    useEffect(() => {
+      viewAllStaffGet()
+    }, [])
+    
     return (
         <>BidOpeners
             <Grid container>
