@@ -66,6 +66,8 @@ function Layout({ children }) {
   }
   React.useEffect(() => {
 
+    const user = JSON.parse(localStorage.getItem("user"));
+    setRole(user.role);
     if (role==="DEPARTMENT_HEAD") {
       setList(["Department Users", "New Department User"]);
     }
