@@ -28,7 +28,8 @@ import "react-chatbot-kit/build/main.css";
 import chatbotConfig from "../utils/chatbotConfig";
 import MessageParser from "./Chatbot/MessageParser";
 import ActionProvider from "./Chatbot/ActionProvider";
-// import theme from "../App";
+
+
 
 const page = {
   width: "100%",
@@ -201,7 +202,7 @@ function Layout({ children}) {
                 margin: 0,
                 top: "auto",
                 right: 20,
-                bottom: 20,
+                bottom: 30,
                 left: "auto",
                 position: "fixed",
                 zIndex: (theme) => theme.zIndex.drawer + 2,
