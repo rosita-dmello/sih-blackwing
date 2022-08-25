@@ -40,7 +40,7 @@ const TenderCreation = () => {
     }
   return (
     <Layout>
-        <Box sx={{ width: '80%', margin: '3vh auto' }}>
+        <Box sx={{ width: '95%', margin: '3vh auto' }}>
                 <Stepper activeStep={step - 1}>
                     {
                         stepperSteps.map((steps, index) => {
