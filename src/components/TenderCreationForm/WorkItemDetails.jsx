@@ -35,7 +35,7 @@ const WorkItemDetails = (props) => {
             <CustomDropDown textlabel="Product Category" value="productCategory" array={productCategories} values={workItemDetails} setValues={setWorkItemDetails} />
           </Grid>
           <Grid item xs={6} >
-            <Grid item sx={{ marginLeft: '-6%' }}>
+            <Grid item sx={{marginLeft:'5%'}}>
               <CustomSelect textlabel="Pre Bid Meeting" array={preBid} value="preBidMeeting" values={workItemDetails} setValues={setWorkItemDetails} />
             </Grid>
             <CustomTextField disable={workItemDetails.preBidMeeting} textlabel="Location Detail" value="locationDetails" values={workItemDetails} setValues={setWorkItemDetails} />
@@ -48,7 +48,7 @@ const WorkItemDetails = (props) => {
           <Button onClick={props.prevStep}>previous</Button>
         </Grid>
         <Grid item>
-          <Button onClick={props.nextStep}>next</Button>
+          <Button onClick={()=>{props.nextStep(WorkItemDetails)}}>next</Button>
         </Grid>
       </Grid>
     </>
