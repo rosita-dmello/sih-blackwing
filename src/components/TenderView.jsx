@@ -26,7 +26,7 @@ function TenderView({ tender }) {
             variant="contained"
             color="primary"
             onClick={() => {
-              navigate("/bidder/tender/");
+              navigate("/bidder/");
             }}
           >
             Back

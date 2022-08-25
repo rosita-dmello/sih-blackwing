@@ -70,8 +70,7 @@ function App() {
           
 
           <Route path="/bidder/enrollment" element={<BidderEnrollment/>} />
-          <Route path="/bidder" element={<BidderDash/>} />
-          <Route path="/bidder/tender" element={<BidderSideTender/>} />
+          <Route path="/bidder" element={<BidderSideTender/>} />
           <Route path="/bidder/progress" element={<BidderProgress/>} />
           <Route path="/bidder/grievance" element={<GrievanceForm/>} />
           <Route path="/bidder/status" element={<BidderStatus/>} />

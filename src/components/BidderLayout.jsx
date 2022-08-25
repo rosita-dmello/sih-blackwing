@@ -72,7 +72,7 @@ function Layout({ children, size, setSize }) {
       <Box sx={{ overflow: "auto" }}>
         <List>
           {[
-            "Tenders",
+            "Tenders Uploaded",
             "Progress Log",
             "Report Grievance",
             "Track Status",
@@ -83,7 +83,7 @@ function Layout({ children, size, setSize }) {
                 component={Link}
                 to={
                   index === 0
-                    ? "/bidder/tender"
+                    ? "/bidder"
                     : index === 1
                     ? "/bidder/progress"
                     : index === 2
