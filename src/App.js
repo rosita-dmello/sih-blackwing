@@ -38,6 +38,7 @@ import BidderApply from './pages/BidderApply'
 function App() {
   const loc = useLocation();
   const [size, setSize] = useState(14);
+  const [tender, setTender] = useState(null);
 
   const actions = [
     { icon: <FileCopyIcon />, name: 'Copy' },
@@ -95,12 +96,12 @@ function App() {
           
 
           <Route path="/bidder/enrollment" element={<BidderEnrollment/>} />
-          <Route path="/bidder" element={<BidderSideTender/>} />
+          <Route path="/bidder" element={<BidderSideTender setTender={setTender}/>} />
           <Route path="/bidder/progress" element={<BidderProgress/>} />
           <Route path="/bidder/grievance" element={<GrievanceForm/>} />
           <Route path="/bidder/status" element={<BidderStatus/>} />
           <Route path="/bidder/ebazar" element={<Ebazaar/>} />
-          <Route path="/bidder/apply" element={<BidderApply/>}/>
+          <Route path="/bidder/apply" element={<BidderApply tender={tender}/>}/>
 
           <Route path="/department" element={<DepartmentDash/>} />
           <Route path="/department/createtender" element={<TenderCreation/>} />
