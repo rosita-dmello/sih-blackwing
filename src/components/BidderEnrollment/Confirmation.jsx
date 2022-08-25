@@ -46,17 +46,8 @@ function Confirmation({
       }
     }
     console.log(response);
-    // Encrypt
-    var ciphertext = CryptoJS.AES
-      .encrypt(JSON.stringify(allData), "blackwing")
-      .toString();
-    console.log("cipher", {
-        data: ciphertext
-    });
-    // Decrypt
-    var bytes = CryptoJS.AES.decrypt(ciphertext, "blackwing");
-    var decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
-    console.log(decryptedData);
+    
+    
   };
   return (
     <Box sx={{ width: "50vw" }}>

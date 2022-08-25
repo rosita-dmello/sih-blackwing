@@ -34,7 +34,7 @@ function DepartmentUsers() {
     const response = await viewAllStaffGet(localStorage.getItem("token"));
     if (response) {
       console.log(response);
-      setUsers(response.result.data);
+      setUsers(response.result.data.staffs);
     } else {
     }
   };
