@@ -20,6 +20,8 @@ import ChatBubbleIcon from "@mui/icons-material/ChatBubble";
 import Button from "@mui/material/Button";
 import { useTheme } from "@mui/material/styles";
 import { Link } from "react-router-dom";
+import {IconButton} from '@mui/material';
+import MenuIcon from '@mui/icons-material/Menu';
 
 import Chatbot from "react-chatbot-kit";
 import "react-chatbot-kit/build/main.css";
@@ -52,12 +54,54 @@ const style = {
   zIndex: (theme) => theme.zIndex.drawer + 2,
 };
 
-function Layout({ children }) {
+function Layout({ children}) {
   const theme = useTheme();
   const [showChat, setShowChat] = useState(false);
 
+  const drawer = (
+    <div>
+      <Toolbar />
+      <Box sx={{ overflow: "auto" }}>
+        <List>
+          {["User Login", "Bidder enrollment"].map((text, index) => (
+            <ListItem key={text} disablePadding>
+              <ListItemButton
+                component={Link}
+                to={
+                  index === 0
+                    ? "/login"
+                    : index === 1
+                    ? "/bidder/enrollment"
+                    : "/"
+                }
+              >
+                <ListItemIcon>
+                  {index === 0 ? (
+                    <LoginIcon />
+                  ) : index === 1 ? (
+                    <GavelIcon />
+                  ) : (
+                    <MailIcon />
+                  )}
+                </ListItemIcon>
+
+                <ListItemText primary={text} />
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
+      </Box>
+    </div>
+  );
+
   const toggleDiv = () => {
     setShowChat((prev) => !prev);
+  };
+
+  const [mobileOpen, setMobileOpen] = React.useState(false);
+
+  const handleDrawerToggle = () => {
+    setMobileOpen(!mobileOpen);
   };
   return (
     <div style={{ display: "flex" }}>
@@ -69,6 +113,15 @@ function Layout({ children }) {
         elevation={0}
       >
         <Toolbar>
+        <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            edge="start"
+            onClick={handleDrawerToggle}
+            sx={{ mr: 2, display: { sm: 'none' } }}
+          >
+            <MenuIcon />
+          </IconButton>
           <Typography
             variant="h4"
             noWrap
@@ -89,52 +142,44 @@ function Layout({ children }) {
           </Typography>
         </Toolbar>
       </AppBar>
-      <Drawer
-        variant="permanent"
-        sx={{
-          width: drawerWidth,
-          flexShrink: 0,
-          [`& .MuiDrawer-paper`]: {
-            width: drawerWidth,
-            boxSizing: "border-box",
-          },
-          minHeight: "100vh"
-        }}
+      <Box
+        component="nav"
+        sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 }, minHeight: "100vh" }}
+        aria-label="mailbox folders"
       >
-        <Toolbar />
-        <Box sx={{ overflow: "auto" }}>
-          <List>
-            {["User Login", "Bidder enrollment"].map(
-              (text, index) => (
-                <ListItem key={text} disablePadding>
-                  <ListItemButton
-                    component={Link}
-                    to={
-                      index === 0
-                        ? "/login"
-                        : index === 1
-                        ? "/bidder/enrollment"
-                        : "/"
-                    }
-                  >
-                    <ListItemIcon>
-                      {index === 0 ? (
-                        <LoginIcon />
-                      ) : index === 1 ? (
-                        <GavelIcon />
-                      ) : (
-                        <MailIcon />
-                      )}
-                    </ListItemIcon>
-
-                    <ListItemText primary={text} />
-                  </ListItemButton>
-                </ListItem>
-              )
-            )}
-          </List>
-        </Box>
-      </Drawer>
+        <Drawer
+          variant="temporary"
+          open={mobileOpen}
+          onClose={handleDrawerToggle}
+          ModalProps={{
+            keepMounted: true, // Better open performance on mobile.
+          }}
+          sx={{
+            display: { xs: "block", sm: "none" },
+            "& .MuiDrawer-paper": {
+              boxSizing: "border-box",
+              width: drawerWidth,
+            },
+            minHeight: "100vh",
+          }}
+        >
+          {drawer}
+        </Drawer>
+        <Drawer
+          variant="permanent"
+          sx={{
+            display: { xs: "none", sm: "block" },
+            "& .MuiDrawer-paper": {
+              boxSizing: "border-box",
+              width: drawerWidth,
+              minHeight: "100vh",
+            },
+          }}
+          open
+        >
+          {drawer}
+        </Drawer>
+      </Box>
       <div style={page}>
         <Box sx={{ ...theme.mixins.toolbar, paddingBottom: 10 }}></Box>
         {children}

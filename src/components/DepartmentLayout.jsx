@@ -13,7 +13,8 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import Stambh from "../utils/stambh.png";
 import MailIcon from "@mui/icons-material/Mail";
-
+import {IconButton} from '@mui/material';
+import MenuIcon from '@mui/icons-material/Menu';
 import LoginIcon from "@mui/icons-material/Login";
 import ViewInArIcon from '@mui/icons-material/ViewInAr';
 import GavelIcon from '@mui/icons-material/Gavel';
@@ -73,6 +74,61 @@ function Layout({ children }) {
     }
   } , [role]);
 
+  const drawer = (<div><Toolbar />
+  <Box sx={{ overflow: "auto" }}>
+    <List>
+      {role==="DEPARTMENT_HEAD"?list.map(
+        (text, index) => (
+          <ListItem key={text} disablePadding>
+              <ListItemButton component={Link} to={index===0?"/department":index===1?"/nodalofficer/verify":index===2?"/bidder/enrollment":"/"}>
+                <ListItemIcon>
+                  {index === 0 ? (
+                    <PeopleIcon />
+                  ) : index === 1 ? (
+                    <GroupAddIcon />
+                  ) : index === 2 ?(
+                    <GavelIcon />
+                  ):(
+                    <MailIcon />
+                  )}
+                </ListItemIcon>
+
+                <ListItemText primary={text} />
+              </ListItemButton>
+          </ListItem>
+        )
+      ):list.map(
+        (text, index) => (
+          <ListItem key={text} disablePadding>
+              <ListItemButton component={Link} to={index===0?"/department":index===1?"/nodalofficer/verify":index===2?"/bidder/enrollment":"/"}>
+                <ListItemIcon>
+                  {index === 0 ? (
+                    <LoginIcon />
+                  ) : index === 1 ? (
+                    <ViewInArIcon />
+                  ) : index === 2 ?(
+                    <GavelIcon />
+                  ):(
+                    <MailIcon />
+                  )}
+                </ListItemIcon>
+
+                <ListItemText primary={text} />
+              </ListItemButton>
+          </ListItem>
+        )
+      )
+      }
+
+    </List>
+  </Box></div>)
+
+const [mobileOpen, setMobileOpen] = React.useState(false);
+
+const handleDrawerToggle = () => {
+  setMobileOpen(!mobileOpen);
+};
+
   return (
     <div style={{ display: "flex" }}>
       {/* app bar  */}
@@ -83,6 +139,15 @@ function Layout({ children }) {
         elevation={0}
       >
         <Toolbar>
+        <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            edge="start"
+            onClick={handleDrawerToggle}
+            sx={{ mr: 2, display: { sm: 'none' } }}
+          >
+            <MenuIcon />
+          </IconButton>
           <Typography
             variant="h4"
             noWrap
@@ -101,67 +166,45 @@ function Layout({ children }) {
           </Typography>
         </Toolbar>
       </AppBar>
-      <Drawer
-        variant="permanent"
-        sx={{
-          width: drawerWidth,
-          flexShrink: 0,
-          [`& .MuiDrawer-paper`]: {
-            width: drawerWidth,
-            boxSizing: "border-box",
-          },
-          minHeight: "100vh"
-        }}
-      >
-        <Toolbar />
-        <Box sx={{ overflow: "auto" }}>
-          <List>
-            {role==="DEPARTMENT_HEAD"?list.map(
-              (text, index) => (
-                <ListItem key={text} disablePadding>
-                    <ListItemButton component={Link} to={index===0?"/department":index===1?"/nodalofficer/verify":index===2?"/bidder/enrollment":"/"}>
-                      <ListItemIcon>
-                        {index === 0 ? (
-                          <PeopleIcon />
-                        ) : index === 1 ? (
-                          <GroupAddIcon />
-                        ) : index === 2 ?(
-                          <GavelIcon />
-                        ):(
-                          <MailIcon />
-                        )}
-                      </ListItemIcon>
-
-                      <ListItemText primary={text} />
-                    </ListItemButton>
-                </ListItem>
-              )
-            ):list.map(
-              (text, index) => (
-                <ListItem key={text} disablePadding>
-                    <ListItemButton component={Link} to={index===0?"/department":index===1?"/nodalofficer/verify":index===2?"/bidder/enrollment":"/"}>
-                      <ListItemIcon>
-                        {index === 0 ? (
-                          <LoginIcon />
-                        ) : index === 1 ? (
-                          <ViewInArIcon />
-                        ) : index === 2 ?(
-                          <GavelIcon />
-                        ):(
-                          <MailIcon />
-                        )}
-                      </ListItemIcon>
-
-                      <ListItemText primary={text} />
-                    </ListItemButton>
-                </ListItem>
-              )
-            )
-            }
-
-          </List>
+      <Box
+          component="nav"
+          sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 }, minHeight: "100vh",}}
+          aria-label="mailbox folders"
+        >
+          <Drawer
+            variant="temporary"
+            open={mobileOpen}
+            onClose={handleDrawerToggle}
+            ModalProps={{
+              keepMounted: true, // Better open performance on mobile.
+            }}
+            sx={{
+              display: { xs: "block", sm: "none" },
+              "& .MuiDrawer-paper": {
+                boxSizing: "border-box",
+                width: drawerWidth,
+              },
+              minHeight: "100vh",
+            }}
+          >
+            {drawer}
+          </Drawer>
+          <Drawer
+            variant="permanent"
+            sx={{
+              display: { xs: "none", sm: "block" },
+              "& .MuiDrawer-paper": {
+                boxSizing: "border-box",
+                width: drawerWidth,
+                
+              },
+              minHeight: "100vh",
+            }}
+            open
+          >
+            {drawer}
+          </Drawer>
         </Box>
-      </Drawer>
       <div style={page}>
         <Box sx={{ ...theme.mixins.toolbar, paddingBottom: 10 }}></Box>
         {children}

@@ -21,7 +21,7 @@ import Typography from '@mui/material/Typography'
 import SizeChange from "./components/SizeChange";
 import GrievanceForm from "./components/GrievanceForm";
 import BidderStatus from "./components/BidderStatus";
-
+import TextAdjust from "./components/TextAdjust";
 import Footer from "./components/Footer";
 
 
@@ -81,9 +81,8 @@ function App() {
           <Route path="/department/users" element={<DepartmentUsers/>} />
           <Route path="/department/users/new" element={<NewDSCUser/>} />
         </Routes>
-        
+        {/* <TextAdjust size={size} setSize={setSize} /> */}
         <Footer size={size} setSize={setSize}/>
-      
         </AnimatePresence>
       </ThemeProvider>
     </div>
