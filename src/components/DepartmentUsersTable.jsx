@@ -13,19 +13,11 @@ import moment from "moment";
 import { Typography } from "@mui/material";
 moment().format();
 
-// name: "Mr. Sample User",
-// email: "SampleID",
-// organisationchain: "Sample Organisation",
-// type: "gap",
-// status: "gap",
-// view: {
-//   url: "/sampledoc"
-// }
 const columns = [
   
   { id: "name", label: "Name", minWidth: 100 },
   {
-    id: "type",
+    id: "role",
     label: "Type",
     minWidth: 100,
   },
@@ -36,13 +28,18 @@ const columns = [
 
   },
   {
-    id: "organisationchain",
+    id: "organizationname",
     label: "Organisation Chain",
     minWidth: 100,
   },
   {
-    id: "status",
-    label: "Status",
+    id: "designation",
+    label: "Designation",
+    minWidth: 100,
+  },
+  {
+    id: "secretariatdepartment",
+    label: "Secretariat Department",
     minWidth: 100,
   },
 ];
