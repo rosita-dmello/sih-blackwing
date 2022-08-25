@@ -14,6 +14,7 @@ import Layout from "../components/Layout";
 import SearchIcon from "@mui/icons-material/Search";
 import React, { useState, useEffect } from "react";
 import DepartmentUsersTable from "../components/DepartmentUsersTable";
+import { viewAllStaffGet } from "../api/department";
 // import { getusers } from "../data/api";
 
 function DepartmentUsers() {
@@ -30,15 +31,15 @@ function DepartmentUsers() {
     },
   ]);
   const setusersFn = async () => {
-    // const response = await getusers(localStorage.getItem("token"));
-    // if (response) {
-    //   console.log(response);
-    //   setusers(response);
-    // } else {
-    // }
+    const response = await viewAllStaffGet(localStorage.getItem("token"));
+    if (response) {
+      console.log(response);
+      setUsers(response.result.data);
+    } else {
+    }
   };
   useEffect(() => {
-    // setusersFn();
+    setusersFn();
   }, []);
 
   return (
@@ -77,7 +78,7 @@ function DepartmentUsers() {
                 color="primary"
                 variant="extended"
                 component="a"
-                href="/dsc/users/new"
+                href="/department/users/new"
                 sx={{
                   "&:hover": {
                     color: "#fff",

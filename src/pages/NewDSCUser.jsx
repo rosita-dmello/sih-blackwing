@@ -28,7 +28,7 @@ import {
   MenuItem,
   FormGroup,
 } from "@mui/material";
-// import { orderPost } from "../data/api";
+import {createStaffPost } from "../api/department";
 import { Done } from "@mui/icons-material";
 import {
   loadCaptchaEnginge,
@@ -43,7 +43,9 @@ moment().format();
 export default function NewDSCUser() {
   const [created, setCreated] = useState(false);
   const [captcha, setCaptcha] = useState("");
-  const [userroles, setUserroles] = useState([]);
+  const [userrole, setUserrole] = useState("");
+  const [pwError, setPwError] = useState("");
+  const [confirmPwError, setConfirmPwError] = useState("");
   const navigate = useNavigate();
   const [data, setData] = useState({
     userlevel: "",
@@ -56,12 +58,12 @@ export default function NewDSCUser() {
     organizationname: "",
     department: "",
     designation: "",
-    contactaddress: "",
+    address: "",
     correspondenceemail: "",
     phone: "",
     fax: "",
     mobile: "",
-    userroles: [],
+    role: "",
   });
 
   const textFields = [
@@ -70,7 +72,7 @@ export default function NewDSCUser() {
     "Organization Name",
     "Department",
     "Designation",
-    "Contact Address",
+    "Address",
     "Correspondence Email",
   ];
   const handleChange = (event) => {
@@ -83,11 +85,7 @@ export default function NewDSCUser() {
   const handleCheck = (event) => {
     const { name, checked } = event.target;
     if (checked) {
-      setUserroles((prev) => [...prev, name]);
-    } else {
-      let userroles1 = userroles;
-      userroles1 = userroles1.filter((item) => item !== name);
-      setUserroles(userroles1);
+      setUserrole(name);
     }
   };
 
@@ -95,16 +93,39 @@ export default function NewDSCUser() {
     setData((prev) => {
       return {
         ...prev,
-        userroles,
+        role: userrole,
       };
     });
-  }, [userroles]);
+  }, [userrole]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setPwError("");
+  setConfirmPwError("");
     if (validateCaptcha(captcha) == true) {
-      console.log(data);
-      navigate("/dsc/users");
+      if (data.password.length < 8) {
+        setPwError("Password too short.");
+      } else if (data.password !== data.confirmPassword) {
+        setConfirmPwError("This field does not match with the password.");
+      } else {
+        console.log({
+          ...data,
+          name: data.firstname + " " + data.lastname,
+        });
+        const user = JSON.parse(localStorage.getItem("user"));
+        const formData = {
+          ...data,
+          name: data.firstname + " " + data.lastname,
+          parentid: user.parentid,
+          mobile: "+" + data.mobile
+        };
+        const response = await createStaffPost(
+          formData,
+          localStorage.getItem("token")
+        );
+        console.log(user);
+        navigate("/department/users");
+      }
     } else {
       alert("Invalid Captcha!");
     }
@@ -218,13 +239,11 @@ export default function NewDSCUser() {
                             name="title"
                             defaultValue={"Mr."}
                           >
-                            {['Mrs', 'Mr', 'Ms', 'Dr', 'Sri'].map(
-                              (field) => (
-                                <MenuItem key={field} value={field}>
-                                  {field}
-                                </MenuItem>
-                              )
-                            )}
+                            {["Mrs", "Mr", "Ms", "Dr", "Sri"].map((field) => (
+                              <MenuItem key={field} value={field}>
+                                {field}
+                              </MenuItem>
+                            ))}
                           </Select>
                         </FormControl>
                       </Grid>
@@ -278,16 +297,16 @@ export default function NewDSCUser() {
                               label={field}
                               name={key === "loginid" ? "email" : key}
                               multiline={
-                                key === "contactaddress" ? true : false
+                                key === "address" ? true : false
                               }
-                              rows={key === "contactaddress" ? 3 : 1}
+                              rows={key === "address" ? 3 : 1}
                               onChange={handleChange}
                             />
                           </Grid>
                         );
                       })}
                       {/* const key = field.trim().toLowerCase().replace(/\s/g, ""); */}
-                      {["Phone", "Fax", "Mobile"].map((field) => {
+                      {["Mobile"].map((field) => {
                         const key = field
                           .trim()
                           .toLowerCase()
@@ -301,10 +320,10 @@ export default function NewDSCUser() {
                                 setData((prev) => {
                                   return { ...prev, [key]: phone };
                                 })
-                                }
+                              }
                               inputProps={{
                                 required: true,
-                                name: key
+                                name: key,
                               }}
                               specialLabel={field}
                               inputStyle={{ width: "100%" }}
@@ -349,7 +368,15 @@ export default function NewDSCUser() {
                           ].map((field) => {
                             return (
                               <FormControlLabel
-                                control={<Checkbox name={field === "Nodal Officer" ? "DEPARTMENT_HEAD": "DEPARTMENT_STAFF"} />}
+                                control={
+                                  <Checkbox
+                                    name={
+                                      field === "Nodal Officer"
+                                        ? "DEPARTMENT_HEAD"
+                                        : "DEPARTMENT_STAFF"
+                                    }
+                                  />
+                                }
                                 label={field}
                                 onChange={handleCheck}
                               />
@@ -365,6 +392,40 @@ export default function NewDSCUser() {
                           border: "none",
                         }}
                       />
+                      <Grid item xs={12}>
+                        <TextField
+                          required
+                          fullWidth
+                          name="password"
+                          label="Set a New Password"
+                          type="password"
+                          id="password"
+                          autoComplete="new-password"
+                          error={pwError === "" ? false : true}
+                          helperText={pwError === "" ? "" : pwError}
+                          sx={{
+                            my: "1rem",
+                          }}
+                          onChange={handleChange}
+                        />
+                      </Grid>
+                      <Grid item xs={12}>
+                        <TextField
+                          required
+                          fullWidth
+                          name="password"
+                          label="Confirm Password"
+                          name="confirmPassword"
+                          type="password"
+                          id="confirmPassword"
+                          autoComplete="new-password"
+                          error={confirmPwError === "" ? false : true}
+                          helperText={
+                            confirmPwError === "" ? "" : confirmPwError
+                          }
+                          onChange={handleChange}
+                        />
+                      </Grid>
                       <Grid item xs={12}>
                         <div>
                           <LoadCanvasTemplate reloadColor="#3e92cc" />

@@ -47,7 +47,10 @@ export default function ContactDetails({
   const handleSubmit = async (event) => {
     event.preventDefault();
     console.log(data);
-    setContactDetails(data);
+    setContactDetails({
+      ...data,
+      phone: "+" + data.phone
+    });
     handleNext();
   };
 

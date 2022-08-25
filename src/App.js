@@ -65,8 +65,7 @@ function App() {
           {/* Nodal Officer and DSC  */}
           {/* <Route path="/nodalofficer/verify" element={<DSCCode/>} /> */}
           {/* <Route path="/nodalofficer/setpassword" element={<DSCPassword/>} /> */}
-          <Route path="/dsc/users" element={<DepartmentUsers/>} />
-          <Route path="/dsc/users/new" element={<NewDSCUser/>} />
+          
 
           <Route path="/bidder/enrollment" element={<BidderEnrollment/>} />
           <Route path="/bidder" element={<BidderDash/>} />
@@ -75,6 +74,8 @@ function App() {
 
           <Route path="/department" element={<DepartmentDash/>} />
           <Route path="/department/createtender" element={<TenderCreation/>} />
+          <Route path="/department/users" element={<DepartmentUsers/>} />
+          <Route path="/department/users/new" element={<NewDSCUser/>} />
         </Routes>
         
         <Footer size={size} setSize={setSize}/>
