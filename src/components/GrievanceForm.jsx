@@ -29,7 +29,7 @@ function GrievanceForm() {
             style={{
               width: "100%",
               height: "2px",
-              backgroundColor: "#3e92cc",
+              backgroundColor: "#243665",
               border: "none",
               textAlign: "center",
             }}

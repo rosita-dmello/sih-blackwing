@@ -49,7 +49,7 @@ const style = {
   bottom: 20,
   left: "auto",
   position: "fixed",
-  backgroundColor: "#3e92cc",
+  backgroundColor: "#243665",
   color: "#FFFFFF",
   zIndex: (theme) => theme.zIndex.drawer + 2,
 };
@@ -112,7 +112,10 @@ function Layout({ children}) {
         sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
         elevation={0}
       >
-        <Toolbar>
+        <Toolbar sx={{
+          height: 50,
+          
+        }}>
         <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -137,7 +140,7 @@ function Layout({ children}) {
               },
             }}
           >
-            <img src={Stambh} alt="stambh" style={{ width: "5.3rem" }} />{" "}
+            <img src={Stambh} alt="stambh" style={{ width: "4rem" }} />{" "}
             E-PROCUREMENT PORTAL
           </Typography>
         </Toolbar>

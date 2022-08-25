@@ -93,7 +93,7 @@ function Confirmation({
           style={{
             width: "20%",
             height: "2px",
-            backgroundColor: "#3e92cc",
+            backgroundColor: "#243665",
             border: "none",
           }}
         />
@@ -104,7 +104,7 @@ function Confirmation({
                 <CardContent>
                   <Box
                     sx={{
-                      border: "1px solid #3e92cc",
+                      border: "1px solid #243665",
                       padding: 3,
                     }}
                   >
@@ -141,7 +141,7 @@ function Confirmation({
                 <CardContent>
                   <Box
                     sx={{
-                      border: "1px solid #3e92cc",
+                      border: "1px solid #243665",
                       padding: 3,
                     }}
                   >
@@ -177,7 +177,7 @@ function Confirmation({
                 <CardContent>
                   <Box
                     sx={{
-                      border: "1px solid #3e92cc",
+                      border: "1px solid #243665",
                       padding: 3,
                     }}
                   >

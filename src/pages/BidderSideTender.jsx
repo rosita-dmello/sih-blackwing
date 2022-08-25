@@ -154,7 +154,7 @@ export default function BidderSideTender() {
                       <TableCell
                         key={column.id}
                         align={column.align}
-                        style={{ minWidth: column.minWidth, backgroundColor: "turquoise" }}
+                        style={{ minWidth: column.minWidth, backgroundColor: "#243665", color: "white" }}
                       >
                         {column.label}
                       </TableCell>
