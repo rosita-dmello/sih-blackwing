@@ -52,6 +52,12 @@ const style = {
   backgroundColor: "#243665",
   color: "#FFFFFF",
   zIndex: (theme) => theme.zIndex.drawer + 2,
+  borderRadius: "5rem",
+  width: "4rem",
+  height: "4rem",
+  "&:hover": {
+    backgroundColor: "#2f4684"
+  }
 };
 
 function Layout({ children}) {
@@ -198,8 +204,8 @@ function Layout({ children}) {
                 bottom: 20,
                 left: "auto",
                 position: "fixed",
-                marginBottom: "3rem",
                 zIndex: (theme) => theme.zIndex.drawer + 2,
+                marginBottom: "4rem"
               }}
             >
               <Chatbot

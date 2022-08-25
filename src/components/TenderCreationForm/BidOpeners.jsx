@@ -1,20 +1,47 @@
-import React,{useEffect} from 'react'
-import { Grid,Button } from '@mui/material'
+import React,{useEffect, useState} from 'react'
+import { Grid,Button, CircularProgress, Box } from '@mui/material'
 import { viewAllStaffGet } from '../../api/department'
+import BidOpenersTable from './BidOpenersTable';
 
 const BidOpeners = (props) => {
-    useEffect(() => {
-      viewAllStaffGet()
-    }, [])
-    
+    const [users, setUsers] = useState(null);
+      const setusersFn = async () => {
+        const response = await viewAllStaffGet(localStorage.getItem("token"));
+        if (response) {
+          console.log(response);
+          setUsers(response.result.data.staffs);
+        } else {
+        }
+      };
+      useEffect(() => {
+        setusersFn();
+      }, []);
+    const options = ['', '2 Off 4', '2 Off 3', '3 Off 3', '2 Off 2'];
+
     return (
-        <>BidOpeners
-            <Grid container>
+        <>
+            <Grid container direction="column" sx={{
+                padding: "3rem"
+            }}>
                 <Grid item>
-                    <Button onClick={props.prevStep}>previous</Button>
+                    {users ? <BidOpenersTable users={users}/> : 
+                    <Box sx={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center"
+                    }}>
+                        <CircularProgress/> 
+                    </Box>
+                    }
+                    
                 </Grid>
-                <Grid item>
+                <Grid item sx={{
+                    display: "flex",
+                    justifyContent: "space-between"
+                }}>
+                    <Button onClick={props.prevStep}>previous</Button>
                     <Button onClick={props.nextStep}>next</Button>
+               
                 </Grid>
             </Grid></>
     )
