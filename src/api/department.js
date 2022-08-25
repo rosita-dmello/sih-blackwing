@@ -1,9 +1,11 @@
 import axios from "axios";
+import { encryptedData } from "../utils/encryption";
 
 const apiUrl = "https://sih-blackwing-api.herokuapp.com/api";
 
 export const createStaffPost = async (formData, token) => {
     try {
+        formData = encryptedData(formData);
         const response = await axios.post(apiUrl + "/staff/", formData, {
             headers: {
                 Authorization: `Bearer ${token}`

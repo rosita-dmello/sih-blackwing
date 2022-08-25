@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const apiUrl = "https://1924-115-241-205-3.in.ngrok.io/query/";
+const apiUrl = "https://f9f4-115-241-205-3.in.ngrok.io/query/";
 
 export const sendQueryPost = async (formData) => {
     try {
