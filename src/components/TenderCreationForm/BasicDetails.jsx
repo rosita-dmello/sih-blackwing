@@ -13,10 +13,10 @@ const BasicDetails = (props) => {
     const noOfBidOpeners = ['', '2 Off 4', '2 Off 3', '3 Off 3', '2 Off 2']
     const [basicDetails, setBasicDetails] = useState({ noofcover: 1 })
     const [files, setFiles] = useState([[], [], [], []])
-    const [coverDetails, setCoverDetails] = useState({ docDesc: '', docType: '' })
+    const [coverDetails, setCoverDetails] = useState({ docdesc: '', doctype: '' })
     const [open, setOpen] = useState(false)
     const [number, setNumber] = useState(0)
-    const [nitDoc, setNitDoc] = useState()
+    const [nitdoc, setNitDoc] = useState()
     const [openModal, setOpenModal] = useState(false)
     const [checked, setChecked] = useState(false)
     const handleModal = () => {
@@ -38,7 +38,6 @@ const BasicDetails = (props) => {
         width: '70%'
     }
     const handleClose = () => {
-
         setOpen(false)
     }
     const handleOpen = (number) => {
@@ -59,7 +58,6 @@ const BasicDetails = (props) => {
     const handleFile = (e) => {
         setNitDoc(e.target.files[0])
         handleCloseModal()
-
     }
     if (checked) {
         let result = window.confirm("Do you want to delete the following packet")
@@ -79,8 +77,7 @@ const BasicDetails = (props) => {
                 <TableCell>
                     <Button onClick={() => handleOpen(1)}><FolderIcon /></Button>
                 </TableCell>
-            </TableRow>
-        }
+            </TableRow>}
         else if (basicDetails.noofcover === 2) {
             return <>
                 <TableRow>
@@ -102,8 +99,7 @@ const BasicDetails = (props) => {
                         <Button onClick={() => handleOpen(2)}><FolderIcon /></Button>
                     </TableCell>
                 </TableRow>
-            </>
-        }
+            </> }
         else if (basicDetails.noofcover === 3) {
             return <>
                 <TableRow>
@@ -136,8 +132,7 @@ const BasicDetails = (props) => {
                         <Button onClick={() => handleOpen(3)}><FolderIcon /></Button>
                     </TableCell>
                 </TableRow>
-            </>
-        }
+            </>}
         else {
             return <>
                 <TableRow>
@@ -180,9 +175,7 @@ const BasicDetails = (props) => {
                         <Button onClick={() => handleOpen(4)}><FolderIcon /></Button>
                     </TableCell>
                 </TableRow>
-            </>
-        }
-    }
+            </>}}
     return (
         <>
             <Modal
@@ -218,14 +211,12 @@ const BasicDetails = (props) => {
                             <FormControl sx={{
                                 '& legend': { display: 'none' },
                                 '& fieldset': { top: 0 },
-                                width: '100%'
-                            }}
+                                width: '100%'}}
                                 size="small">
-
                                 <Select
                                     name="docType"
                                     defaultValue=''
-                                    value={coverDetails.docType}
+                                    value={coverDetails.doctype}
                                     onChange={handleChange}
                                 >
                                     <MenuItem value=".pdf">.pdf</MenuItem>
@@ -266,10 +257,10 @@ const BasicDetails = (props) => {
                                             {index}
                                         </TableCell>
                                         <TableCell>
-                                            {file.docType}
+                                            {file.doctype}
                                         </TableCell>
                                         <TableCell>
-                                            {file.docDesc}
+                                            {file.docdesc}
                                         </TableCell>
                                         <TableCell>
                                             edit
@@ -307,13 +298,12 @@ const BasicDetails = (props) => {
                         <CustomDropDown textlabel="Account Type Head" array={accountTypeHead} value='accounttypehead' values={basicDetails} setValues={setBasicDetails} />
                     </Grid>
                     <Grid item xs={12}>
-                        <CustomDropDown textlabel="Number Of Bid Openers" array={noOfBidOpeners} value='noOfBidOpeners' values={basicDetails} setValues={setBasicDetails} />
+                        <CustomDropDown textlabel="Number Of Bid Openers" array={noOfBidOpeners} value='noofbidopeners' values={basicDetails} setValues={setBasicDetails} />
                     </Grid>
                 </Grid>
             </Box>
             <Box sx={{ width: '80%', margin: '3vh auto' }}>
                 <Typography variant='h5'>Cover Details</Typography>
-
                 <hr style={{ width: '100%' }}></hr>
                 <Grid container>
                     <Table>
@@ -326,9 +316,7 @@ const BasicDetails = (props) => {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {
-                                renderElement()
-                            }
+                            {renderElement()}
                         </TableBody>
                     </Table>
                 </Grid>
@@ -355,13 +343,13 @@ const BasicDetails = (props) => {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {nitDoc === undefined ? "" :
+                            {nitdoc === undefined ? "" :
                                 <TableRow>
                                     <TableCell>
                                         NIT
                                     </TableCell>
                                     <TableCell>
-                                        {nitDoc.name}
+                                        {nitdoc.name}
                                     </TableCell>
                                     <TableCell>
                                         <Checkbox onClick={() => setChecked(!checked)} checked={checked} />
@@ -399,9 +387,10 @@ const BasicDetails = (props) => {
                             </Grid>
                             <Grid item xs={7}>
                                 <TextField
-                                    value={nitDoc === undefined ? "" : nitDoc.name}
+                                    value={nitdoc === undefined ? "" : nitdoc.name}
                                     disabled
-                                    size="small" sx={{
+                                    size="small" 
+                                    sx={{
                                         width: '70%', '& legend': { display: 'none' },
                                         '& fieldset': { top: 0 }
                                     }} />
@@ -418,27 +407,23 @@ const BasicDetails = (props) => {
                     </Grid>
                 </Box>
             </Modal>
-            <Grid container>
-                <Grid item>
+            <Grid container direction="column" sx={{
+                padding: "3rem"
+            }}>
+                <Grid item sx={{
+                    display: "flex",
+                    justifyContent: "space-between"
+                }}>
                     <Button onClick={props.prevStep}>previous</Button>
-                </Grid>
-                <Grid item>
                     <Button onClick={() => {
                         props.nextStep(basicDetails)
                         props.setAllData((prev) => {
                             return {
                                 ...prev,
-                                nitDoc
+                                nitdoc
                             }
-                        })
-                        console.log(nitDoc)
-                    }
-                    }>next</Button>
+                        })}}>next</Button>
                 </Grid>
             </Grid>
-        </>
-
-    )
-}
-
+        </>)}
 export default BasicDetails

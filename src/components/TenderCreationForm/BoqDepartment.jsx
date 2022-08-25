@@ -233,11 +233,14 @@ function BoqDepartment(props) {
             >
               Add Item
             </Button>
-            <Grid container>
-              <Grid item>
+            <Grid container direction="column" sx={{
+                padding: "3rem"
+            }}>
+              <Grid item sx={{
+                    display: "flex",
+                    justifyContent: "space-between"
+                }}>
                 <Button onClick={props.prevStep}>previous</Button>
-              </Grid>
-              <Grid item>
                 <Button onClick={() => { props.nextStep(formValues) }}>next</Button>
               </Grid>
             </Grid>
