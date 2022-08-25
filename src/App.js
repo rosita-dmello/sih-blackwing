@@ -34,6 +34,7 @@ import FileCopyIcon from '@mui/icons-material/FileCopyOutlined';
 import SaveIcon from '@mui/icons-material/Save';
 import PrintIcon from '@mui/icons-material/Print';
 import ShareIcon from '@mui/icons-material/Share';
+import BidderApply from './pages/BidderApply'
 function App() {
   const loc = useLocation();
   const [size, setSize] = useState(14);
@@ -99,6 +100,7 @@ function App() {
           <Route path="/bidder/grievance" element={<GrievanceForm/>} />
           <Route path="/bidder/status" element={<BidderStatus/>} />
           <Route path="/bidder/ebazar" element={<Ebazaar/>} />
+          <Route path="/bidder/apply" element={<BidderApply/>}/>
 
           <Route path="/department" element={<DepartmentDash/>} />
           <Route path="/department/createtender" element={<TenderCreation/>} />

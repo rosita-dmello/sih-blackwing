@@ -6,7 +6,6 @@ import CustomSelect from './CustomSelect'
 
 const WorkItemDetails = (props) => {
   const [workItemDetails, setWorkItemDetails] = useState({})
-  console.log(workItemDetails)
   const preBid = [{ label: 'Yes', value: true }, { label: 'No', value: false }]
   const productCategories = ['Computer- Data Processing', 'Computer- H/W', 'Computer- Man Power', 'Computer- S/W', 'Crop Products', 'Electrical Work/Equipment', 'Electronics Equipment', 'Food Products', 'Furniture/Fixture', 'Medical Equipments/Waste', 'Medicines', 'Metal Makes', 'Miscellaneous', 'Pesticide', 'Publishing/Printing']
   return (

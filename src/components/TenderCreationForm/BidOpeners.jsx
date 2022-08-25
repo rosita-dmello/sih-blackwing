@@ -9,7 +9,6 @@ const BidOpeners = (props) => {
       const setusersFn = async () => {
         const response = await viewAllStaffGet(localStorage.getItem("token"));
         if (response) {
-          console.log(response);
           setUsers(response.result.data.staffs);
         } else {
         }
