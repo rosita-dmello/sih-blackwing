@@ -8,7 +8,7 @@ import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import Layout from "../components/BidderLayout";
-import { Button, Grid, Switch } from "@mui/material";
+import { Box, Button, Grid, } from "@mui/material";
 import Select from 'react-select';
 import {getTenderByFilter, getAllTenders} from "../api/tender";
 import TenderView from "../components/TenderView";
@@ -119,9 +119,9 @@ export default function BidderSideTender() {
   } 
   else if(loading){
     return ( <>
-      <div className="spinner">
+      <Box className="spinner" sx={{zIndex: (theme) => theme.zIndex.drawer + 10, backgroundColor: 'white', padding: '50rem'}}>
         <img src={Spinner} alt="Loading..." />
-      </div>
+      </Box>
     </>);
   }
 

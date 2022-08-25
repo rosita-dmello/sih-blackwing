@@ -24,6 +24,7 @@ function Footer({ size, setSize }) {
         color: "white",
         width: "100%",
         marginTop: "2rem",
+        bottom: 0,
       }}
       position="relative"
     >

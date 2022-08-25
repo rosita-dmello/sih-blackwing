@@ -27,6 +27,8 @@ import ActionProvider from "./Chatbot/ActionProvider";
 import { useTheme } from "@mui/material/styles";
 import { Link } from "react-router-dom";
 
+
+
 // import theme from "../App";
 
 const page = {
@@ -47,7 +49,7 @@ const style = {
   zIndex: (theme) => theme.zIndex.drawer + 2
  };
 
-function Layout({ children }) {
+function Layout({ children, size, setSize }) {
   const theme = useTheme();
   const navigate = useNavigate();
   const [showChat, setShowChat] = useState(false);
@@ -56,6 +58,7 @@ function Layout({ children }) {
     setShowChat((prev) => !prev);
   }
   return (
+    <>
     <div style={{ display: "flex" }}>
       {/* app bar  */}
       <CssBaseline />
@@ -93,6 +96,7 @@ function Layout({ children }) {
             width: drawerWidth,
             boxSizing: "border-box",
           },
+          minHeight: "100vh"
         }}
       >
         <Toolbar />
@@ -170,6 +174,7 @@ function Layout({ children }) {
         </Button>
       </div>
     </div>
+    </>
   );
 }
 

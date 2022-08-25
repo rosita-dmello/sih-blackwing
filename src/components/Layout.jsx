@@ -98,6 +98,7 @@ function Layout({ children }) {
             width: drawerWidth,
             boxSizing: "border-box",
           },
+          minHeight: "100vh"
         }}
       >
         <Toolbar />
