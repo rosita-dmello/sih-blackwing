@@ -132,12 +132,12 @@ export const getApiVersion = async () => {
 
 export const submitProgress = async (description, file , token, name) => {
     try {
-        const response = await axios.post(apiUrl + "/progresslog/", encryptedData({
+        const response = await axios.post(apiUrl + "/progresslog/", {
             description: description,
             filename: name,
             progresslogfile: file,
             tenderid: "6300e18fd12b075c01647df1"
-        }), {
+        }, {
             headers: {
                 Authorization: `Bearer ${token}`
             }

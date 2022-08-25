@@ -133,6 +133,7 @@ export default function BidderSideTender() {
         justifyContent="center"
         alignItems="stretch"
         spacing={4}
+        
       >
         <Grid item style={{ textAlign: "center" }}>
           <div className='cat2'>
@@ -144,7 +145,7 @@ export default function BidderSideTender() {
           <Select options={mstatus} onChange={(e)=>{setStatus(e.value)}} className='select-adj'/>
           </div>
         </Grid>
-        <Grid item >
+        <Grid item  className="tender-table">
           <Paper sx={{ width: "100%", overflow: "hidden", padding: '20px' }}>
             <TableContainer sx={{ maxHeight: 440, border: '2px solid black', borderRadius: '15px', margin: '10px' }}>
               <Table >

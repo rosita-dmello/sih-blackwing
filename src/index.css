@@ -70,8 +70,24 @@ input[type="file"] {
   width: 700px;
 }
 
-@media(max-width: 920px){
+@media(max-width: 500px){
   .fieldset{
     width: 400px;
+  }
+  .tender-table{
+    width: 400px;
+  }
+  .cat2{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    margin-top: 25px;
+    text-align: center;
+  }
+  .select-adj{
+    width: 200px;
+    text-align: center;
+    margin: 15px;
+    margin-left: 110px;
   }
 }
