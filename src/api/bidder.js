@@ -1,9 +1,12 @@
 import axios from "axios";
+import { encryptedData } from "../utils/encryption";
 
 const apiUrl = "https://sih-blackwing-api.herokuapp.com/api";
 
 export const createBidderPost = async (formData) => {
     try {
+        
+        formData = encryptedData(formData);
         const response = await axios.post(apiUrl + "/bidder/", formData);
         console.log("line8", response);
     if (response.data) {
