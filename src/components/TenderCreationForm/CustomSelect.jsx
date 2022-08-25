@@ -9,9 +9,9 @@ const CustomSelect = (props) => {
 
     return (<>
         <Grid container sx={{ display: 'flex', justifyContent: 'center' }}>
-            <Grid item sx={{ display: 'flex', justifyContent: 'center',alignItems:'center', padding: '1%', width: '100%' }}>
+            <Grid item sx={{ display: 'flex', justifyContent:'space-between' ,alignItems:'center', padding: '1%', width: '100%' }}>
 
-                <Typography sx={{ width: {md:'64%',sm:'50%',xs:'40%'}, fontSize: '2.25vh' }}>
+                <Typography sx={{ width: {md:'60%',sm:'50%',xs:'40%'}, fontSize: '2.25vh' }}>
                     {props.textlabel}
                 </Typography>
                 <FormControl >
@@ -22,8 +22,9 @@ const CustomSelect = (props) => {
                         onChange={handleChange}
                         sx={{width:'100%'}}
                     >
-                        <FormControlLabel value={true} control={<Radio />} label="Yes" />
-                        <FormControlLabel value={false} control={<Radio />} label="No" />
+                    {props.array.map((item)=>{
+                        return <FormControlLabel control={<Radio/>} value={item.value} label={item.label}/>
+                    })}
                     </RadioGroup>
                 </FormControl>
             </Grid>

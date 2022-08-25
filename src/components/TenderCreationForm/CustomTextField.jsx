@@ -13,7 +13,7 @@ const CustomTextField = (props) => {
         <Grid container sx={{ display: 'flex', justifyContent: 'center' }}>
             <Grid item sx={{ display: 'flex', alignItems: 'center', padding: '1%', width: '90%' }}>
 
-                <Typography sx={{ width: '70%', fontSize: '2.25vh' }}>
+                <Typography sx={{ width: '100%', fontSize: '2.25vh' }}>
                     {props.textlabel}
                 </Typography>
                 <TextField
