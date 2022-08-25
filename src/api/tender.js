@@ -39,3 +39,37 @@ export const getTenderByFilter = async (type, category, status) => {
     console.log(err);
   }
 }
+
+export const getAllottedTenders = async (userId, token) => {
+  try {
+    const response = await axios.get(apiUrl + "/bidder/alloted/" + userId, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+    if (response.data) {
+      return response.data;
+    } else {
+      console.log(response);
+    }
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+export const getAppliedTenders = async (userId, token) => {
+  try {
+    const response = await axios.get(apiUrl + "/bidder/applied/" + userId, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+    if (response.data) {
+      return response.data;
+    } else {
+      console.log(response);
+    }
+  } catch (err) {
+    console.log(err);
+  }
+}

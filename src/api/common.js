@@ -130,13 +130,13 @@ export const getApiVersion = async () => {
     
 }
 
-export const submitProgress = async (description, file , token, name) => {
+export const submitProgress = async (description, file , token, name, id) => {
     try {
         const response = await axios.post(apiUrl + "/progresslog/", {
             description: description,
             filename: name,
             progresslogfile: file,
-            tenderid: "6300e18fd12b075c01647df1"
+            tenderid: id
         }, {
             headers: {
                 Authorization: `Bearer ${token}`
@@ -155,4 +155,26 @@ export const submitProgress = async (description, file , token, name) => {
     }
 }
 
-    
+export const postGrivance = async (title, description, id, token) => {
+    try {
+        const response = await axios.post(apiUrl + "/grivance/", {
+            title: title,
+            description: description,
+            tenderid: id
+        }, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        console.log(response);
+    if (response) {
+        console.log(response);
+        return (response)
+    } else {
+        console.log(response);
+    }   
+    } catch(err) {
+        console.log(err.response.data.result);
+        return (err.response.data.result)
+    }
+}

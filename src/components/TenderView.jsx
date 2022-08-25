@@ -10,7 +10,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import moment from "moment";
 
-function TenderView({ tender }) {
+function TenderView({ tender, set }) {
   const navigate = useNavigate();
   return (
     <div style={{ marginTop: "50px" }} >
@@ -175,6 +175,12 @@ function TenderView({ tender }) {
                 </Card>
               </Grid>
             </Grid>
+            <Button variant="contained" color="primary" style={{marginTop: '20px'}} onClick={() => {
+              set(tender);
+              navigate("/bidder/apply");
+            }}>
+              Submit Bid
+            </Button>
           </Paper>
         </Grid>
       </Grid>

@@ -40,7 +40,7 @@ function createData(reference_id, type, category, status) {
 
 
 
-export default function BidderSideTender() {
+export default function BidderSideTender({setTender}) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
@@ -113,7 +113,7 @@ export default function BidderSideTender() {
   if(selectedTender) {
     return (
       <Layout>
-        <TenderView tender={selectedTender} />
+        <TenderView tender={selectedTender} set={setTender}/>
       </Layout>
     )
   } 

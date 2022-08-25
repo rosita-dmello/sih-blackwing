@@ -2,8 +2,115 @@ import React from "react";
 import Layout from "./BidderLayout";
 import { Button, Grid, TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
+import { postGrivance } from "../api/common";
+import { getAppliedTenders } from "../api/tender";
+import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 
 function GrievanceForm() {
+  const [tenders, setTenders] = React.useState([]);
+  const [selectedTender, setSelectedTender] = React.useState(null);
+
+  React.useEffect(() => {
+    getAppliedTenders(
+      localStorage.getItem("user")._id,
+      localStorage.getItem("token")
+    )
+      .then((res) => {
+        setTenders(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
+  if (!selectedTender) {
+    if (tenders.length === 0) {
+      return (
+        <Layout>
+          <Grid
+            container
+            direction="column"
+            justifyContent="center"
+            alignItems="center"
+            spacing={2}
+            sx={{ marginTop: "50px" }}
+          >
+            <Grid item>
+              <ErrorOutlineIcon sx={{ fontSize: 50 }} color="primary" />
+            </Grid>
+            <Grid item>
+              <Typography variant="h5" gutterBottom>
+                No Tenders Allotted
+              </Typography>
+            </Grid>
+          </Grid>
+        </Layout>
+      );
+    }
+    tenders.map((tender) => {
+      return (
+        <Layout>
+          <Grid
+            container
+            direction="column"
+            justifyContent="center"
+            alignItems="center"
+            spacing={2}
+            sx={{ marginTop: "50px" }}
+          >
+            <Grid item>
+              <Button
+                variant="outline-primary"
+                onClick={() => setSelectedTender(tender)}
+              >
+                {tender.title}
+              </Button>
+            </Grid>
+            <Grid item>
+              <Grid
+                container
+                direction="row"
+                justifyContent="center"
+                alignItems="center"
+              >
+                {tenders.map((tender) => {
+                  return (
+                    <Grid item key={tender._id}>
+                      <Button
+                        variant="outline-primary"
+                        onClick={() => setSelectedTender(tender)}
+                      >
+                        {tender.title}
+                      </Button>
+                    </Grid>
+                  );
+                })}
+              </Grid>
+            </Grid>
+          </Grid>
+        </Layout>
+      );
+    });
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const data = new FormData(e.target);
+    postGrivance(
+      data.get("title"),
+      data.get("description"),
+      selectedTender._id,
+      localStorage.getItem("token")
+    ).then((res) => {
+      console.log(res);
+      setSelectedTender(null);
+    }).catch((err) => {
+      console.log(err);
+    })
+  }
+  
+
+
   return (
     <Layout>
       <Grid
@@ -40,7 +147,7 @@ function GrievanceForm() {
         </Grid>
 
         <Grid item>
-          <Box component="form">
+          <Box component="form" onSubmit={handleSubmit}>
             <Grid
               container
               direction="column"

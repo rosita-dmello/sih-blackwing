@@ -14,7 +14,10 @@ import {
 } from "@mui/material";
 import BidderProgressTable from "./BidderProgressTable";
 import ProgressLogCard from "./PrgressLogCard";
-import {submitProgress} from '../api/common'
+import { submitProgress } from "../api/common";
+import FolderIcon from "@mui/icons-material/Folder";
+import { getAllottedTenders } from "../api/tender";
+import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 
 function BidderProgress() {
   const [show, setShow] = React.useState(false);
@@ -42,18 +45,107 @@ function BidderProgress() {
     },
   ]);
 
-  
+  const [tenders, setTenders] = React.useState([]);
+  const [selectedTender, setSelectedTender] = React.useState(null);
+
+  React.useEffect(() => {
+    getAllottedTenders(
+      localStorage.getItem("user")._id,
+      localStorage.getItem("token")
+    )
+      .then((res) => {
+        setTenders(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     setSubmitted(true);
     const data = new FormData(event.currentTarget);
-    submitProgress(data.get('description'),file,localStorage.getItem('token'),file.name).then((res) => {
+    submitProgress(
+      data.get("description"),
+      file,
+      localStorage.getItem("token"),
+      file.name,
+      selectedTender._id
+    ).then((res) => {
       console.log(res);
       setSubmitted(false);
       setShow(false);
+    });
+  };
+
+  if (!selectedTender) {
+    if (tenders.length === 0) {
+      return (
+        <Layout>
+          <Grid
+            container
+            direction="column"
+            justifyContent="center"
+            alignItems="center"
+            spacing={2}
+            sx={{ marginTop: "50px" }}
+          >
+            <Grid item>
+              <ErrorOutlineIcon sx={{ fontSize: 50 }} color="primary" />
+            </Grid>
+            <Grid item>
+              <Typography variant="h5" gutterBottom>
+                No Tenders Allotted
+              </Typography>
+            </Grid>
+          </Grid>
+        </Layout>
+      );
     }
-    );
+    tenders.map((tender) => {
+      return (
+        <Layout>
+          <Grid
+            container
+            direction="column"
+            justifyContent="center"
+            alignItems="center"
+            spacing={2}
+            sx={{ marginTop: "50px" }}
+          >
+            <Grid item>
+              <Button
+                variant="outline-primary"
+                onClick={() => setSelectedTender(tender)}
+              >
+                {tender.title}
+              </Button>
+            </Grid>
+            <Grid item>
+              <Grid
+                container
+                direction="row"
+                justifyContent="center"
+                alignItems="center"
+              >
+                {tenders.map((tender) => {
+                  return (
+                    <Grid item key={tender._id}>
+                      <Button
+                        variant="outline-primary"
+                        onClick={() => setSelectedTender(tender)}
+                      >
+                        {tender.title}
+                      </Button>
+                    </Grid>
+                  );
+                })}
+              </Grid>
+            </Grid>
+          </Grid>
+        </Layout>
+      );
+    });
   }
 
   return (
@@ -71,7 +163,11 @@ function BidderProgress() {
             <Button
               variant="Info"
               onClick={handleShow}
-              style={{ backgroundColor: "lightskyblue", marginLeft: "30px" }}
+              style={{
+                backgroundColor: "#243665",
+                marginLeft: "30px",
+                color: "white",
+              }}
             >
               <Typography>Add Log</Typography>
             </Button>
@@ -88,59 +184,59 @@ function BidderProgress() {
                 </Modal.Title>
               </Modal.Header>
               <Modal.Body>
-                <Box component='form' noValidate onSubmit={handleSubmit}>
-                <TextField
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="description"
-                  label="Description"
-                  name="description"
-                  autoComplete="description"
-                  autoFocus
-                />
-                <InputLabel>
-                    <Typography variant="h6" sx={{ fontSize: "100%" }}>
-                      Upload File Here
-                    </Typography>
-                  <Input
-                    type="file"
-                    id="file"
-                    name="file"
-                    sx={{ mb: 1 }}
-                    onChange={(e) => setFile(e.target.files[0])}
+                <Box component="form" onSubmit={handleSubmit}>
+                  <TextField
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="description"
+                    label="Description"
+                    name="description"
+                    autoComplete="description"
+                    autoFocus
                   />
-                  {/* <FileBase type="file" multiple={false} onDone={({base64, name}) => {setFile(base64); setFileName(name)}}/> */}
-                </InputLabel>
-                <br />
-                {submitted ? (
-                  <Box
+                  <InputLabel>
+                    <Typography variant="h6" sx={{ fontSize: "100%" }}>
+                      <FolderIcon />
+                      {file ? file.name : "Upload File Here"}
+                    </Typography>
+                    <Input
+                      type="file"
+                      id="file"
+                      name="file"
+                      onChange={(e) => setFile(e.target.files[0])}
+                    />
+                    {/* <FileBase type="file" multiple={false} onDone={({base64, name}) => {setFile(base64); setFileName(name)}}/> */}
+                  </InputLabel>
+                  <br />
+                  {submitted ? (
+                    <Box
+                      sx={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
+                    >
+                      <CircularProgress />
+                    </Box>
+                  ) : (
+                    ""
+                  )}
+                  <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
                     sx={{
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
+                      mt: 2,
+                      mb: 2,
+                      py: 1,
+                      borderRadius: 0,
+                      textAlign: "center",
+                      backgroundColor: "primary.main",
                     }}
                   >
-                    <CircularProgress />
-                  </Box>
-                ) : (
-                  ""
-                )}
-                <Button
-                  type="submit"
-                  fullWidth
-                  variant="contained"
-                  sx={{
-                    mt: 8,
-                    mb: 2,
-                    py: 1,
-                    borderRadius: 0,
-                    textAlign: "center",
-                    backgroundColor: "primary.main",
-                  }}
-                >
-                  Submit
-                </Button>
+                    Submit
+                  </Button>
                 </Box>
               </Modal.Body>
               <Modal.Footer>
@@ -157,7 +253,7 @@ function BidderProgress() {
               direction="row"
               justifyContent="flex-start"
               alignItems="center"
-              spacing={2}
+              spacing={0}
             >
               {dummy.map((item) => (
                 <Grid
