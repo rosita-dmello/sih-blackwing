@@ -189,11 +189,14 @@ const CriticalDates = (props) => {
             </Grid>
             
 
-            <Grid container>
-                <Grid item>
+            <Grid container direction="column" sx={{
+                padding: "3rem"
+            }}>
+                <Grid item sx={{
+                    display: "flex",
+                    justifyContent: "space-between"
+                }}>
                     <Button onClick={props.prevStep}>previous</Button>
-                </Grid>
-                <Grid item>
                     <Button onClick={()=>{props.nextStep(criticalDates)}}>next</Button>
                 </Grid>
             </Grid></>
