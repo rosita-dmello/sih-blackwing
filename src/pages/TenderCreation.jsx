@@ -1,6 +1,6 @@
 import { Stepper,Step,StepLabel,Box } from '@mui/material'
 import React, { useState } from 'react'
-import Layout from '../components/Layout'
+import Layout from '../components/DepartmentLayout'
 import BasicDetails from '../components/TenderCreationForm/BasicDetails'
 import BidOpeners from '../components/TenderCreationForm/BidOpeners'
 import CriticalDates from '../components/TenderCreationForm/CriticalDates'
