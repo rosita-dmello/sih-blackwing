@@ -5,6 +5,7 @@ import BidOpenersTable from './BidOpenersTable';
 
 const BidOpeners = (props) => {
     const [users, setUsers] = useState(null);
+    const [bidOpeners, setBidOpeners] = React.useState([]);
       const setusersFn = async () => {
         const response = await viewAllStaffGet(localStorage.getItem("token"));
         if (response) {
@@ -24,7 +25,7 @@ const BidOpeners = (props) => {
                 padding: "3rem"
             }}>
                 <Grid item>
-                    {users ? <BidOpenersTable users={users}/> : 
+                    {users ? <BidOpenersTable users={users} bidOpeners={bidOpeners} setBidOpeners={setBidOpeners}/> : 
                     <Box sx={{
                         display: "flex",
                         justifyContent: "center",
@@ -40,7 +41,7 @@ const BidOpeners = (props) => {
                     justifyContent: "space-between"
                 }}>
                     <Button onClick={props.prevStep}>previous</Button>
-                    <Button onClick={props.nextStep}>next</Button>
+                    <Button onClick={()=>props.nextStep({bidopeners:bidOpeners})}>next</Button>
                
                 </Grid>
             </Grid></>

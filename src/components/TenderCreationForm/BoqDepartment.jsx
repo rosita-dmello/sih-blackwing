@@ -58,7 +58,6 @@ function BoqDepartment(props) {
       warranty: "",
     }]);
   };
-
   let removeFormFields = (i) => {
     let newFormValues = [...formValues];
     newFormValues.splice(i, 1);
@@ -241,7 +240,7 @@ function BoqDepartment(props) {
                     justifyContent: "space-between"
                 }}>
                 <Button onClick={props.prevStep}>previous</Button>
-                <Button onClick={() => { props.nextStep(formValues) }}>next</Button>
+                <Button onClick={() => { props.nextStep({boq:formValues}) }}>next</Button>
               </Grid>
             </Grid>
           </Box>

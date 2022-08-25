@@ -15,7 +15,7 @@ const TenderCreation = () => {
     const [allData,setAllData]=useState({})
     console.log(allData)
     const nextStep=(data)=>{
-        setAllData({...allData,...data})
+        setAllData((prev) => {return {...prev, ...data}})
         setStep(step+1)
     }
     const prevStep=()=>{
