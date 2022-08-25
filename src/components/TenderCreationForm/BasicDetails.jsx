@@ -372,7 +372,7 @@ const BasicDetails = (props) => {
                 aria-describedby="modal-modal-description"
             >
                 <Box sx={style}>
-                    
+                    <Typography>Tender Reference Number</Typography>
                 </Box>
             </Modal>
             <Grid container>
