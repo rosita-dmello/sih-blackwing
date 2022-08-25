@@ -3,7 +3,8 @@ import { Box, Grid, Table, TableCell, TableHead, TableRow, Typography, Input, In
 import CustomTextField from './CustomTextField'
 import CustomDropDown from './CustomDropDown'
 import FolderIcon from '@mui/icons-material/Folder';
-import { CleaningServices } from '@mui/icons-material';
+import { CheckBox, CleaningServices } from '@mui/icons-material';
+import { width } from '@mui/system';
 
 const BasicDetails = (props) => {
     const tenderType = ['EOI', 'Limited', 'Open Limited', 'Open Tender', 'Single', 'Test']
@@ -16,6 +17,7 @@ const BasicDetails = (props) => {
     const [files, setFiles] = useState([[], [], [], []])
     const [desc, setDesc] = useState('')
     const [coverDetails, setCoverDetails] = useState({ docDesc: '', docType: '' })
+    const [nitDesc, setNITDesc] = useState('')
     const [open, setOpen] = useState(false)
     const [number, setNumber] = useState(0)
     const [nitDoc, setNitDoc] = useState()
@@ -26,14 +28,6 @@ const BasicDetails = (props) => {
     const handleCloseModal = () => {
         setOpenModal(false)
     }
-    const uploadBtn = {
-        background: 'rgba(108, 25, 116, 0.6)',
-        boxSizing: 'border - box',
-        boxShadow: '0px 10px 20px rgba(0, 0, 0, 0.25)',
-        borderRadius: '13.963px',
-        margin: 0,
-        "&:hover": { color: 'white', background: '#6C197499' },
-    }
     const style = {
         position: 'absolute',
         top: '50%',
@@ -43,7 +37,8 @@ const BasicDetails = (props) => {
         border: '1px solid #000',
         boxShadow: 24,
         p: 4,
-        borderRadius: '10px'
+        borderRadius: '10px',
+        width: '70%'
     }
     console.log(basicDetails)
     const handleClose = () => {
@@ -65,6 +60,11 @@ const BasicDetails = (props) => {
         setFiles(array)
         setCoverDetails({ docDesc: '', docType: '' })
     }
+    const handleFile = (e) => {
+        
+        setNitDoc(e.target.files[0])
+    }
+    console.log(nitDoc)
 
     console.log(number)
     console.log(files)
@@ -337,6 +337,9 @@ const BasicDetails = (props) => {
             <Box sx={{ width: '80%', margin: '3vh auto' }}>
                 <Typography variant='h5'>NIT Documents</Typography>
                 <hr style={{ width: '100%' }}></hr>
+                {
+
+                }
                 <Grid container>
                     <Table>
                         <TableHead>
@@ -351,15 +354,22 @@ const BasicDetails = (props) => {
                                     Uploaded date
                                 </TableCell>
                                 <TableCell>
-                                    Verified By
-                                </TableCell>
-                                <TableCell>
                                     Delete
                                 </TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
-
+                            <TableRow>
+                                <TableCell>
+                                    NIT
+                                </TableCell>
+                                <TableCell>
+                                    
+                                </TableCell>
+                                <TableCell>
+                                    <CheckBox/>
+                                </TableCell>
+                            </TableRow>
                         </TableBody>
                     </Table>
                     <Button onClick={handleModal}>Upload Document</Button>
@@ -372,7 +382,42 @@ const BasicDetails = (props) => {
                 aria-describedby="modal-modal-description"
             >
                 <Box sx={style}>
-                    <Typography>Tender Reference Number</Typography>
+                    <Grid container rowGap={3}>
+                        <Grid item xs={4} sx={{ textAlign: 'center' }}>
+                            <Typography>Tender Reference Number </Typography>
+                        </Grid>
+                        <Grid item xs={5} sx={{ textAlign: 'center' }}>
+                            {basicDetails.tenderreferenceno === undefined ? "" : basicDetails.tenderreferenceno}
+                        </Grid>
+                        <Grid item xs={4} sx={{ textAlign: 'center' }}>
+                            <Typography>Document Type: </Typography>
+                        </Grid>
+                        <Grid item xs={5} sx={{ textAlign: 'center' }}>
+                            NIT
+                        </Grid>
+                        <Grid container sx={{ display: 'flex', alignItems: 'center' }}>
+                            <Grid item xs={4} sx={{ textAlign: 'center' }}>
+                                <Typography>Document</Typography>
+                            </Grid>
+                            <Grid item xs={7}>
+                                <TextField
+                                    
+                                    disabled
+                                    size="small" sx={{
+                                        width: '70%', '& legend': { display: 'none' },
+                                        '& fieldset': { top: 0 }
+                                    }} />
+                            </Grid>
+                            <Grid item xs={1}>
+                                <InputLabel  >
+                                    <Grid container sx={{ display: 'flex', alignItems: 'center' }}>
+                                        <FolderIcon />
+                                    </Grid>
+                                    <Input onChange={handleFile} type="file" style={{ position: 'absolute', zIndex: '-1' }} />
+                                </InputLabel>
+                            </Grid>
+                        </Grid>
+                    </Grid>
                 </Box>
             </Modal>
             <Grid container>
@@ -380,7 +425,7 @@ const BasicDetails = (props) => {
                     <Button onClick={props.prevStep}>previous</Button>
                 </Grid>
                 <Grid item>
-                    <Button onClick={props.nextStep}>next</Button>
+                    <Button onClick={()=>props.nextStep(basicDetails)}>next</Button>
                 </Grid>
             </Grid>
         </>

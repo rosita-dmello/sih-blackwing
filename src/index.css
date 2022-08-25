@@ -60,5 +60,8 @@ html{
   text-align: center;
   height: auto;
 }
+input[type="file"] {
+  display: none;
+}
 
 
