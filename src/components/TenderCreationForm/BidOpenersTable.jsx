@@ -157,7 +157,6 @@ export default function BidOpenersTable({ users,bidOpeners,setBidOpeners }) {
           />
         </Box>
       )}
-      <Button onClick={() => console.log(bidOpeners)}>Submit</Button>
     </Paper>
   );
 }
