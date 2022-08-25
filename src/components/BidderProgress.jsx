@@ -2,9 +2,18 @@ import React from "react";
 import Layout from "./BidderLayout";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { Grid, Typography } from "@mui/material";
+import {
+  Grid,
+  Typography,
+  TextField,
+  CircularProgress,
+  Box,
+  InputLabel,
+  Input,
+} from "@mui/material";
 import BidderProgressTable from "./BidderProgressTable";
 import ProgressLogCard from "./PrgressLogCard";
+import {submitProgress} from '../api/common'
 
 function BidderProgress() {
   const [show, setShow] = React.useState(false);
@@ -12,6 +21,8 @@ function BidderProgress() {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  const [submitted, setSubmitted] = React.useState(false);
+  const [file, setFile] = React.useState(null);
   const [dummy, setDummy] = React.useState([
     {
       date: "2021-09-01",
@@ -28,6 +39,20 @@ function BidderProgress() {
       status: "Delayed",
     },
   ]);
+
+  
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setSubmitted(true);
+    const data = new FormData(event.currentTarget);
+    submitProgress(data.get('description'),file,localStorage.getItem('token')).then((res) => {
+      console.log(res);
+      setSubmitted(false);
+      setShow(false);
+    }
+    );
+  }
 
   return (
     <div>
@@ -61,10 +86,59 @@ function BidderProgress() {
                 </Modal.Title>
               </Modal.Header>
               <Modal.Body>
-                <Typography>
-                  Log I will not close if you click outside me. Don't even try
-                  to press escape key.
-                </Typography>
+                <Box component='form' noValidate onSubmit={handleSubmit}>
+                <TextField
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="description"
+                  label="Description"
+                  name="description"
+                  autoComplete="description"
+                  autoFocus
+                />
+                <InputLabel>
+                    <Typography variant="h6" sx={{ fontSize: "100%" }}>
+                      Upload File Here
+                    </Typography>
+                  <Input
+                    type="file"
+                    id="file"
+                    name="file"
+                    sx={{ mb: 1 }}
+                    onChange={(e) => setFile(e.target.files[0])}
+                  />
+                </InputLabel>
+                <br />
+                {submitted ? (
+                  <Box
+                    sx={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <CircularProgress />
+                  </Box>
+                ) : (
+                  ""
+                )}
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  sx={{
+                    mt: 8,
+                    mb: 2,
+                    py: 1,
+                    borderRadius: 0,
+                    textAlign: "center",
+                    backgroundColor: "primary.main",
+                  }}
+                >
+                  Submit
+                </Button>
+                </Box>
               </Modal.Body>
               <Modal.Footer>
                 <Typography component="p" style={{ color: "red" }}>
@@ -83,7 +157,15 @@ function BidderProgress() {
               spacing={2}
             >
               {dummy.map((item) => (
-                <Grid item xs={12} sm={12} md={12} lg={12} xl={12} key={item.description} >
+                <Grid
+                  item
+                  xs={12}
+                  sm={12}
+                  md={12}
+                  lg={12}
+                  xl={12}
+                  key={item.description}
+                >
                   <ProgressLogCard data={item} />
                 </Grid>
               ))}

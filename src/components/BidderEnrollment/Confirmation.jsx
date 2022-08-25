@@ -10,6 +10,7 @@ import {
   Grid,
   Card,
   Button,
+  CircularProgress
 } from "@mui/material";
 import _ from "lodash";
 import { createBidderPost } from "../../api/bidder";
@@ -24,8 +25,10 @@ function Confirmation({
 }) {
   const [error, setError] = useState("")
   const navigate = useNavigate();
+  const [submitted, setSubmitted] = React.useState(false);
   const handleSubmit = async (event) => {
     // handleNext();
+    setSubmitted(true);
     const allData = {
       ...credentials,
       ...companyDetails,
@@ -35,8 +38,10 @@ function Confirmation({
     const response = await createBidderPost(allData);
     if(response.error) {
       setError(response.message)
+      setSubmitted(false);
     } else {
       if(response.result.data) {
+        setSubmitted(false);
         const {authEmailId, authSmsId, newUser, newBidder} = response.result.data;
         localStorage.setItem("authEmailId", authEmailId);
         localStorage.setItem("authSmsId", authSmsId);
@@ -46,8 +51,18 @@ function Confirmation({
       }
     }
     console.log(response);
-    
-    
+
+    // Encrypt
+    var ciphertext = CryptoJS.AES
+      .encrypt(JSON.stringify(allData), "blackwing")
+      .toString();
+    console.log("cipher", {
+        data: ciphertext
+    });
+    // Decrypt
+    var bytes = CryptoJS.AES.decrypt(ciphertext, "blackwing");
+    var decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+    console.log(decryptedData);
   };
   return (
     <Box sx={{ width: "50vw" }}>
@@ -203,7 +218,7 @@ function Confirmation({
                     Go Back
                   </Button>
                 </Grid>
-                <Grid item>
+                <Grid item sx={{position: 'relative'}}>
                   <Button
                     fullWidth
                     variant="contained"
@@ -212,6 +227,20 @@ function Confirmation({
                   >
                     Confirm Details
                   </Button>
+                  {submitted && (
+            <CircularProgress
+              size={24}
+              sx={{
+                color:"black",
+                position: 'absolute',
+                top: '50%',
+                left: '50%',
+                marginTop: '-12px',
+                marginLeft: '-12px',
+              }}
+            />
+          )}
+
                 </Grid>
               </Grid>
             </Grid>
