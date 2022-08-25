@@ -120,7 +120,7 @@ function BoqDepartment() {
                   spacing={1}
                   sx={{
                     width: "100%",
-                    border: "1px solid #3e92cc",
+                    border: "1px solid #243665",
                     padding: 3,
                   }}
                 >

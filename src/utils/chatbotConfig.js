@@ -5,10 +5,10 @@ const chatbotConfig = {
   botName: "Aashraya",
   customStyles: {
     botMessageBox: {
-      backgroundColor: '#3e92cc',
+      backgroundColor: '#243665',
     },
     chatButton: {
-      backgroundColor: '#3e92cc',
+      backgroundColor: '#243665',
     },
   },
 };
