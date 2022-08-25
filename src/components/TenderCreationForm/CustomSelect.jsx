@@ -22,8 +22,8 @@ const CustomSelect = (props) => {
                         onChange={handleChange}
                         sx={{width:'100%'}}
                     >
-                    {props.array.map((item)=>{
-                        return <FormControlLabel control={<Radio/>} value={item.value} label={item.label}/>
+                    {props.array.map((item,index)=>{
+                        return <FormControlLabel key={index} control={<Radio/>} value={item.value} label={item.label}/>
                     })}
                     </RadioGroup>
                 </FormControl>

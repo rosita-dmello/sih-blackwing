@@ -1,4 +1,5 @@
 import { Stepper,Step,StepLabel,Box } from '@mui/material'
+import { set } from 'lodash'
 import React, { useState } from 'react'
 import Layout from '../components/Layout'
 import BasicDetails from '../components/TenderCreationForm/BasicDetails'
@@ -11,7 +12,10 @@ import WorkItemDocuments from '../components/TenderCreationForm/WorkItemDocument
 const TenderCreation = () => {
     const[step,setStep]=useState(1)
     const stepperSteps = ['Basic Details', 'Work/Item Details', 'Fee Details','Critical Dates','Bid Openers','Work/Item Documents']
-    const nextStep=()=>{
+    const [allData,setAllData]=useState({})
+    console.log(allData)
+    const nextStep=(data)=>{
+        setAllData({...allData,...data})
         setStep(step+1)
     }
     const prevStep=()=>{
@@ -20,22 +24,22 @@ const TenderCreation = () => {
     const returnElement=()=>{
         switch (step) {
             case 1:
-                return <BasicDetails nextStep={nextStep} prevStep={prevStep}/>
+                return <BasicDetails nextStep={nextStep} prevStep={prevStep} allData={allData} setAllData={setAllData}/>
         
             case 2:
-                return <WorkItemDetails nextStep={nextStep} prevStep={prevStep}/>
+                return <WorkItemDetails nextStep={nextStep} prevStep={prevStep} allData={allData} setAllData={setAllData}/>
 
             case 3:
-                return <FeeDetails nextStep={nextStep} prevStep={prevStep}/>
+                return <FeeDetails nextStep={nextStep} prevStep={prevStep} allData={allData} setAllData={setAllData}/>
             
             case 4:
-                return <CriticalDates nextStep={nextStep} prevStep={prevStep}/>
+                return <CriticalDates nextStep={nextStep} prevStep={prevStep} allData={allData} setAllData={setAllData}/>
 
             case 5:
-                return <BidOpeners nextStep={nextStep} prevStep={prevStep}/>
+                return <BidOpeners nextStep={nextStep} prevStep={prevStep} allData={allData} setAllData={setAllData}/>
 
             case 6:
-                return<WorkItemDocuments nextStep={nextStep} prevStep={prevStep}/>
+                return<WorkItemDocuments nextStep={nextStep} prevStep={prevStep} allData={allData} setAllData={setAllData}/>
         }
     }
   return (
