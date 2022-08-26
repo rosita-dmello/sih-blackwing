@@ -38,6 +38,7 @@ import DepartmentSideTender from "./pages/DepartmentSideTender";
 import BidderApply from './pages/BidderApply'
 import BuyProduct from "./components/BuyProduct";
 import ChangePassword from "./pages/ChangePassword";
+import GrievanceResponse from "./components/GrievanceResponse";
 
 function App() {
   const loc = useLocation();
@@ -112,6 +113,7 @@ function App() {
           <Route path="/department/users" element={<DepartmentUsers/>} />
           <Route path="/department/users/new" element={<NewDSCUser/>} />
           <Route path="/department/buy" element={<BuyProduct />} />
+          <Route path="/department/grievance" element={<GrievanceResponse/>} />
           {/* <Route path="/department/tenders" element={<DepartmentSideTender/>} /> */}
         </Routes>
         {/* <TextAdjust size={size} setSize={setSize} /> */}

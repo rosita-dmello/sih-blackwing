@@ -4,43 +4,50 @@ import Layout from "../components/BidderLayout";
 import ProductCard from "./ProductCard";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import ProductView from "./ProductView";
+import {getProducts} from "../api/products";
 
 function Bazaar() {
   const [data, setData] = React.useState([
-    {
-      title: "Car",
-      description: "This is a car",
-      mrp: 100000,
-      seller: "A",
-      offeredprice: 90000,
-      availability: 10,
-      hsncode: "1234",
-      categories: ["car", "vehicle"],
-      file: "https://picsum.photos/200/300",
-    },
-    {
-      title: "Bike",
-      description: "This is a bike",
-      mrp: 100000,
-      seller: "B",
-      offeredprice: 90000,
-      availability: 10,
-      hsncode: "1234",
-      categories: ["bike", "vehicle"],
-      file: "https://picsum.photos/200/300",
-    },
-    {
-      title: "Bike",
-      description: "This is a bike",
-      mrp: 100000,
-      seller: "C",
-      offeredprice: 90000,
-      availability: 10,
-      hsncode: "1234",
-      categories: ["bike", "vehicle"],
-      file: "https://picsum.photos/200/300",
-    },
+    // {
+    //   title: "Car",
+    //   description: "This is a car",
+    //   mrp: 100000,
+    //   seller: "A",
+    //   offeredprice: 90000,
+    //   availability: 10,
+    //   hsncode: "1234",
+    //   categories: ["car", "vehicle"],
+    //   file: "https://picsum.photos/200/300",
+    // },
+    // {
+    //   title: "Bike",
+    //   description: "This is a bike",
+    //   mrp: 100000,
+    //   seller: "B",
+    //   offeredprice: 90000,
+    //   availability: 10,
+    //   hsncode: "1234",
+    //   categories: ["bike", "vehicle"],
+    //   file: "https://picsum.photos/200/300",
+    // },
+    // {
+    //   title: "Bike",
+    //   description: "This is a bike",
+    //   mrp: 100000,
+    //   seller: "C",
+    //   offeredprice: 90000,
+    //   availability: 10,
+    //   hsncode: "1234",
+    //   categories: ["bike", "vehicle"],
+    //   file: "https://picsum.photos/200/300",
+    // },
   ]);
+
+  React.useEffect(() => {
+    getProducts().then((res) => {
+      setData(res.data);
+    });
+  }, []);
 
   const [selected, setSelected] = React.useState(null);
   const[tempData, setTempData] = React.useState(data);
@@ -52,6 +59,7 @@ function Bazaar() {
     return (<Layout><ProductView data={selected} type="bidder"/></Layout>);
   }
 
+  
   
 
   return (

@@ -33,6 +33,7 @@ import MessageParser from "./Chatbot/MessageParser";
 import ActionProvider from "./Chatbot/ActionProvider";
 import { useNavigate } from "react-router-dom";
 import Grid from "@mui/material/Grid";
+import CommentBankIcon from '@mui/icons-material/CommentBank';
 // import theme from "../App";
 
 const page = {
@@ -77,6 +78,7 @@ function Layout({ children }) {
         "New Department User",
         "Tenders Uploaded",
         "Buy Product",
+        "Address Grievance",
         "Logout",
       ]);
     } else if (role === "DEPARTMENT_STAFF") {
@@ -103,10 +105,13 @@ function Layout({ children }) {
                         ? "/department"
                         : index === 3
                         ? "/department/buy"
-                        :"/"
+                        : index === 4
+                        ? "/department/grievance"
+                        : 
+                        "/"
                     }
                     onClick={() => {
-                      if (index === 4) {
+                      if (index === 5) {
                         localStorage.removeItem("user");
                         localStorage.removeItem("setAt");
                         localStorage.removeItem("expireAt");
@@ -126,6 +131,8 @@ function Layout({ children }) {
                         <BackupTableIcon />
                       ) : index === 3 ? (
                         <CreditScoreIcon />
+                      ) : index === 4 ? (
+                        <CommentBankIcon />
                       ) : 
                       (
                         <LogoutIcon />

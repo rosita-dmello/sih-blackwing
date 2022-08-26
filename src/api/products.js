@@ -24,3 +24,19 @@ export const submitProduct = async (formData, token) => {
     }
     
 }
+
+export const getProducts = async () => {
+    try {
+        const response = await axios.get(apiUrl + "/product/")
+        console.log(response.data);
+    if (response.data) {
+        return (response.data)
+    } else {
+        console.log(response);
+    }   
+    } catch(err) {
+        console.log(err.response.data.result);
+        return (err.response.data.result)
+    }
+    
+}

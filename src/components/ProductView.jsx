@@ -82,7 +82,7 @@ function ProductView({ data, type }) {
         <img
           src={`https://source.unsplash.com/300x200/?${data.title}`}
           alt="product"
-          style={{ width: "200px", float: "left", margin: "10px" }}
+          style={{ width: "200px", float: "left", margin: "10px", minHeight: "300px" }}
         />
         <Typography variant="h3">{data.title}</Typography>
         <Typography variant="h5">Description: {data.description}</Typography>
