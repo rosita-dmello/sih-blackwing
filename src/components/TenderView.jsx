@@ -13,7 +13,7 @@ import moment from "moment";
 function TenderView({ tender, set }) {
   const navigate = useNavigate();
   return (
-    <div style={{ marginTop: "50px" }} >
+    <div style={{ marginTop: "50px" }}>
       <Grid
         container
         direction="column"
@@ -42,39 +42,35 @@ function TenderView({ tender, set }) {
               Reference No. -- {tender.tenderreferenceno}
             </Typography>
 
-{/* <Grid
-  container
-  direction="row"
-  justifyContent="flex-start"
-  alignItems="center"
-  spacing={2}
-  sx={{ marginTop: "30px" }}
->
-
-
-</Grid> */}
-            <div className="cat3" style={{ marginTop: "30px" }}>
-              <div>
+            <Grid
+              container
+              direction="row"
+              justifyContent="center"
+              alignItems="center"
+              spacing={4}
+              sx={{ marginTop: "20px" }}
+            >
+              <Grid item>
                 Type: <div className="tdview">{tender.tendertype}</div>
-              </div>
-              <div>
+              </Grid>
+              <Grid item>
                 Category:<div className="tdview">{tender.tendercategory}</div>
-              </div>
-              <div>
+              </Grid>
+              <Grid item>
                 Form Of Contract:
                 <div className="tdview">{tender.formofcontract}</div>
-              </div>
-              <div>
+              </Grid>
+              <Grid item>
                 Publish Date:
                 <div className="tdview">
                   {moment(tender.publishingdate).format("DD-MM-YYYY")}
                 </div>
-              </div>
-              <div>
+              </Grid>
+              <Grid item>
                 Publish Time:
                 <div className="tdview">{tender.publishingat}</div>
-              </div>
-            </div>
+              </Grid>
+            </Grid>
             <Grid
               container
               direction="row"
@@ -98,27 +94,38 @@ function TenderView({ tender, set }) {
                     Dependencies
                   </Typography>
                   <CardContent>
-                    <div className="cat3">
-                      <div>
-                        MultiCurrency Allowed:{" "}
+                    <Grid
+                      container
+                      direction="row"
+                      justifyContent="flex-start"
+                      alignItems="flex-start"
+                      spacing={4}
+                    >
+                      <Grid item>
+                        MultiCurrency Allowed:
                         <div style={{ textAlign: "center" }}>
-                          {" "}
                           {tender.allowmulticurrency ? "Yes" : "No"}
                         </div>
-                      </div>
-                      <div>
-                        NIT Verify:{" "}
+                      </Grid>
+                      <Grid item>
+                        NIT Verify:
                         <div style={{ textAlign: "center" }}>
                           {tender.nitverify ? "Yes" : "No"}
                         </div>
-                      </div>
-                      <div>
-                        Exemption Allowed:{" "}
+                      </Grid>
+                      <Grid item>
+                        Exemption Allowed:
                         <div style={{ textAlign: "center" }}>
                           {tender.allowexemption ? "Yes" : "No"}
                         </div>
-                      </div>
-                    </div>
+                      </Grid>
+                      <Grid item>
+                        Item Wise Evaluation:
+                        <div style={{ textAlign: "center" }}>
+                          {tender.allowitemwiseevaluation ? "Yes" : "No"}
+                        </div>
+                      </Grid>
+                    </Grid>
                   </CardContent>
                 </Card>
               </Grid>
@@ -129,9 +136,9 @@ function TenderView({ tender, set }) {
                     variant="h5"
                     component="div"
                     sx={{
-                      backgroundColor: '#243665',
+                      backgroundColor: "#243665",
                       textAlign: "center",
-                      color: "white"
+                      color: "white",
                     }}
                   >
                     Date & Time To Note
@@ -153,7 +160,7 @@ function TenderView({ tender, set }) {
                         </div>
                       </div>
                     </div>
-                    <div className="cat3" style={{marginTop: '10px'}}>
+                    <div className="cat3" style={{ marginTop: "10px" }}>
                       <div>
                         Bid Submission Start Date:
                         <div style={{ textAlign: "center" }}>
@@ -175,12 +182,161 @@ function TenderView({ tender, set }) {
                 </Card>
               </Grid>
             </Grid>
-            <Button variant="contained" color="primary" style={{marginTop: '20px'}} onClick={() => {
-              set(tender);
-              navigate("/bidder/apply");
-            }}>
-              Submit Bid
-            </Button>
+
+            <Grid
+              container
+              direction="row"
+              justifyContent="flex-start"
+              alignItems="flex-start"
+              spacing={2}
+            >
+              {tender.boq && (
+                <Grid item sm={12} md={6} lg={6}>
+                  <Card sx={{ width: "100%" }}>
+                    <Typography
+                      gutterBottom
+                      variant="h5"
+                      component="div"
+                      sx={{
+                        backgroundColor: "#243665",
+                        textAlign: "center",
+                        color: "white",
+                      }}
+                    >
+                      BOQ
+                    </Typography>
+                    <CardContent>
+                      <Grid
+                        container
+                        direction="row"
+                        justifyContent="center"
+                        alignItems="center"
+                        spacing={2}
+                      >
+                        {tender.boq.map((item, index) => {
+                          return (
+                            <Grid item key={index}>
+                              <Paper
+                                elevation={6}
+                                style={{ padding: "10px", margin: "10px" }}
+                              >
+                                <Typography variant="h8" component="h5">
+                                  Product: {item.itemdescription}
+                                </Typography>
+                                <Typography variant="h8" component="h5">
+                                  Quantity: {item.quantity}
+                                </Typography>
+                                <Typography variant="h8" component="h5">
+                                  Units: {item.units}
+                                </Typography>
+                                <Typography variant="h8" component="h5">
+                                  Price: Rs. {item.rate}
+                                </Typography>
+                              </Paper>
+                            </Grid>
+                          );
+                        })}
+                      </Grid>
+                    </CardContent>
+                  </Card>
+                </Grid>
+              )}
+              <Grid item sm={12} md={6} lg={6}>
+                <Card sx={{ width: "100%" }}>
+                  <Typography
+                    gutterBottom
+                    variant="h5"
+                    component="div"
+                    sx={{
+                      backgroundColor: "#243665",
+                      textAlign: "center",
+                      color: "white",
+                    }}
+                  >
+                    Other Details
+                  </Typography>
+                  <CardContent>
+                    <Grid
+                      container
+                      direction="row"
+                      justifyContent="flex-start"
+                      alignItems="flex-start"
+                      spacing={4}
+                    >
+                      <Grid item>
+                        Account Type:
+                        <div style={{ textAlign: "center" }}>
+                          {tender.accounttypehead}
+                        </div>
+                      </Grid>
+                      <Grid item>
+                        Bid Openers:
+                        <div style={{ textAlign: "center" }}>
+                          {tender.noofbidopeners}
+                        </div>
+                      </Grid>
+                      <Grid item>
+                        Product Category:
+                        <div style={{ textAlign: "center" }}>
+                          {tender.productcategory}
+                        </div>
+                      </Grid>
+                      <Grid item>
+                        Pre Bid Meeting Addr:
+                        <div style={{ textAlign: "center" }}>
+                          {tender.prebidmeetingadress}
+                        </div>
+                      </Grid>
+                      <Grid item>
+                        Tender Fee:
+                        <div style={{ textAlign: "center" }}>
+                          Rs. {tender.tenderfee}
+                        </div>
+                      </Grid>
+                      <Grid item>
+                        EMD Amount:
+                        <div style={{ textAlign: "center" }}>
+                          Rs. {tender.emdamount}
+                        </div>
+                      </Grid>
+                      <Grid item>
+                        EMD Payable To:
+                        <div style={{ textAlign: "center" }}>
+                          {tender.emdfeepayableto}
+                        </div>
+                      </Grid>
+                      <Grid item>
+                        EMD Payable At:
+                        <div style={{ textAlign: "center" }}>
+                          {tender.emdfeepayableat}
+                        </div>
+                      </Grid>
+                    </Grid>
+                  </CardContent>
+                </Card>
+              </Grid>
+            </Grid>
+
+            <Grid
+              container
+              direction="row"
+              justifyContent="center"
+              alignItems="center"
+            >
+              <Grid item>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  style={{ marginTop: "20px" }}
+                  onClick={() => {
+                    set(tender);
+                    navigate("/bidder/apply");
+                  }}
+                >
+                  Submit Bid
+                </Button>
+              </Grid>
+            </Grid>
           </Paper>
         </Grid>
       </Grid>
