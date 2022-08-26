@@ -16,9 +16,15 @@ import MailIcon from "@mui/icons-material/Mail";
 import { IconButton } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import LoginIcon from "@mui/icons-material/Login";
+<<<<<<< HEAD
+import ViewInArIcon from '@mui/icons-material/ViewInAr';
+import GavelIcon from '@mui/icons-material/Gavel';
+import Grid from "@mui/material/Grid";
+=======
 import ViewInArIcon from "@mui/icons-material/ViewInAr";
 import GavelIcon from "@mui/icons-material/Gavel";
 import LogoutIcon from "@mui/icons-material/Logout";
+>>>>>>> ae4d7da2870e7e38fd83dce848020a1531aa6bb7
 import { useTheme } from "@mui/material/styles";
 import { Link } from "react-router-dom";
 import PeopleIcon from "@mui/icons-material/People";
@@ -187,23 +193,47 @@ function Layout({ children }) {
           >
             <MenuIcon />
           </IconButton>
+          <Grid container direction="row">
+            <Grid item md={1} xs={3}>
+            <img src={Stambh} alt="stambh" style={{ width: "5.3rem" }} />
+            </Grid>
+          <Grid item md={11} xs={9} sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center"
+          }}>
           <Typography
             variant="h4"
-            noWrap
             component="a"
             fontFamily="Bebas Neue"
             sx={{
-              letterSpacing: "0.3rem",
+              letterSpacing: "0.2rem",
               textDecoration: "none",
               color: "#fff",
               "&:hover": {
                 color: "#fff",
               },
+              width: {
+                sm: "50%",
+                md: "100%"
+              },
+              my: {
+                sm: "1rem",
+                md: "auto"
+              }
             }}
           >
+<<<<<<< HEAD
+             E-PROCUREMENT PORTAL
+=======
             <img src={Stambh} alt="stambh" style={{ width: "5.3rem" }} />{" "}
             E-PROCUREMENT PORTAL
+>>>>>>> ae4d7da2870e7e38fd83dce848020a1531aa6bb7
           </Typography>
+          </Grid>
+          
+          </Grid>
+          
         </Toolbar>
       </AppBar>
       <Box
