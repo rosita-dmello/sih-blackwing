@@ -99,8 +99,6 @@ export default function EnterOTPs() {
             noValidate
             sx={{ mt: 1 }}
           >
-           
-
             <TextField
               required
               fullWidth
