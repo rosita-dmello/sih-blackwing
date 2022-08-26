@@ -14,6 +14,7 @@ import {
 import _ from "lodash";
 import TagsInput from "./TagsInput";
 import { useEffect } from "react";
+import { postFinancialBid } from "../api/bidder";
 
 const FinancialBid = ({ tender }) => {
   const boq = tender.boq;
@@ -27,6 +28,12 @@ const FinancialBid = ({ tender }) => {
     console.log(newFormValues)
     setBidderOffer(newFormValues);
   };
+  const postFinBid=(bidderOffer)=>{
+    let token=localStorage.getItem('token');
+    postFinancialBid({
+      boq: bidderOffer
+    },token);
+  }
 
   // useEffect(() => {
   //   if (tender) {
@@ -179,7 +186,7 @@ const FinancialBid = ({ tender }) => {
                 </Box>
               </CardContent>
             </Card>
-            <Button onClick={(e) => console.log(bidderOffer)}>Submit</Button>
+            <Button onClick={()=>postFinBid(bidderOffer)}>Submit</Button>
           </Grid>
         );
       })}
