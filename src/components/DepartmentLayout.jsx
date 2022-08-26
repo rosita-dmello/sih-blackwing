@@ -218,7 +218,7 @@ function Layout({ children }) {
               }
             }}
           >
-            <img src={Stambh} alt="stambh" style={{ width: "5.3rem" }} />{" "}
+            {/* <img src={Stambh} alt="stambh" style={{ width: "5.3rem" }} />{" "} */}
             E-PROCUREMENT PORTAL
           </Typography>
           </Grid>

@@ -20,7 +20,9 @@ const FinancialBid = ({ tender }) => {
   const [bidderOffer, setBidderOffer] = useState([]);
   let handleChange = (i, e) => {
     let newFormValues = [...bidderOffer];
-    newFormValues[i] = {};
+    if(!newFormValues[i]) {
+      newFormValues[i] = {};
+    } 
     newFormValues[i][e.target.name] = e.target.value;
     console.log(newFormValues)
     setBidderOffer(newFormValues);
@@ -111,9 +113,9 @@ const FinancialBid = ({ tender }) => {
                         type="number"
                         name="unitrate"
                         label="Unit Rate"
-                        // value={
-                        //   bidderOffer[index] &&  bidderOffer[index].unitrate
-                        // }
+                        value={
+                          bidderOffer[index] && bidderOffer[index].unitrate
+                        }
                         fullWidth
                         onChange={(e) => handleChange(index, e)}
                         size="small"
@@ -128,7 +130,7 @@ const FinancialBid = ({ tender }) => {
                         inputProps={{ readOnly: true }}
                         value={
                           bidderOffer[index] &&
-                          bidderOffer[index].unitrate * item.quantity
+                          (bidderOffer[index].unitrate * item.quantity)
                         }
                         size="small"
                         onChange={(e) => handleChange(index, e)}
