@@ -37,7 +37,7 @@ import {
 } from "react-simple-captcha";
 
 import moment from "moment";
-import Layout from "../components/Layout";
+import Layout from "../components/DepartmentLayout";
 moment().format();
 
 export default function NewDSCUser() {

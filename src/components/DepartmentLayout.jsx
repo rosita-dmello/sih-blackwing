@@ -18,7 +18,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import LoginIcon from "@mui/icons-material/Login";
 import ViewInArIcon from '@mui/icons-material/ViewInAr';
 import GavelIcon from '@mui/icons-material/Gavel';
-
+import Grid from "@mui/material/Grid";
 import { useTheme } from "@mui/material/styles";
 import { Link } from "react-router-dom";
 import PeopleIcon from '@mui/icons-material/People';
@@ -47,12 +47,18 @@ const style = {
   margin: 0,
   top: 'auto',
   right: 20,
-  bottom: 20,
-  left: 'auto',
+  bottom: 50,
+  left: "auto",
   position: 'fixed',
   backgroundColor:'#243665',
   color:'#FFFFFF',
-  zIndex: (theme) => theme.zIndex.drawer + 2
+  zIndex: (theme) => theme.zIndex.drawer + 2,
+  borderRadius: "5rem",
+  width: "4rem",
+  height: "4rem",
+  "&:hover": {
+    backgroundColor: "#2f4684"
+  }
  };
 
 function Layout({ children }) {
@@ -150,22 +156,42 @@ const handleDrawerToggle = () => {
           >
             <MenuIcon />
           </IconButton>
+          <Grid container direction="row">
+            <Grid item md={1} xs={3}>
+            <img src={Stambh} alt="stambh" style={{ width: "5.3rem" }} />
+            </Grid>
+          <Grid item md={11} xs={9} sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center"
+          }}>
           <Typography
             variant="h4"
-            noWrap
             component="a"
             fontFamily="Bebas Neue"
             sx={{
-              letterSpacing: "0.3rem",
+              letterSpacing: "0.2rem",
               textDecoration: "none",
               color: "#fff",
               "&:hover": {
                 color: "#fff",
               },
+              width: {
+                sm: "50%",
+                md: "100%"
+              },
+              my: {
+                sm: "1rem",
+                md: "auto"
+              }
             }}
           >
-            <img src={Stambh} alt="stambh" style={{ width: "5.3rem" }} /> E-PROCUREMENT PORTAL
+             E-PROCUREMENT PORTAL
           </Typography>
+          </Grid>
+          
+          </Grid>
+          
         </Toolbar>
       </AppBar>
       <Box

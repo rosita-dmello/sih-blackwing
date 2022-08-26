@@ -10,7 +10,7 @@ import {
   InputAdornment,
   TextField,
 } from "@mui/material";
-import Layout from "../components/Layout";
+import Layout from "../components/DepartmentLayout";
 import SearchIcon from "@mui/icons-material/Search";
 import React, { useState, useEffect } from "react";
 import DepartmentUsersTable from "../components/DepartmentUsersTable";
@@ -19,16 +19,7 @@ import { viewAllStaffGet } from "../api/department";
 
 function DepartmentUsers() {
   const [users, setUsers] = useState([
-    {
-      name: "Mr. Sample User",
-      email: "SampleID",
-      organisationchain: "Sample Organisation",
-      type: "gap",
-      status: "gap",
-      certificate: {
-        url: "/sampledoc",
-      },
-    },
+   
   ]);
   const setusersFn = async () => {
     const response = await viewAllStaffGet(localStorage.getItem("token"));
