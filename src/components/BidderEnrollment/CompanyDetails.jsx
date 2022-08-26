@@ -1,8 +1,9 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
+import axios from "axios";
 import {
   FormControlLabel,
   FormControl,
@@ -67,7 +68,6 @@ export default function CompanyDetails({
       return { ...prev, [name]: value };
     });
   };
-
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -84,9 +84,24 @@ export default function CompanyDetails({
     //   setCompanyDetails(data);
     // handleNext();
     // }
-    
-    
+
+
   };
+  const verifyGstin = async (gstinNumber) => {
+    const url = `https://www.knowyourgst.com/developers/gstincall/?gstin=${gstinNumber}`
+    const response = await axios.get(url, { headers: { 'passthrough': 'cXdlcnR5dWlvcDkzMDAxNjA0MzI' } });
+    return response;
+  }
+  const handleBlur = (e) => {
+    let gstin = e.target.value
+    let response=verifyGstin(gstin)
+    if(response){
+      setGstinError("")
+    }
+    else{
+      setGstinError("Please enter a valid GST Number")
+    }
+  }
   const countries = Country.getAllCountries().map((country) => country.name);
 
   return (
@@ -146,7 +161,7 @@ export default function CompanyDetails({
                       return { ...prev, [event.target.name]: event.target.checked };
                     })}
                     color="primary"
-                    
+
                   />
                 }
               />
@@ -196,7 +211,7 @@ export default function CompanyDetails({
             </Grid> */}
             <Grid item xs={12}>
               <TagsInput
-               onKeyPress={(e) => { e.key === 'Enter' && e.preventDefault(); }}
+                onKeyPress={(e) => { e.key === 'Enter' && e.preventDefault(); }}
                 selectedTags={(items) =>
                   setData((prev) => {
                     return { ...prev, partners: items };
@@ -310,6 +325,7 @@ export default function CompanyDetails({
                 id="gstinNumber"
                 name="gstinNumber"
                 label="GSTIN Number"
+                onBlur={handleBlur}
                 defaultValue={companyDetails.gstinNumber}
                 error={gstinError === "" ? false : true}
                 helperText={gstinError === "" ? "" : gstinError}
@@ -360,7 +376,7 @@ export default function CompanyDetails({
             <Grid item xs={12}>
               <FormControl fullWidth margin="normal">
                 <InputLabel id="companyCategory-select-label">
-                Company Category
+                  Company Category
                 </InputLabel>
                 <Select
                   labelId="companyCategory-select-label"

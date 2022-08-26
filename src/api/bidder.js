@@ -20,4 +20,21 @@ export const createBidderPost = async (formData) => {
     }
     
 }
+export const postFinancialBid= async(data,token)=>{
+    try {
+        data = encryptedData(data);
+        const response = await axios.post(apiUrl + "/bidder/", data,{
+            headers:{
+              Authorization: `Bearer ${token}`
+            }});
+    if (response.data) {
+        return (response.data)
+    } else {
+        console.log(response);
+    }   
+    } catch(err) {
+        console.log(err.response.data.result);
+        return (err.response.data.result)
+    }
+}
 

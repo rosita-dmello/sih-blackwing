@@ -42,7 +42,7 @@ const BasicDetails = (props) => {
     
     const handleClose = () => {
         setOpen(false)
-        setCoverDetails((prev)=> {return [...prev,{folderName:`folder${number}`,files:files[number-1]}]})
+        setCoverDetails((prev)=> {return [...prev,{foldername:`folder${number}`,files:files[number-1]}]})
     }
     const handleOpen = (number) => {
         setOpen(true)
