@@ -98,7 +98,7 @@ function Layout({ children }) {
                         : index === 1
                         ? "/department/users/new/"
                         : index === 2
-                        ? "/department/tenders/"
+                        ? "/department"
                         : "/"
                     }
                     onClick={() => {
@@ -196,41 +196,37 @@ function Layout({ children }) {
             <Grid item md={1} xs={3}>
               <img src={Stambh} alt="stambh" style={{ width: "5.3rem" }} />
             </Grid>
-            <Grid
-              item
-              md={11}
-              xs={9}
-              sx={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <Typography
-                variant="h4"
-                component="a"
-                fontFamily="Bebas Neue"
-                sx={{
-                  letterSpacing: "0.2rem",
-                  textDecoration: "none",
-                  color: "#fff",
-                  "&:hover": {
-                    color: "#fff",
-                  },
-                  width: {
-                    sm: "50%",
-                    md: "100%",
-                  },
-                  my: {
-                    sm: "1rem",
-                    md: "auto",
-                  },
-                }}
-              >
-                <img src={Stambh} alt="stambh" style={{ width: "5.3rem" }} />
-                E-PROCUREMENT PORTAL
-              </Typography>
-            </Grid>
+          <Grid item md={11} xs={9} sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center"
+          }}>
+          <Typography
+            variant="h4"
+            component="a"
+            fontFamily="Bebas Neue"
+            sx={{
+              letterSpacing: "0.2rem",
+              textDecoration: "none",
+              color: "#fff",
+              "&:hover": {
+                color: "#fff",
+              },
+              width: {
+                sm: "50%",
+                md: "100%"
+              },
+              my: {
+                sm: "1rem",
+                md: "auto"
+              }
+            }}
+          >
+            {/* <img src={Stambh} alt="stambh" style={{ width: "5.3rem" }} />{" "} */}
+            E-PROCUREMENT PORTAL
+          </Typography>
+          </Grid>
+          
           </Grid>
         </Toolbar>
       </AppBar>

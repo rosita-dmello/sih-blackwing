@@ -63,8 +63,8 @@ export default function BidderApply({tender}) {
       <TabPanel value={value} index={0}>
         <FinancialBid tender={tender}/>
       </TabPanel>
-      <TabPanel value={value} index={1} tender={tender}>
-        <TechnicalBid/>
+      <TabPanel value={value} index={1} >
+        <TechnicalBid tender={tender}/>
       </TabPanel>
 
     </Box>

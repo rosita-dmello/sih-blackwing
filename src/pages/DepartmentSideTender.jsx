@@ -10,7 +10,7 @@ import TableRow from "@mui/material/TableRow";
 import Layout from "../components/DepartmentLayout";
 import { Box, Button, Grid } from "@mui/material";
 import Select from "react-select";
-import { getDepartmentTenderByFilter } from "../api/tender";
+import { getDepartmentTenderByFilter, getAllTenders } from "../api/tender";
 import TenderView from "../components/TenderView";
 import Spinner from "../utils/chakra.gif";
 
@@ -55,7 +55,7 @@ function createData(
   return { reference_id, type, bidopener, category, accounttype, status };
 }
 
-export default function DepartmentSideTender({ setTender }) {
+export default function BidderSideTender({ setTender }) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
@@ -116,9 +116,9 @@ export default function DepartmentSideTender({ setTender }) {
   });
 
   React.useEffect(() => {
-    getDepartmentTenderByFilter(type, category, status)
+    getDepartmentTenderByFilter(type, category, status, localStorage.getItem("token"))
       .then((res) => {
-        console.log(res);
+        setTenders(res.result.data.tenders);
         setLoading(false);
       })
       .catch((err) => {
