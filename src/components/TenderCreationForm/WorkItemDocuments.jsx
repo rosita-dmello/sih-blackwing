@@ -2,8 +2,10 @@ import React,{useState} from 'react'
 import { Grid,Button,Typography,Table,TableCell,TableBody,TableHead,TableRow,Box,TextField,Input,InputLabel,Checkbox,Modal } from '@mui/material'
 import FolderIcon from '@mui/icons-material/Folder';
 import { postTender } from '../../api/tender';
+import {useNavigate} from 'react-router-dom'
 
 const WorkItemDocuments = (props) => {
+    const navigate=useNavigate()
     const {allData}=props
     const [checked, setChecked] = useState(false)
     const [openModal, setOpenModal] = useState(false)
@@ -18,7 +20,8 @@ const WorkItemDocuments = (props) => {
     }
     const handleSubmit=()=>{
         setProp()
-        postTender(allData,token)
+        // postTender(allData,token)
+        navigate("/")
     }
     const setProp=()=>{
         props.setAllData((prev) => {
@@ -123,15 +126,18 @@ const WorkItemDocuments = (props) => {
                     </Grid>
                 </Box>
             </Modal>
-            <Grid container>
-                <Grid item>
+            <Grid container direction="column" sx={{
+                padding: "3rem"
+            }}>
+                <Grid item sx={{
+                    display: "flex",
+                    justifyContent: "space-between"
+                }}>
                     <Button onClick={props.prevStep}>previous</Button>
-                </Grid>
-                <Grid item>
                     <Button onClick={() => {
                        handleSubmit()
                     }
-                    }>next</Button>
+                    }>Create Tender</Button>
                 </Grid>
             </Grid>
         </>
