@@ -31,11 +31,10 @@ const handleSubmit = async (event) => {
       categories: categories,
       file: file,
     }
-    // submitProduct(send, localStorage.getItem('token')).then((res) => {
-    //   console.log(res);
-    // }
-    console.log(send);
-    // );
+    submitProduct(send, localStorage.getItem('token')).then((res) => {
+      console.log(res);
+    }
+    );
 }
 
   return (
@@ -123,7 +122,7 @@ const handleSubmit = async (event) => {
                 e.key === "Enter" && e.preventDefault();
               }}
               selectedTags={(items) => {
-                setCategories(items);
+                setCategories(...categories, items);
               }}
               margin="normal"
               fullWidth

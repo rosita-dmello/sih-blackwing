@@ -58,7 +58,6 @@ function TenderDisplay() {
             style={{ position: "relative", width: "250px" }}
             onChange={(e) => {
               const search = e.target.value;
-              console.log(search);
               const filteredUsers = tempTenders.filter((user) => {
                 return user.tenderName.toLowerCase().includes(search) || user.tenderName.toUpperCase().includes(search) || user.tenderName.includes(search) ;
               });

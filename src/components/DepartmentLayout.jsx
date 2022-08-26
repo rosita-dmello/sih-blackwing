@@ -17,6 +17,8 @@ import { IconButton } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import LoginIcon from "@mui/icons-material/Login";
 import ViewInArIcon from "@mui/icons-material/ViewInAr";
+import CreditScoreIcon from '@mui/icons-material/CreditScore';
+import BackupTableIcon from "@mui/icons-material/BackupTable";
 import GavelIcon from "@mui/icons-material/Gavel";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { useTheme } from "@mui/material/styles";
@@ -30,7 +32,7 @@ import chatbotConfig from "../utils/chatbotConfig";
 import MessageParser from "./Chatbot/MessageParser";
 import ActionProvider from "./Chatbot/ActionProvider";
 import { useNavigate } from "react-router-dom";
-import Grid from "@mui/material/Grid"
+import Grid from "@mui/material/Grid";
 // import theme from "../App";
 
 const page = {
@@ -70,7 +72,13 @@ function Layout({ children }) {
     const user = JSON.parse(localStorage.getItem("user"));
     setRole(user.role);
     if (role === "DEPARTMENT_HEAD") {
-      setList(["Department Users", "New Department User", "Logout"]);
+      setList([
+        "Department Users",
+        "New Department User",
+        "Tenders Uploaded",
+        "Buy Product",
+        "Logout",
+      ]);
     } else if (role === "DEPARTMENT_STAFF") {
       setList(["Staff"]);
     }
@@ -91,10 +99,14 @@ function Layout({ children }) {
                         ? "/department/users/"
                         : index === 1
                         ? "/department/users/new/"
-                        : "/"
+                        : index === 2
+                        ? "/department"
+                        : index === 3
+                        ? "/department/buy"
+                        :"/"
                     }
                     onClick={() => {
-                      if (index === 2) {
+                      if (index === 4) {
                         localStorage.removeItem("user");
                         localStorage.removeItem("setAt");
                         localStorage.removeItem("expireAt");
@@ -111,9 +123,12 @@ function Layout({ children }) {
                       ) : index === 1 ? (
                         <GroupAddIcon />
                       ) : index === 2 ? (
+                        <BackupTableIcon />
+                      ) : index === 3 ? (
+                        <CreditScoreIcon />
+                      ) : 
+                      (
                         <LogoutIcon />
-                      ) : (
-                        <MailIcon />
                       )}
                     </ListItemIcon>
 
@@ -125,11 +140,7 @@ function Layout({ children }) {
                 <ListItem key={text} disablePadding>
                   <ListItemButton
                     component={Link}
-                    to={
-                      index === 0
-                        ? "/department"
-                        : "/"
-                    }
+                    to={index === 0 ? "/department" : "/"}
                     onClick={() => {
                       if (index === 1) {
                         localStorage.removeItem("user");
@@ -190,7 +201,7 @@ function Layout({ children }) {
           </IconButton>
           <Grid container direction="row">
             <Grid item md={1} xs={3}>
-            <img src={Stambh} alt="stambh" style={{ width: "5.3rem" }} />
+              <img src={Stambh} alt="stambh" style={{ width: "5.3rem" }} />
             </Grid>
           <Grid item md={11} xs={9} sx={{
             display: "flex",
@@ -224,7 +235,6 @@ function Layout({ children }) {
           </Grid>
           
           </Grid>
-          
         </Toolbar>
       </AppBar>
       <Box

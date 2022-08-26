@@ -7,12 +7,13 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
-import Layout from "../components/BidderLayout";
+import Layout from "../components/DepartmentLayout";
 import { Box, Button, Grid } from "@mui/material";
 import Select from "react-select";
-import { getTenderByFilter, getAllTenders } from "../api/tender";
+import { getDepartmentTenderByFilter, getAllTenders } from "../api/tender";
 import TenderView from "../components/TenderView";
 import Spinner from "../utils/chakra.gif";
+import TenderBids from "./TenderBids";
 
 const columns = [
   { id: "reference_id", label: "Reference ID", minWidth: 170 },
@@ -116,7 +117,7 @@ export default function BidderSideTender({ setTender }) {
   });
 
   React.useEffect(() => {
-    getTenderByFilter(type, category, status)
+    getDepartmentTenderByFilter(type, category, status, localStorage.getItem("token"))
       .then((res) => {
         setTenders(res.result.data.tenders);
         setLoading(false);
@@ -131,7 +132,7 @@ export default function BidderSideTender({ setTender }) {
   if (selectedTender) {
     return (
       <Layout>
-        <TenderView tender={selectedTender} set={setTender} />
+        <TenderBids tender={selectedTender} set={setTender} />
       </Layout>
     );
   } else if (loading) {

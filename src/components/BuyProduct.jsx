@@ -1,11 +1,11 @@
 import React from "react";
 import { Box, Grid, TextField, Button } from "@mui/material";
-import Layout from "../components/BidderLayout";
+import Layout from "../components/DepartmentLayout";
 import ProductCard from "./ProductCard";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import ProductView from "./ProductView";
 
-function Bazaar() {
+function BuyProduct() {
   const [data, setData] = React.useState([
     {
       title: "Car",
@@ -49,7 +49,7 @@ function Bazaar() {
   };
 
   if (selected) {
-    return (<Layout><ProductView data={selected} type="bidder"/></Layout>);
+    return (<Layout><ProductView data={selected} type="dept"/></Layout>);
   }
 
   
@@ -60,7 +60,7 @@ function Bazaar() {
         <Grid
           container
           direction="column"
-          justifyContent="flex-start"
+          justifyContent="center"
           alignItems="stretch"
           spacing={2}
         >
@@ -69,7 +69,7 @@ function Bazaar() {
               id="outlined-basic"
               label="Search"
               variant="standard"
-              style={{ position: "relative", width: "400px" }}
+              style={{ position: "relative", width: "300px" }}
               onChange={(e) => {
                 const search = e.target.value;
                 const filteredUsers = tempData.filter((user) => {
@@ -118,4 +118,4 @@ function Bazaar() {
   );
 }
 
-export default Bazaar;
+export default BuyProduct;

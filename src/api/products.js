@@ -11,10 +11,10 @@ export const submitProduct = async (formData, token) => {
               Authorization: `Bearer ${token}`
           }
       });
-        console.log(response);
+        console.log(response.data);
 
-    if (response) {
-        return (response)
+    if (response.data) {
+        return (response.data)
     } else {
         console.log(response);
     }   

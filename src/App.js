@@ -34,7 +34,11 @@ import FileCopyIcon from '@mui/icons-material/FileCopyOutlined';
 import SaveIcon from '@mui/icons-material/Save';
 import PrintIcon from '@mui/icons-material/Print';
 import ShareIcon from '@mui/icons-material/Share';
+import DepartmentSideTender from "./pages/DepartmentSideTender";
 import BidderApply from './pages/BidderApply'
+import BuyProduct from "./components/BuyProduct";
+import ChangePassword from "./pages/ChangePassword";
+
 function App() {
   const loc = useLocation();
   const [size, setSize] = useState(14);
@@ -89,7 +93,7 @@ function App() {
           <Route path="/totp/enable" element={<Enable2FA/>} />
           <Route path="/totp/enter" element={<Complete2FA/>} />
           <Route path="/otp/enter" element={<EnterOTPs/>} />
-
+          <Route path="/password/change" element={<ChangePassword/>}/>
           {/* Nodal Officer and DSC  */}
           {/* <Route path="/nodalofficer/verify" element={<DSCCode/>} /> */}
           {/* <Route path="/nodalofficer/setpassword" element={<DSCPassword/>} /> */}
@@ -103,10 +107,12 @@ function App() {
           <Route path="/bidder/ebazar" element={<Ebazaar/>} />
           <Route path="/bidder/apply" element={<BidderApply tender={tender}/>}/>
 
-          <Route path="/department" element={<DepartmentDash/>} />
+          <Route path="/department" element={<DepartmentSideTender/>} />
           <Route path="/department/createtender" element={<TenderCreation/>} />
           <Route path="/department/users" element={<DepartmentUsers/>} />
           <Route path="/department/users/new" element={<NewDSCUser/>} />
+          <Route path="/department/buy" element={<BuyProduct />} />
+          {/* <Route path="/department/tenders" element={<DepartmentSideTender/>} /> */}
         </Routes>
         {/* <TextAdjust size={size} setSize={setSize} /> */}
         <Box sx={{ height: 320, transform: 'translateZ(0px)', flexGrow: 1 }}>

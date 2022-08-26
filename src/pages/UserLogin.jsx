@@ -71,7 +71,7 @@ export default function UserLogin() {
         });
         console.log(response);
 
-        if (response.result.data)
+        if (response.result && response.result.data)
         {
           const token = response.result.data.jwtToken;
           const userObj = response.result.data.user;
@@ -96,10 +96,16 @@ export default function UserLogin() {
           } else if (userObj.istotpenabled ) {
             navigate("/totp/enter");
           } else {
+            if(userObj.role !== "BIDDER") {
+              navigate("/password/change");
+            } else {
               navigate("/totp/enable");
+            }
+              
           }
         } else {
           setOtherError("Incorrect Email or Password!");
+          setSubmitted(false);
         }
         // console.log(response);
       } catch (err) {
