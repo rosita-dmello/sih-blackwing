@@ -20,7 +20,7 @@ const WorkItemDocuments = (props) => {
     }
     const handleSubmit=()=>{
         setProp()
-        // postTender(allData,token)
+        postTender(allData,token)
         navigate("/")
     }
     const setProp=()=>{
