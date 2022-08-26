@@ -25,7 +25,7 @@ const CriticalDates = (props) => {
                             renderInput={(params) => <TextField {...params} />}
                             value={criticalDates.publishingDate}
                             onChange={(newValue) => {
-                                setCriticalDates((prev)=> {return{...prev,publishingDate:`${moment(newValue).format("YYYY-MM-DDTHH:mm:00")}`}})
+                                setCriticalDates((prev)=> {return{...prev,publishingdate:`${moment(newValue).format("YYYY-MM-DDTHH:mm:00")}`}})
                             }}
 
                         />
@@ -35,7 +35,7 @@ const CriticalDates = (props) => {
 
                 <Grid item xs={8} sx={{ display: 'flex', alignItems: 'center', padding: '1%', width: '90%' }}>
                     <Typography sx={{ width: '70%', fontSize: '2.25vh' }}>
-                        downloadDoc
+                        Document Download
                     </Typography>
                 
                 <LocalizationProvider dateAdapter={AdapterMoment}>
@@ -47,7 +47,7 @@ const CriticalDates = (props) => {
                             renderInput={(params) => <TextField {...params} />}
                             value={criticalDates.downloadDoc}
                             onChange={(newValue) => {
-                                setCriticalDates((prev)=> {return{...prev,downloadDoc:`${moment(newValue).format("YYYY-MM-DDTHH:mm:00")}`}})
+                                setCriticalDates((prev)=> {return{...prev,documentdownloaddate:`${moment(newValue).format("YYYY-MM-DDTHH:mm:00")}`}})
                             }}
 
                         />
@@ -69,7 +69,7 @@ const CriticalDates = (props) => {
                             renderInput={(params) => <TextField {...params} />}
                             value={criticalDates.seekClarificationStart}
                             onChange={(newValue) => {
-                                setCriticalDates((prev)=> {return{...prev,seekClarificationStart:`${moment(newValue).format("YYYY-MM-DDTHH:mm:00")}`}})
+                                setCriticalDates((prev)=> {return{...prev,seekclarificationstartdate:`${moment(newValue).format("YYYY-MM-DDTHH:mm:00")}`}})
                             }}
 
                         />
@@ -91,7 +91,7 @@ const CriticalDates = (props) => {
                             renderInput={(params) => <TextField {...params} />}
                             value={criticalDates.seekClarificationEnd}
                             onChange={(newValue) => {
-                                setCriticalDates((prev)=> {return{...prev,seekClarificationEnd:`${moment(newValue).format("YYYY-MM-DDTHH:mm:00")}`}})
+                                setCriticalDates((prev)=> {return{...prev,seekclarificationenddate:`${moment(newValue).format("YYYY-MM-DDTHH:mm:00")}`}})
                             }}
 
                         />
@@ -113,7 +113,7 @@ const CriticalDates = (props) => {
                             renderInput={(params) => <TextField {...params} />}
                             value={criticalDates.preBidMeeting}
                             onChange={(newValue) => {
-                                setCriticalDates((prev)=> {return{...prev,preBidMeeting:`${moment(newValue).format("YYYY-MM-DDTHH:mm:00")}`}})
+                                setCriticalDates((prev)=> {return{...prev,prebidmeetingdate:`${moment(newValue).format("YYYY-MM-DDTHH:mm:00")}`}})
                             }}
 
                         />
@@ -135,7 +135,7 @@ const CriticalDates = (props) => {
                             renderInput={(params) => <TextField {...params} />}
                             value={criticalDates.bidSubmissionStart}
                             onChange={(newValue) => {
-                                setCriticalDates((prev)=> {return{...prev,criticalDates,bidSubmissionStart:`${moment(newValue).format("YYYY-MM-DDTHH:mm:00")}`}})
+                                setCriticalDates((prev)=> {return{...prev,bidsubmissionstartdate:`${moment(newValue).format("YYYY-MM-DDTHH:mm:00")}`}})
                             }}
 
                         />
@@ -157,7 +157,7 @@ const CriticalDates = (props) => {
                             renderInput={(params) => <TextField {...params} />}
                             value={criticalDates.bidSubmissionEnd}
                             onChange={(newValue) => {
-                                setCriticalDates((prev)=> {return{...prev,bidSubmissionEnd:`${moment(newValue).format("YYYY-MM-DDTHH:mm:00")}`}})
+                                setCriticalDates((prev)=> {return{...prev,bidsubmissionenddate:`${moment(newValue).format("YYYY-MM-DDTHH:mm:00")}`}})
                             }}
 
                         />
@@ -179,7 +179,7 @@ const CriticalDates = (props) => {
                             renderInput={(params) => <TextField {...params} />}
                             value={criticalDates.bidOpeningDate}
                             onChange={(newValue) => {
-                                setCriticalDates((prev)=> {return{...prev,bidOpeningDate:`${moment(newValue).format("YYYY-MM-DDTHH:mm:00")}`}})
+                                setCriticalDates((prev)=> {return{...prev,bidopeningdate:`${moment(newValue).format("YYYY-MM-DDTHH:mm:00")}`}})
                             }}
                         />
                     </Stack>
