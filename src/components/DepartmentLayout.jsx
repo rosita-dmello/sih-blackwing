@@ -17,6 +17,7 @@ import { IconButton } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import LoginIcon from "@mui/icons-material/Login";
 import ViewInArIcon from "@mui/icons-material/ViewInAr";
+import BackupTableIcon from "@mui/icons-material/BackupTable";
 import GavelIcon from "@mui/icons-material/Gavel";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { useTheme } from "@mui/material/styles";
@@ -30,7 +31,7 @@ import chatbotConfig from "../utils/chatbotConfig";
 import MessageParser from "./Chatbot/MessageParser";
 import ActionProvider from "./Chatbot/ActionProvider";
 import { useNavigate } from "react-router-dom";
-import Grid from "@mui/material/Grid"
+import Grid from "@mui/material/Grid";
 // import theme from "../App";
 
 const page = {
@@ -70,7 +71,12 @@ function Layout({ children }) {
     const user = JSON.parse(localStorage.getItem("user"));
     setRole(user.role);
     if (role === "DEPARTMENT_HEAD") {
-      setList(["Department Users", "New Department User", "Logout"]);
+      setList([
+        "Department Users",
+        "New Department User",
+        "Tenders Uploaded",
+        "Logout",
+      ]);
     } else if (role === "DEPARTMENT_STAFF") {
       setList(["Staff"]);
     }
@@ -91,10 +97,12 @@ function Layout({ children }) {
                         ? "/department/users/"
                         : index === 1
                         ? "/department/users/new/"
+                        : index === 2
+                        ? "/department/tenders/"
                         : "/"
                     }
                     onClick={() => {
-                      if (index === 2) {
+                      if (index === 3) {
                         localStorage.removeItem("user");
                         localStorage.removeItem("setAt");
                         localStorage.removeItem("expireAt");
@@ -111,9 +119,9 @@ function Layout({ children }) {
                       ) : index === 1 ? (
                         <GroupAddIcon />
                       ) : index === 2 ? (
-                        <LogoutIcon />
+                        <BackupTableIcon />
                       ) : (
-                        <MailIcon />
+                        <LogoutIcon />
                       )}
                     </ListItemIcon>
 
@@ -125,11 +133,7 @@ function Layout({ children }) {
                 <ListItem key={text} disablePadding>
                   <ListItemButton
                     component={Link}
-                    to={
-                      index === 0
-                        ? "/department"
-                        : "/"
-                    }
+                    to={index === 0 ? "/department" : "/"}
                     onClick={() => {
                       if (index === 1) {
                         localStorage.removeItem("user");
@@ -190,41 +194,44 @@ function Layout({ children }) {
           </IconButton>
           <Grid container direction="row">
             <Grid item md={1} xs={3}>
-            <img src={Stambh} alt="stambh" style={{ width: "5.3rem" }} />
+              <img src={Stambh} alt="stambh" style={{ width: "5.3rem" }} />
             </Grid>
-          <Grid item md={11} xs={9} sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center"
-          }}>
-          <Typography
-            variant="h4"
-            component="a"
-            fontFamily="Bebas Neue"
-            sx={{
-              letterSpacing: "0.2rem",
-              textDecoration: "none",
-              color: "#fff",
-              "&:hover": {
-                color: "#fff",
-              },
-              width: {
-                sm: "50%",
-                md: "100%"
-              },
-              my: {
-                sm: "1rem",
-                md: "auto"
-              }
-            }}
-          >
-            <img src={Stambh} alt="stambh" style={{ width: "5.3rem" }} />{" "}
-            E-PROCUREMENT PORTAL
-          </Typography>
+            <Grid
+              item
+              md={11}
+              xs={9}
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Typography
+                variant="h4"
+                component="a"
+                fontFamily="Bebas Neue"
+                sx={{
+                  letterSpacing: "0.2rem",
+                  textDecoration: "none",
+                  color: "#fff",
+                  "&:hover": {
+                    color: "#fff",
+                  },
+                  width: {
+                    sm: "50%",
+                    md: "100%",
+                  },
+                  my: {
+                    sm: "1rem",
+                    md: "auto",
+                  },
+                }}
+              >
+                <img src={Stambh} alt="stambh" style={{ width: "5.3rem" }} />
+                E-PROCUREMENT PORTAL
+              </Typography>
+            </Grid>
           </Grid>
-          
-          </Grid>
-          
         </Toolbar>
       </AppBar>
       <Box

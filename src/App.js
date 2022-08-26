@@ -34,6 +34,7 @@ import FileCopyIcon from '@mui/icons-material/FileCopyOutlined';
 import SaveIcon from '@mui/icons-material/Save';
 import PrintIcon from '@mui/icons-material/Print';
 import ShareIcon from '@mui/icons-material/Share';
+import DepartmentSideTender from "./pages/DepartmentSideTender";
 import BidderApply from './pages/BidderApply'
 function App() {
   const loc = useLocation();
@@ -103,10 +104,11 @@ function App() {
           <Route path="/bidder/ebazar" element={<Ebazaar/>} />
           <Route path="/bidder/apply" element={<BidderApply tender={tender}/>}/>
 
-          <Route path="/department" element={<DepartmentDash/>} />
+          <Route path="/department" element={<DepartmentSideTender/>} />
           <Route path="/department/createtender" element={<TenderCreation/>} />
           <Route path="/department/users" element={<DepartmentUsers/>} />
           <Route path="/department/users/new" element={<NewDSCUser/>} />
+          {/* <Route path="/department/tenders" element={<DepartmentSideTender/>} /> */}
         </Routes>
         {/* <TextAdjust size={size} setSize={setSize} /> */}
         <Box sx={{ height: 320, transform: 'translateZ(0px)', flexGrow: 1 }}>

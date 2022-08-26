@@ -40,6 +40,35 @@ export const getTenderByFilter = async (type, category, status) => {
   }
 }
 
+export const getDepartmentTenderByFilter = async (type, category, status, token) => {
+  if (type === "None") {
+    type = undefined;
+  }
+  if (category === "None") {
+    category = undefined;
+  }
+  if (status === "None") {
+    status = undefined;
+  }
+  try {
+    const response = await axios.get(
+      apiUrl + "/tender/department?tendertype=" + type + "&tendercategory=" + category + "&status=" + status,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    if (response.data) {
+      return response.data;
+    } else {
+      console.log(response);
+    }
+  } catch (err) {
+    console.log(err);
+  }
+}
+
 export const getAllottedTenders = async (userId, token) => {
   try {
     const response = await axios.get(apiUrl + "/bidder/alloted/" + userId, {
