@@ -56,7 +56,7 @@ export default function Complete2FA() {
       if (response.result.data.user.role === "BIDDER") {
         navigate("/bidder");
       } else {
-        navigate("/department");
+        navigate("/department/users");
       }
     }
   };
