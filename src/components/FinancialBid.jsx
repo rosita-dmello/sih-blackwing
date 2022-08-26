@@ -16,20 +16,22 @@ import TagsInput from "./TagsInput";
 import { useEffect } from "react";
 
 const FinancialBid = ({ tender }) => {
-  const [boq, setBoq] = useState([]);
+  const boq = tender.boq;
   const [bidderOffer, setBidderOffer] = useState([]);
   let handleChange = (i, e) => {
     let newFormValues = [...bidderOffer];
+    newFormValues[i] = {};
     newFormValues[i][e.target.name] = e.target.value;
+    console.log(newFormValues)
     setBidderOffer(newFormValues);
   };
 
-  useEffect(() => {
-    if (tender) {
-      setBoq(tender.boq)
-    }
+  // useEffect(() => {
+  //   if (tender) {
+  //     setBoq(tender.boq)
+  //   }
     
-  }, [])
+  // }, [])
   return (
     <Grid
       container
@@ -109,9 +111,9 @@ const FinancialBid = ({ tender }) => {
                         type="number"
                         name="unitrate"
                         label="Unit Rate"
-                        value={
-                          bidderOffer[index] &&  bidderOffer[index].unitrate
-                        }
+                        // value={
+                        //   bidderOffer[index] &&  bidderOffer[index].unitrate
+                        // }
                         fullWidth
                         onChange={(e) => handleChange(index, e)}
                         size="small"
