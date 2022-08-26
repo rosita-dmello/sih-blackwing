@@ -16,15 +16,9 @@ import MailIcon from "@mui/icons-material/Mail";
 import { IconButton } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import LoginIcon from "@mui/icons-material/Login";
-<<<<<<< HEAD
-import ViewInArIcon from '@mui/icons-material/ViewInAr';
-import GavelIcon from '@mui/icons-material/Gavel';
-import Grid from "@mui/material/Grid";
-=======
 import ViewInArIcon from "@mui/icons-material/ViewInAr";
 import GavelIcon from "@mui/icons-material/Gavel";
 import LogoutIcon from "@mui/icons-material/Logout";
->>>>>>> ae4d7da2870e7e38fd83dce848020a1531aa6bb7
 import { useTheme } from "@mui/material/styles";
 import { Link } from "react-router-dom";
 import PeopleIcon from "@mui/icons-material/People";
@@ -36,6 +30,7 @@ import chatbotConfig from "../utils/chatbotConfig";
 import MessageParser from "./Chatbot/MessageParser";
 import ActionProvider from "./Chatbot/ActionProvider";
 import { useNavigate } from "react-router-dom";
+import Grid from "@mui/material/Grid"
 // import theme from "../App";
 
 const page = {
