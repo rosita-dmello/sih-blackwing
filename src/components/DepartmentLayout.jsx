@@ -223,12 +223,8 @@ function Layout({ children }) {
               }
             }}
           >
-<<<<<<< HEAD
-             E-PROCUREMENT PORTAL
-=======
             <img src={Stambh} alt="stambh" style={{ width: "5.3rem" }} />{" "}
             E-PROCUREMENT PORTAL
->>>>>>> ae4d7da2870e7e38fd83dce848020a1531aa6bb7
           </Typography>
           </Grid>
           
