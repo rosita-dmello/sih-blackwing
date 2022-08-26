@@ -13,12 +13,14 @@ const BasicDetails = (props) => {
     const noOfBidOpeners = ['', '2 Off 4', '2 Off 3', '3 Off 3', '2 Off 2']
     const [basicDetails, setBasicDetails] = useState({ noofcover: 1 })
     const [files, setFiles] = useState([[], [], [], []])
-    const [coverDetails, setCoverDetails] = useState({ docdesc: '', doctype: '' })
+    const [cover, setCover] = useState({ docdesc: '', doctype: '' })
+    const [coverdetails,setCoverDetails]=useState([])
     const [open, setOpen] = useState(false)
     const [number, setNumber] = useState(0)
     const [nitdoc, setNitDoc] = useState()
     const [openModal, setOpenModal] = useState(false)
     const [checked, setChecked] = useState(false)
+    const [checked2, setChecked2] = useState(false)
     const handleModal = () => {
         setOpenModal(true)
     }
@@ -37,8 +39,10 @@ const BasicDetails = (props) => {
         borderRadius: '10px',
         width: '70%'
     }
+    
     const handleClose = () => {
         setOpen(false)
+        setCoverDetails((prev)=> {return [...prev,{folderName:`folder${number}`,files:files[number-1]}]})
     }
     const handleOpen = (number) => {
         setOpen(true)
@@ -47,13 +51,14 @@ const BasicDetails = (props) => {
     const handleChange = (e) => {
         let name = e.target.name
         let value = e.target.value
-        setCoverDetails((prev)=>{return {...prev,[name]:value}})
+        setCover((prev)=>{return {...prev,[name]:value}})
     }
     const handleClick = () => {
         let array = [...files]
-        array[number - 1] = [...files[number - 1], coverDetails]
+        array[number - 1] = [...files[number - 1], coverdetails]
         setFiles(array)
-        setCoverDetails({ docdesc: '', doctype: '' })
+        setCover({ docdesc: '', doctype: '' })
+        
     }
     const handleFile = (e) => {
         setNitDoc(e.target.files[0])
@@ -198,8 +203,8 @@ const BasicDetails = (props) => {
                                 width: '100%',
                                 marginBottom: '7%'
                             }}
-                                value={coverDetails.docDesc}
-                                name="docDesc"
+                                value={cover.docdesc}
+                                name="docdesc"
                                 onChange={handleChange} multiline rows={3} />
                         </Grid>
                         <Grid item xs={6} sx={{ display: 'flex', alignItems: 'center' }}>
@@ -216,7 +221,7 @@ const BasicDetails = (props) => {
                                 <Select
                                     name="doctype"
                                     defaultValue=''
-                                    value={coverDetails.doctype}
+                                    value={cover.doctype}
                                     onChange={handleChange}
                                 >
                                     <MenuItem value=".pdf">.pdf</MenuItem>
@@ -251,7 +256,7 @@ const BasicDetails = (props) => {
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {files[number] === 0 ? files[number].map((file, index) => {
+                                {files[number] !== 0 ? files[number].map((file, index) => {
                                     return <TableRow>
                                         <TableCell>
                                             {index}
@@ -263,10 +268,7 @@ const BasicDetails = (props) => {
                                             {file.docdesc}
                                         </TableCell>
                                         <TableCell>
-                                            edit
-                                        </TableCell>
-                                        <TableCell>
-                                            delete
+                                            <Checkbox checked={checked2} onClick={()=>{setChecked2(!checked)}}/>
                                         </TableCell>
                                     </TableRow>
                                 }) : ""}
@@ -420,7 +422,7 @@ const BasicDetails = (props) => {
                         props.setAllData((prev) => {
                             return {
                                 ...prev,
-                                nitdoc
+                                nitdoc,coverdetails
                             }
                         })}}>next</Button>
                 </Grid>
