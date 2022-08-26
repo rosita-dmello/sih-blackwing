@@ -178,3 +178,19 @@ export const postGrivance = async (title, description, id, token) => {
         return (err.response.data.result)
     }
 }
+
+export const changePasswordPost = async (password, userId) => {
+    try {
+        const response = await axios.post(apiUrl + "/auth/password/" + userId, password);
+        console.log(response);
+    if (response.data) {
+        return (response.data)
+    } else {
+        console.log(response);
+    }   
+    } catch(err) {
+        console.log(err.response.data.result);
+        return (err.response.data.result)
+    }
+    
+}

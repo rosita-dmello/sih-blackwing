@@ -31,7 +31,7 @@ function Home() {
     <Layout>
       <motion.div initial={{opacity: 0}} animate={{opacity: 1}} transition={{type: 'tween', duration: 0.9}} exit={{ opacity: 0, transition: { ease: 'easeInOut', duration: 0.5 } }} id="home">
         <HomeCarousel />
-        {tenders && <div id="something">
+        {tenders && <div>
           <Something tenders={tenders}/>
         </div>}
         

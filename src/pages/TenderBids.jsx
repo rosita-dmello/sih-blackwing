@@ -13,24 +13,25 @@ import {
 import Layout from "../components/DepartmentLayout";
 import SearchIcon from "@mui/icons-material/Search";
 import React, { useState, useEffect } from "react";
-import DepartmentUsersTable from "../components/DepartmentUsersTable";
+import BidsTable from "../components/BidsTable";
 import { viewAllStaffGet } from "../api/department";
-// import { getusers } from "../data/api";
+import { viewAllBidsGet } from "../api/tender";
+// import { getbids } from "../data/api";
 
-function DepartmentUsers() {
-  const [users, setUsers] = useState([
+function TenderBids({tender}) {
+  const [bids, setBids] = useState([
    
   ]);
-  const setusersFn = async () => {
-    const response = await viewAllStaffGet(localStorage.getItem("token"));
+  const setBidsFn = async () => {
+    const response = await viewAllBidsGet(localStorage.getItem("token"), tender._id);
     if (response) {
       console.log(response);
-      setUsers(response.result.data.staffs);
+    //   setbids(response.result.data.staffs);
     } else {
     }
   };
   useEffect(() => {
-    setusersFn();
+    setBidsFn();
   }, []);
 
   return (
@@ -63,25 +64,25 @@ function DepartmentUsers() {
                 lineHeight: "3rem"
               }}
             >
-              DEPARTMENT USERS
+              TENDER BIDS
             </Typography>
             <Box>
               <Fab
                 color="primary"
                 variant="extended"
                 component="a"
-                href="/department/users/new"
+                href="/department/bids/new"
                 sx={{
                   "&:hover": {
                     color: "#fff",
                   },
                 }}
               >
-                <Add /> New User
+                <Add /> New bid
               </Fab>
             </Box>
           </Box>
-          {!users ? (
+          {!bids ? (
             <Box
               sx={{
                 display: "flex",
@@ -96,7 +97,7 @@ function DepartmentUsers() {
           ) : (
             <Box>
               <TextField
-                label="Search Users"
+                label="Search bids"
                 id="search"
                 fullWidth
                 sx={{
@@ -105,10 +106,10 @@ function DepartmentUsers() {
                 onChange={(e) => {
                   const search = e.target.value;
                   console.log(search);
-                  const filteredUsers = users.filter((user) => {
-                    return user.name.toLowerCase().includes(search) || user.type.toLowerCase().includes(search) || user.email.includes(search) ;
+                  const filteredbids = bids.filter((bid) => {
+                    return bid.name.toLowerCase().includes(search) || bid.type.toLowerCase().includes(search) || bid.email.includes(search) ;
                   });
-                  setUsers(filteredUsers);
+                  setBids(filteredbids);
                 } }
                 InputProps={{
                   startAdornment: (
@@ -119,7 +120,8 @@ function DepartmentUsers() {
                 }}
                 variant="filled"
               />
-              <DepartmentUsersTable users={users} />
+              <BidsTable bids={bids} />
+
             </Box>
           )}
         </Grid>
@@ -128,4 +130,4 @@ function DepartmentUsers() {
   );
 }
 
-export default DepartmentUsers;
+export default TenderBids;

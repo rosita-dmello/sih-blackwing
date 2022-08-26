@@ -13,6 +13,7 @@ import Select from "react-select";
 import { getDepartmentTenderByFilter, getAllTenders } from "../api/tender";
 import TenderView from "../components/TenderView";
 import Spinner from "../utils/chakra.gif";
+import TenderBids from "./TenderBids";
 
 const columns = [
   { id: "reference_id", label: "Reference ID", minWidth: 170 },
@@ -131,7 +132,7 @@ export default function BidderSideTender({ setTender }) {
   if (selectedTender) {
     return (
       <Layout>
-        <TenderView tender={selectedTender} set={setTender} />
+        <TenderBids tender={selectedTender} set={setTender} />
       </Layout>
     );
   } else if (loading) {

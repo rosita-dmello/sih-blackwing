@@ -37,6 +37,7 @@ import ShareIcon from '@mui/icons-material/Share';
 import DepartmentSideTender from "./pages/DepartmentSideTender";
 import BidderApply from './pages/BidderApply'
 import BuyProduct from "./components/BuyProduct";
+import ChangePassword from "./pages/ChangePassword";
 
 function App() {
   const loc = useLocation();
@@ -92,7 +93,7 @@ function App() {
           <Route path="/totp/enable" element={<Enable2FA/>} />
           <Route path="/totp/enter" element={<Complete2FA/>} />
           <Route path="/otp/enter" element={<EnterOTPs/>} />
-
+          <Route path="/password/change" element={<ChangePassword/>}/>
           {/* Nodal Officer and DSC  */}
           {/* <Route path="/nodalofficer/verify" element={<DSCCode/>} /> */}
           {/* <Route path="/nodalofficer/setpassword" element={<DSCPassword/>} /> */}
