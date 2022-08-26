@@ -5,7 +5,7 @@ const apiUrl = "https://sih-blackwing-api.herokuapp.com/api";
 
 export const createStaffPost = async (formData, token) => {
     try {
-        formData = encryptedData(formData);
+        // formData = encryptedData(formData);
         const response = await axios.post(apiUrl + "/staff/", formData, {
             headers: {
                 Authorization: `Bearer ${token}`

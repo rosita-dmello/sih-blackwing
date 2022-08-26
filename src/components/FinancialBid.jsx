@@ -23,7 +23,8 @@ const FinancialBid = ({ tender }) => {
     if (!newFormValues[i]) {
       newFormValues[i] = {};
     }
-    newFormValues[i][e.target.name] = e.target.value;
+    const val = e.target.name === "unitrate" ? parseInt(e.target.value) : e.target.value;
+    newFormValues[i][e.target.name] = val;
     console.log(newFormValues);
     setBidderOffer(newFormValues);
   };

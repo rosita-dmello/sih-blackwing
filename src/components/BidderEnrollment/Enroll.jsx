@@ -134,7 +134,7 @@ export default function Enroll({ credentials, setCredentials, handleNext }) {
             value={data.phone}
             onChange={(phone) =>
               setData((prev) => {
-                return { ...prev, mobile: phone };
+                return { ...prev, mobile: phone[0] === "+" ? phone : "+" + phone };
               })
             }
             inputProps={{

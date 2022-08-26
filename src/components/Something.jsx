@@ -1,104 +1,184 @@
 import React from "react";
 import { Grid, Button, ButtonGroup, Typography } from "@mui/material";
-import Option1 from '../home_selections/Option1';
-import Option2 from '../home_selections/Option2';
-import Option3 from '../home_selections/Option3';
-import Option4 from '../home_selections/Option4';
-import './something.css';
+import Option1 from "../home_selections/Option1";
+import Option2 from "../home_selections/Option2";
+import Option3 from "../home_selections/Option3";
+import Option4 from "../home_selections/Option4";
+import "./something.css";
 
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
-import { Pie } from 'react-chartjs-2';
+import {
+  Chart as ChartJS,
+  ArcElement,
+  Tooltip,
+  Legend,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+} from "chart.js";
+import { Bar } from "react-chartjs-2";
 
-ChartJS.register(ArcElement, Tooltip, Legend);
+import { Pie } from "react-chartjs-2";
 
-function findOcc(arr, key){
+ChartJS.register(
+  ArcElement,
+  Tooltip,
+  Legend,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title
+);
+export const options = {
+  responsive: true,
+  plugins: {
+    legend: {
+      position: "top",
+    },
+    title: {
+      display: true,
+      text: "Types of Tenders Lately",
+    },
+  },
+};
+function findOcc(arr, key) {
   let arr2 = [];
-    
-  arr.forEach((x)=>{
-       
+
+  arr.forEach((x) => {
     // Checking if there is any object in arr2
     // which contains the key value
-     if(arr2.some((val)=>{ return val[key] == x[key] })){
-         
-       // If yes! then increase the occurrence by 1
-       arr2.forEach((k)=>{
-         if(k[key] === x[key]){ 
-           k["occurrence"]++
-         }
+    if (
+      arr2.some((val) => {
+        return val[key] == x[key];
       })
-         
-     }else{
-       // If not! Then create a new object initialize 
-       // it with the present iteration key's value and 
-       // set the occurrence to 1
-       let a = {}
-       a[key] = x[key]
-       a["occurrence"] = 1
-       arr2.push(a);
-     }
-  })
-    
-  return arr2
+    ) {
+      // If yes! then increase the occurrence by 1
+      arr2.forEach((k) => {
+        if (k[key] === x[key]) {
+          k["occurrence"]++;
+        }
+      });
+    } else {
+      // If not! Then create a new object initialize
+      // it with the present iteration key's value and
+      // set the occurrence to 1
+      let a = {};
+      a[key] = x[key];
+      a["occurrence"] = 1;
+      arr2.push(a);
+    }
+  });
+
+  return arr2;
 }
-function Something({tenders}) {
+function Something({ tenders }) {
   const [selected, setSelected] = React.useState(1);
   const categoryCount = findOcc(tenders, "tendercategory");
+  const typeCount = findOcc(tenders, "tendertype");
   console.log(categoryCount);
-  const data = {
+  const pieData = {
     labels: categoryCount.map((category) => category.tendercategory),
     datasets: [
       {
-        label: 'Category of Tenders',
+        label: "Category of Tenders",
         data: categoryCount.map((category) => category.occurrence),
         backgroundColor: [
-          'rgba(255, 99, 132, 0.2)',
-          'rgba(54, 162, 235, 0.2)',
-          'rgba(255, 206, 86, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(153, 102, 255, 0.2)',
-          'rgba(255, 159, 64, 0.2)',
+          "rgba(255, 99, 132, 0.2)",
+          "rgba(54, 162, 235, 0.2)",
+          "rgba(255, 206, 86, 0.2)",
+          "rgba(75, 192, 192, 0.2)",
+          "rgba(153, 102, 255, 0.2)",
+          "rgba(255, 159, 64, 0.2)",
         ],
         borderColor: [
-          'rgba(255, 99, 132, 1)',
-          'rgba(54, 162, 235, 1)',
-          'rgba(255, 206, 86, 1)',
-          'rgba(75, 192, 192, 1)',
-          'rgba(153, 102, 255, 1)',
-          'rgba(255, 159, 64, 1)',
+          "rgba(255, 99, 132, 1)",
+          "rgba(54, 162, 235, 1)",
+          "rgba(255, 206, 86, 1)",
+          "rgba(75, 192, 192, 1)",
+          "rgba(153, 102, 255, 1)",
+          "rgba(255, 159, 64, 1)",
         ],
         borderWidth: 1,
       },
     ],
   };
+  const barData = {
+    labels: typeCount.map((category) => category.tendertype),
+    datasets: [
+      {
+        label: "Dataset 1",
+        data: typeCount.map((category) => category.occurrence),
+        backgroundColor: "rgba(255, 99, 132, 0.5)",
+      },
+    ],
+  };
   const handleSelected = (val) => {
     setSelected(val);
-  }
+  };
   return (
     // <div className="adj">
-      <Grid
-        container
-        direction="column"
-        justifyContent="center"
-        alignItems="center"
-        spacing={2}
-        sx={{
-          margin: "2rem"
-        }}
-      >
-        <Grid item>
-          <Typography variant="h4">Statistics</Typography>
-        </Grid>
-        <Grid item>
-          <Grid container directions="row">
-            <Grid item>
-            <Pie data={data} />
-            </Grid>
-            <Grid item>
-              
-            </Grid>
+    <Grid
+      container
+      direction="column"
+      justifyContent="center"
+      alignItems="center"
+      spacing={2}
+      sx={{
+        margin: "2rem",
+      }}
+    >
+      <Grid item>
+        <Typography
+          variant="h4"
+          fontFamily={"Roboto Condensed"}
+          fontWeight="bold"
+        >
+          STATISTICS
+        </Typography>
+        <hr
+          style={{
+            width: "100%",
+            height: "2px",
+            backgroundColor: "#243665",
+            border: "none",
+          }}
+        />
+      </Grid>
+      <Grid item>
+        <Grid
+          container
+          directions="row"
+          spacing={10}
+          justifyContent="center"
+          alignItems="center"
+        >
+          <Grid
+            item
+            xs={12}
+            sx={{
+              width: {
+                xs: "10rem",
+                md: "10rem",
+              },
+            }}
+          >
+            <Pie data={pieData} />
           </Grid>
-        
-          {/* <Grid
+          <Grid
+            item
+            xs={12}
+            sx={{
+              width: {
+                xs: "15rem",
+                md: "20rem",
+              },
+            }}
+          >
+            <Bar options={options} data={barData} />
+          </Grid>
+        </Grid>
+
+        {/* <Grid
             container
             direction="row"
             justifyContent="center"
@@ -135,9 +215,8 @@ function Something({tenders}) {
               {selected === 4 && <Option4 />}
             </Grid>
           </Grid> */}
-        </Grid>
-       
       </Grid>
+    </Grid>
     // </div>
   );
 }

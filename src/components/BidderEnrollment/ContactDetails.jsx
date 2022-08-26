@@ -49,7 +49,7 @@ export default function ContactDetails({
     console.log(data);
     setContactDetails({
       ...data,
-      phone: "+" + data.phone
+      phone: data.phone[0] === "+" ? data.phone : "+" + data.phone
     });
     handleNext();
   };

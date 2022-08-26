@@ -122,3 +122,22 @@ export const postTender = async (data,token) => {
         // return (err.response.data.result)
     }
 }
+
+export const viewAllBidsGet = async (token, tenderid) => {
+  try {
+      const response = await axios.get(apiUrl + "/" + tenderid + "/bid", {
+          headers: {
+              Authorization: `Bearer ${token}`
+          }
+      });
+      console.log("line8", response);
+  if (response.data) {
+      return (response.data)
+  } else {
+      console.log(response);
+  }   
+  } catch(err) {
+      console.log(err);
+      // return (err.response.data.result)
+  }
+}
