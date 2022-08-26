@@ -36,6 +36,8 @@ import PrintIcon from '@mui/icons-material/Print';
 import ShareIcon from '@mui/icons-material/Share';
 import DepartmentSideTender from "./pages/DepartmentSideTender";
 import BidderApply from './pages/BidderApply'
+import BuyProduct from "./components/BuyProduct";
+
 function App() {
   const loc = useLocation();
   const [size, setSize] = useState(14);
@@ -108,6 +110,7 @@ function App() {
           <Route path="/department/createtender" element={<TenderCreation/>} />
           <Route path="/department/users" element={<DepartmentUsers/>} />
           <Route path="/department/users/new" element={<NewDSCUser/>} />
+          <Route path="/department/buy" element={<BuyProduct />} />
           {/* <Route path="/department/tenders" element={<DepartmentSideTender/>} /> */}
         </Routes>
         {/* <TextAdjust size={size} setSize={setSize} /> */}

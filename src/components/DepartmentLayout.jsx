@@ -17,6 +17,7 @@ import { IconButton } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import LoginIcon from "@mui/icons-material/Login";
 import ViewInArIcon from "@mui/icons-material/ViewInAr";
+import CreditScoreIcon from '@mui/icons-material/CreditScore';
 import BackupTableIcon from "@mui/icons-material/BackupTable";
 import GavelIcon from "@mui/icons-material/Gavel";
 import LogoutIcon from "@mui/icons-material/Logout";
@@ -75,6 +76,7 @@ function Layout({ children }) {
         "Department Users",
         "New Department User",
         "Tenders Uploaded",
+        "Buy Product",
         "Logout",
       ]);
     } else if (role === "DEPARTMENT_STAFF") {
@@ -99,10 +101,12 @@ function Layout({ children }) {
                         ? "/department/users/new/"
                         : index === 2
                         ? "/department"
-                        : "/"
+                        : index === 3
+                        ? "/department/buy"
+                        :"/"
                     }
                     onClick={() => {
-                      if (index === 3) {
+                      if (index === 4) {
                         localStorage.removeItem("user");
                         localStorage.removeItem("setAt");
                         localStorage.removeItem("expireAt");
@@ -120,7 +124,10 @@ function Layout({ children }) {
                         <GroupAddIcon />
                       ) : index === 2 ? (
                         <BackupTableIcon />
-                      ) : (
+                      ) : index === 3 ? (
+                        <CreditScoreIcon />
+                      ) : 
+                      (
                         <LogoutIcon />
                       )}
                     </ListItemIcon>
