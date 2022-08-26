@@ -22,8 +22,7 @@ export const createBidderPost = async (formData) => {
 }
 export const postFinancialBid= async(data,token)=>{
     try {
-        data = encryptedData(data);
-        const response = await axios.post(apiUrl + "/bidder/", data,{
+        const response = await axios.post(apiUrl + "/bid/apply", data, {
             headers:{
               Authorization: `Bearer ${token}`
             }});

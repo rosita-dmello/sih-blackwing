@@ -29,11 +29,13 @@ const FinancialBid = ({ tender }) => {
     console.log(newFormValues);
     setBidderOffer(newFormValues);
   };
-  const postFinBid=(bidderOffer)=>{
+  const postFinBid=async (bidderOffer)=>{
     let token=localStorage.getItem('token');
-    postFinancialBid({
-      boq: bidderOffer
+    const response = await postFinancialBid({
+      boq: bidderOffer,
+      tenderid: tender._id,
     },token);
+    console.log(response);
   }
 
   // useEffect(() => {
@@ -188,8 +190,6 @@ const FinancialBid = ({ tender }) => {
                       </Grid>
                     </Grid>
 
-                    
-                  </Grid>
                   
                 </Box>
               </CardContent>

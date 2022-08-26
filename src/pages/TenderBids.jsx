@@ -35,7 +35,7 @@ function TenderBids({tender}) {
   }, []);
 
   return (
-    <Layout>
+ 
       <Grid container>
         <Grid
           item
@@ -66,21 +66,7 @@ function TenderBids({tender}) {
             >
               TENDER BIDS
             </Typography>
-            <Box>
-              <Fab
-                color="primary"
-                variant="extended"
-                component="a"
-                href="/department/bids/new"
-                sx={{
-                  "&:hover": {
-                    color: "#fff",
-                  },
-                }}
-              >
-                <Add /> New bid
-              </Fab>
-            </Box>
+           
           </Box>
           {!bids ? (
             <Box
@@ -88,7 +74,6 @@ function TenderBids({tender}) {
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
-
                 padding: "5rem",
               }}
             >
@@ -121,12 +106,11 @@ function TenderBids({tender}) {
                 variant="filled"
               />
               <BidsTable bids={bids} />
-
             </Box>
           )}
         </Grid>
       </Grid>
-    </Layout>
+    
   );
 }
 
