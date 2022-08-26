@@ -30,6 +30,7 @@ import chatbotConfig from "../utils/chatbotConfig";
 import MessageParser from "./Chatbot/MessageParser";
 import ActionProvider from "./Chatbot/ActionProvider";
 import { useNavigate } from "react-router-dom";
+import Grid from "@mui/material/Grid"
 // import theme from "../App";
 
 const page = {
@@ -187,23 +188,43 @@ function Layout({ children }) {
           >
             <MenuIcon />
           </IconButton>
+          <Grid container direction="row">
+            <Grid item md={1} xs={3}>
+            <img src={Stambh} alt="stambh" style={{ width: "5.3rem" }} />
+            </Grid>
+          <Grid item md={11} xs={9} sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center"
+          }}>
           <Typography
             variant="h4"
-            noWrap
             component="a"
             fontFamily="Bebas Neue"
             sx={{
-              letterSpacing: "0.3rem",
+              letterSpacing: "0.2rem",
               textDecoration: "none",
               color: "#fff",
               "&:hover": {
                 color: "#fff",
               },
+              width: {
+                sm: "50%",
+                md: "100%"
+              },
+              my: {
+                sm: "1rem",
+                md: "auto"
+              }
             }}
           >
             <img src={Stambh} alt="stambh" style={{ width: "5.3rem" }} />{" "}
             E-PROCUREMENT PORTAL
           </Typography>
+          </Grid>
+          
+          </Grid>
+          
         </Toolbar>
       </AppBar>
       <Box
