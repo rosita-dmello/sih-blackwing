@@ -195,7 +195,6 @@ export default function Enroll({ credentials, setCredentials, handleNext }) {
             fullWidth
             name="confirmPassword"
             label="Confirm Password"
-            name="confirmPassword"
             type="password"
             id="confirmPassword"
             autoComplete="new-password"
