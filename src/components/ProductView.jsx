@@ -80,7 +80,7 @@ function ProductView({ data, type }) {
     >
       <Grid item sx={{ padding: "20px", minWidth: "500px" }}>
         <img
-          src={`https://source.unsplash.com/300x200/?${data.title}`}
+          src={data.thumbnail}
           alt="product"
           style={{ width: "200px", float: "left", margin: "10px", minHeight: "300px" }}
         />

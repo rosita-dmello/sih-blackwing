@@ -4,13 +4,13 @@ import Layout from "../components/BidderLayout";
 import ProductCard from "./ProductCard";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import ProductView from "./ProductView";
-import {getProducts} from "../api/products";
+import {getMyProducts} from "../api/products";
 
 function MyProducts() {
   const [data, setData] = React.useState([]);
 
   React.useEffect(() => {
-    getProducts().then((res) => {
+    getMyProducts(localStorage.getItem('token')).then((res) => {
       setData(res.result.data.products);
     });
   }, []);
@@ -25,8 +25,14 @@ function MyProducts() {
     return (<Layout><ProductView data={selected} type="bidder"/></Layout>);
   }
 
-  
-  
+  if(data.length === 0){
+    return (
+      <div>
+        <h5 style={{textAlign: "center", marginTop: "30px"}}>No Products Registered Yet</h5>
+      </div>
+
+    )
+  }
 
   return (
         <Grid

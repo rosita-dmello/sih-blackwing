@@ -16,7 +16,7 @@ export default function ProductCard({ data}) {
       <CardMedia
         component="img"
         height="140"
-        image={`https://source.unsplash.com/300x200/?${data.title}`}
+        image={data.thumbnail}
         alt="green iguana"
       />
       <CardContent>
