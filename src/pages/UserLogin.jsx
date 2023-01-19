@@ -96,12 +96,7 @@ export default function UserLogin() {
           } else if (userObj.istotpenabled ) {
             navigate("/totp/enter");
           } else {
-            if(userObj.role !== "BIDDER") {
-              navigate("/password/change");
-            } else {
               navigate("/totp/enable");
-            }
-              
           }
         } else {
           setOtherError("Incorrect Email or Password!");

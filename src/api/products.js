@@ -2,7 +2,7 @@ import axios from "axios";
 
 import { encryptedData, decryptedData } from "../utils/encryption";
 
-const apiUrl = "https://sih-blackwing-api.herokuapp.com/api";
+const apiUrl = "https://sih-blackwing.onrender.com/api";
 
 export const submitProduct = async (formData, token) => {
     try {

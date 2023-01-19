@@ -46,11 +46,12 @@ export default function Verification({ credentials }) {
       const userString = JSON.stringify(user);
       localStorage.setItem("user", userString);
       setSubmitted(false);
-      if (user.istotpenabled) {
-        navigate("/totp/enter");
-      } else {
-        navigate("/totp/enable");
-      }
+      navigate("/login");
+      // if (user.istotpenabled) {
+      //   navigate("/totp/enter");
+      // } else {
+      //   navigate("/totp/enable");
+      // }
     }
     // if (data.get("password").length < 8) {
     //   setPwError("Password too short.");
