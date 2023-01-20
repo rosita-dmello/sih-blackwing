@@ -7,45 +7,11 @@ import ProductView from "./ProductView";
 import {getProducts} from "../api/products";
 
 function Bazaar() {
-  const [data, setData] = React.useState([
-    // {
-    //   title: "Car",
-    //   description: "This is a car",
-    //   mrp: 100000,
-    //   seller: "A",
-    //   offeredprice: 90000,
-    //   availability: 10,
-    //   hsncode: "1234",
-    //   categories: ["car", "vehicle"],
-    //   file: "https://picsum.photos/200/300",
-    // },
-    // {
-    //   title: "Bike",
-    //   description: "This is a bike",
-    //   mrp: 100000,
-    //   seller: "B",
-    //   offeredprice: 90000,
-    //   availability: 10,
-    //   hsncode: "1234",
-    //   categories: ["bike", "vehicle"],
-    //   file: "https://picsum.photos/200/300",
-    // },
-    // {
-    //   title: "Bike",
-    //   description: "This is a bike",
-    //   mrp: 100000,
-    //   seller: "C",
-    //   offeredprice: 90000,
-    //   availability: 10,
-    //   hsncode: "1234",
-    //   categories: ["bike", "vehicle"],
-    //   file: "https://picsum.photos/200/300",
-    // },
-  ]);
+  const [data, setData] = React.useState([]);
 
   React.useEffect(() => {
     getProducts().then((res) => {
-      setData(res.data);
+      setData(res.result.data.products);
     });
   }, []);
 
@@ -63,21 +29,20 @@ function Bazaar() {
   
 
   return (
-    <Layout>
-      <Box sx={{ minHeight: "100vh", marginTop: "30px" }}>
         <Grid
           container
           direction="column"
           justifyContent="flex-start"
           alignItems="stretch"
           spacing={2}
+          sx={{ marginTop: "30px"}}
         >
           <Grid item sx={{ textAlign: "center" }}>
             <TextField
               id="outlined-basic"
               label="Search"
               variant="standard"
-              style={{ position: "relative", width: "400px" }}
+              style={{ position: "relative", width: "350px"  }}
               onChange={(e) => {
                 const search = e.target.value;
                 const filteredUsers = tempData.filter((user) => {
@@ -121,8 +86,6 @@ function Bazaar() {
             </Grid>
           </Grid>
         </Grid>
-      </Box>
-    </Layout>
   );
 }
 

@@ -31,6 +31,7 @@ const handleSubmit = async (event) => {
       categories: categories,
       file: file,
     }
+
     submitProduct(send, localStorage.getItem('token')).then((res) => {
       console.log(res);
     }
